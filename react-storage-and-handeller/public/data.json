@@ -1,0 +1,38 @@
+[
+  {
+    "id": "641e745e056294c5a38880a4",
+    "price": "$2,338.33",
+    "age": 315,
+    "name": "Deleon Good"
+  },
+  {
+    "id": "641e745e898a601e781f624e",
+    "price": "$3,413.03",
+    "age": 89,
+    "name": "Kimberley Wolfe"
+  },
+  {
+    "id": "641e745e241aac3116934c59",
+    "price": "$5,281.09",
+    "age": 237,
+    "name": "Imogene Reid"
+  },
+  {
+    "id": "641e745e02d7e40b69abb77c",
+    "price": "$3,185.88",
+    "age": 270,
+    "name": "Millie Herring"
+  },
+  {
+    "id": "641e745e9b28e1c785043688",
+    "price": "$3,613.59",
+    "age": 396,
+    "name": "Nadine Bradley"
+  },
+  {
+    "id": "641e745e1393948a580a7109",
+    "price": "$2,759.15",
+    "age": 88,
+    "name": "Carlene Monroe"
+  }
+]
