@@ -12,4 +12,5 @@ const devide = (first,second) =>{
 const sub = (first,second) => {
     return Math.abs(first-second);
 }
+const numbers = []
 export {add,multiply,devide,sub}
