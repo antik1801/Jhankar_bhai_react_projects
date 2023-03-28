@@ -1,4 +1,11 @@
 .cart{
-    background-color: #FF9900;
-    
+    color: black;
+    background-color: #FFE0B3;;
+    margin: auto;
+    padding: 23px 10px;
+    position: sticky;
+    top: 0;
+}
+.cart p{
+    font-size: 17px;
 }
