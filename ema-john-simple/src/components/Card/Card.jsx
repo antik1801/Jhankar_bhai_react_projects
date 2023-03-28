@@ -21,7 +21,7 @@ const Card = (props) => {
       <p>Total Price: ${total}</p>
       <p>Total Shipping: ${totalShipping}</p>
       <p>Tax: ${tax.toFixed(2)}</p>
-      <h6>Grand Total: {grandTotal.toFixed(2)}</h6>
+      <h6>Grand Total: $ {grandTotal.toFixed(2)}</h6>
     </div>
   );
 };
