@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import logo from "../../images/Logo.svg";
+// parent App.jsx
 const Header = () => {
   return (
     

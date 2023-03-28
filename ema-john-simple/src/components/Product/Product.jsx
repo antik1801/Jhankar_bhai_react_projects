@@ -1,22 +1,22 @@
 import React from 'react';
 import "./Product.css"
+// parent Shop.jsx
+const Product = (props) => {
+    // console.log(product)
+    const {id,img,name,price,seller,ratings} = props.product;
 
-const Product = ({product}) => {
-    console.log(product)
-    const {id,img,name,price,seller,ratings} = product;
-    const handleProducts = (id) =>{
-        console.log('product-added',id);
-    } 
+    const handleProducts = props.handleProducts;
+
     return (
         <div className='product'>
-            <img src={img} alt="" />
+            <img src={img ? img : "vite.svg"} alt="" />
             <div className="product-info">
             <h6 className='product-name'>{name}</h6>
             <p className='product-price'>Price: ${price}</p>
             <p>Manufacturar: {seller}</p>
             <p>Rating: {ratings}</p>
             </div>
-            <button onClick={()=>{handleProducts(id)}} className='btn-cart'>Add to Cart</button>
+            <button onClick={()=>{handleProducts(props.product)}} className='btn-cart'>Add to Cart</button>
         </div>
     );
 };
