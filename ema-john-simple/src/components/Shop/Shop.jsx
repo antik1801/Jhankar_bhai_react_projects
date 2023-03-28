@@ -5,13 +5,15 @@ import "./Shop.css"
 //parent App.jsx
 const shop = () => {
     const [products,setProducts] = useState([]);
+    const [cart,setCart] = useState([]);
     useEffect(()=>{
         fetch('products.json')
         .then(res => res.json())
         .then(data => setProducts(data))
     },[])
     const handleProducts = (product) =>{
-        console.log('product-added',product);
+        const newCart = [...cart, product];
+        setCart(newCart);
     } 
     return (
         <div className='shop-container'>
@@ -21,7 +23,8 @@ const shop = () => {
             }
             </div>
             <div className="cart-container">
-                <h4>Cart container</h4>
+                <h4>Order Summary</h4>
+                <p>Selected Items: {cart.length}</p>
             </div>
         </div>
     );
