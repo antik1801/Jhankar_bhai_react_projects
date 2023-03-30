@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect, useState } from 'react'
-import { getShoppingCart } from '../../utilities/fakedb';
 import { addToDbPlayers, getPlayersInfo } from '../../utilities/football';
 import Home from '../Home/Home';
 import SideCart from '../SideCart/SideCart';
@@ -20,7 +19,19 @@ const MainContainer = () => {
     .then(data => setPlayers(data))
   },[])
   
-//   console.log(players);
+  useEffect(()=>{
+    // console.log(players);
+    const storedPlayers = getPlayersInfo ();
+    const addedPlayers = [];
+    // step 1> get ID
+    // console.log(storedPlayers);
+    for (const id in storedPlayers) {
+        // console.log(id);
+        const savePlayers = players.find(player =>player._id  === id);
+        addedPlayers.push(savePlayers);
+    }
+    setSelectedPlayers(addedPlayers);
+  },[players])
     return (
         <div className='home-container'>
             <div className='row row-cols-1 row-cols-md-3 g-4'>{

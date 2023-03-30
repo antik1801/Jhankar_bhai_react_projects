@@ -6,11 +6,11 @@ const SideCart = (props) => {
     // const totalCost = selectedPlayers.reduce((firstNumber, secondNumber)=>selectedPlayers[0].balance,0)
     const players = [];
     let total = 0;
-    for (const singlePlayer of selectedPlayers) {
-        total = total + parseFloat(singlePlayer.balance);
-        players.push(singlePlayer.name)
-    }
-    console.log(players);
+    // for (const singlePlayer of selectedPlayers) {
+    //     total = total + parseFloat(singlePlayer.balance);
+    //     players.push(singlePlayer.name)
+    // }
+    // console.log(players);
     return (
     <div className="card h-50 text-center">
       <h3>Billinior's Club</h3>
