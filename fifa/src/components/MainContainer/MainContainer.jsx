@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react'
 import { getShoppingCart } from '../../utilities/fakedb';
+import { addToDbPlayers, getPlayersInfo } from '../../utilities/football';
 import Home from '../Home/Home';
 import SideCart from '../SideCart/SideCart';
 import "./MainContainer.css"
@@ -11,17 +12,14 @@ const MainContainer = () => {
     const handleBuyNow = (player) =>{
         const newPlayer = [...selectedPlayers, player]
         setSelectedPlayers(newPlayer);
+        addToDbPlayers(player._id)
       }
   useEffect(()=>{
     fetch("player.json")
     .then(res => res.json())
     .then(data => setPlayers(data))
   },[])
-  useEffect(()=>{
-    const storedCart = getShoppingCart();
-    // console.log(storedCart);
-
-  },[players])
+  
 //   console.log(players);
     return (
         <div className='home-container'>
