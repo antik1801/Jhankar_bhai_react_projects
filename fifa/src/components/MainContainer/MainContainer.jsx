@@ -7,10 +7,10 @@ import "./MainContainer.css"
 
 const MainContainer = () => {
     const [players,setPlayers] = useState([]);
-    const [singlePlayer, setSinglePlayer] = useState([])
+    const [selectedPlayers, setSelectedPlayers] = useState([])
     const handleBuyNow = (player) =>{
-        const newPlayer = [...singlePlayer, player]
-        setSinglePlayer(newPlayer);
+        const newPlayer = [...selectedPlayers, player]
+        setSelectedPlayers(newPlayer);
       }
   useEffect(()=>{
     fetch("player.json")
@@ -19,7 +19,7 @@ const MainContainer = () => {
   },[])
   useEffect(()=>{
     const storedCart = getShoppingCart();
-    console.log(storedCart);
+    // console.log(storedCart);
 
   },[players])
 //   console.log(players);
@@ -29,7 +29,7 @@ const MainContainer = () => {
                 players.map(player=> <Home player={player} key={player._id} handleBuyNow={handleBuyNow}></Home>)
             }</div>
             <div className='side-cart'>
-            <SideCart singlePlayer={singlePlayer}></SideCart>
+            <SideCart selectedPlayers={selectedPlayers}></SideCart>
             </div>
         </div>
     );
