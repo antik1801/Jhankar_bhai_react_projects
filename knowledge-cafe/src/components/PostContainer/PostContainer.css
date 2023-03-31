@@ -1,0 +1,14 @@
+.profile-pic{
+    width: 100px;
+    height: 150px;
+    
+}
+.dp{
+    border-radius: 50%;
+}
+.title{
+    margin-top: 0;
+}
+.bookmark-icon{
+    cursor: pointer;
+}

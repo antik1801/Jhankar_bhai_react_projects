@@ -5,7 +5,8 @@
     "picture": "./images/jamal.jpg",
     "age": 30,
     "name": "Jamal Bhuiya",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   },
   {
     "_id": "64245c40b30fe0e05a2bee61",
@@ -13,7 +14,8 @@
     "picture": "./images/m-bappe.png",
     "age": 20,
     "name": "Kylean Mbappe",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   },
   {
     "_id": "64245c40500ce6bd15d15561",
@@ -21,7 +23,8 @@
     "picture": "./images/messi.png",
     "age": 33,
     "name": "Lionel Messi",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   },
   {
     "_id": "64245c401a82123893daa042",
@@ -29,7 +32,8 @@
     "picture": "./images/neymar.png",
     "age": 32,
     "name": "Naymar Santos Jr",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   },
   {
     "_id": "64245c402521c870469a7d84",
@@ -37,7 +41,8 @@
     "picture": "./images/ramos.png",
     "age": 36,
     "name": "Sargio Ramos",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   },
   {
     "_id": "64245c402f67b2bbfb75c194",
@@ -45,7 +50,8 @@
     "picture": "./images/vitor.png",
     "age": 31,
     "name": "Frederick Juarez",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   },
   {
     "_id": "64245c404593d5be26ba4519",
@@ -53,6 +59,7 @@
     "picture": "./images/rentar.png",
     "age": 40,
     "name": "Renter Puckett",
-    "gender": "male"
+    "gender": "male",
+    "quantity": 1
   }
 ]

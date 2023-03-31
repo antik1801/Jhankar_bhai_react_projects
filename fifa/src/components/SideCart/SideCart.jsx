@@ -1,16 +1,24 @@
 import React from "react";
+import { getPlayersInfo } from "../../utilities/football";
 
 const SideCart = (props) => {
     const {selectedPlayers} = props;
-    // console.log(selectedPlayers);
-    // const totalCost = selectedPlayers.reduce((firstNumber, secondNumber)=>selectedPlayers[0].balance,0)
+    let quantity = 0;
     const players = [];
     let total = 0;
-    // for (const singlePlayer of selectedPlayers) {
-    //     total = total + parseFloat(singlePlayer.balance);
-    //     players.push(singlePlayer.name)
-    // }
-    // console.log(players);
+    const getPlayersNumber = getPlayersInfo();
+    console.log(getPlayersNumber);
+    for (const singlePlayer of selectedPlayers) {
+        
+        if(!singlePlayer?._id in selectedPlayers){
+            console.log('none');
+        }
+        total = total + parseFloat(singlePlayer?.balance);
+        players.push(singlePlayer?.name)
+        quantity = quantity +  singlePlayer?.quantity;
+        // console.log(singlePlayer)
+    }
+    console.log(quantity);
     return (
     <div className="card h-50 text-center">
       <h3>Billinior's Club</h3>
