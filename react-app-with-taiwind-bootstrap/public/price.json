@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "plan": "Basic",
+    "price": 10,
+    "features": ["1 GB Storage", "10 GB Bandwidth", "Basic Support"]
+  },
+  {
+    "id": 2,
+    "plan": "Pro",
+    "price": 20,
+    "features": ["5 GB Storage", "50 GB Bandwidth", "Priority Support"]
+  },
+  {
+    "id": 3,
+    "plan": "Ultimate",
+    "price": 30,
+    "features": ["10 GB Storage", "100 GB Bandwidth", "24/7 Support"]
+  }
+]
