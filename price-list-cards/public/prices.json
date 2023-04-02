@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ABC123",
+    "name": "Basic",
+    "price": 29.99,
+    "features": ["Cardio", "Weights", "Locker"]
+  },
+  {
+    "id": "DEF456",
+    "name": "Standard",
+    "price": 49.99,
+    "features": ["Cardio", "Weights", "Locker", "Group Fitness"]
+  },
+  {
+    "id": "GHI789",
+    "name": "Premium",
+    "price": 79.99,
+    "features": [
+      "Cardio",
+      "Weights",
+      "Locker",
+      "Group Fitness",
+      "Personal Training"
+    ]
+  }
+]
