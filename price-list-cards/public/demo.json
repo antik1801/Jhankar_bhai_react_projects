@@ -1,0 +1,140 @@
+[
+  {
+    "student": "Alice",
+    "physics": 85,
+    "chemistry": 92,
+    "biology": 78
+  },
+  {
+    "student": "Bob",
+    "physics": 76,
+    "chemistry": 88,
+    "biology": 80
+  },
+  {
+    "student": "Charlie",
+    "physics": 90,
+    "chemistry": 83,
+    "biology": 85
+  },
+  {
+    "student": "David",
+    "physics": 82,
+    "chemistry": 90,
+    "biology": 75
+  },
+  {
+    "student": "Emma",
+    "physics": 88,
+    "chemistry": 91,
+    "biology": 86
+  },
+  {
+    "student": "Frank",
+    "physics": 75,
+    "chemistry": 85,
+    "biology": 82
+  },
+  {
+    "student": "Grace",
+    "physics": 89,
+    "chemistry": 79,
+    "biology": 88
+  },
+  {
+    "student": "Henry",
+    "physics": 81,
+    "chemistry": 87,
+    "biology": 90
+  },
+  {
+    "student": "Isabelle",
+    "physics": 94,
+    "chemistry": 92,
+    "biology": 87
+  },
+  {
+    "student": "Jack",
+    "physics": 77,
+    "chemistry": 86,
+    "biology": 78
+  },
+  {
+    "student": "Katie",
+    "physics": 83,
+    "chemistry": 84,
+    "biology": 89
+  },
+  {
+    "student": "Lucas",
+    "physics": 92,
+    "chemistry": 88,
+    "biology": 81
+  },
+  {
+    "student": "Mia",
+    "physics": 80,
+    "chemistry": 85,
+    "biology": 77
+  },
+  {
+    "student": "Nathan",
+    "physics": 78,
+    "chemistry": 92,
+    "biology": 84
+  },
+  {
+    "student": "Olivia",
+    "physics": 89,
+    "chemistry": 91,
+    "biology": 83
+  },
+  {
+    "student": "Peter",
+    "physics": 86,
+    "chemistry": 85,
+    "biology": 89
+  },
+  {
+    "student": "Queenie",
+    "physics": 87,
+    "chemistry": 83,
+    "biology": 81
+  },
+  {
+    "student": "Ryan",
+    "physics": 84,
+    "chemistry": 88,
+    "biology": 86
+  },
+  {
+    "student": "Sarah",
+    "physics": 81,
+    "chemistry": 90,
+    "biology": 79
+  },
+  {
+    "student": "Thomas",
+    "physics": 85,
+    "chemistry": 89,
+    "biology": 88
+  },
+  {
+    "student": "Uma",
+    "physics": 91,
+    "chemistry": 86,
+    "biology": 92
+  },
+  {
+    "student": "Vincent",
+    "physics": 87,
+    "chemistry": 88,
+    "biology": 90
+  },
+  {
+    "student": "Wendy",
+    "physics": 84,
+    "chemistry": 81,
+    "biology": 85
+  }
+]

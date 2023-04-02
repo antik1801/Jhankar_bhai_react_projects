@@ -6,7 +6,7 @@ const PriceCart = (props) => {
   const { price } = props;
   // console.log(price.features);
   return (
-    <div className="bg-indigo-950 mt-6 p-6 rounded-3xl hover:scale-105 cursor-pointer hover:shadow-gray-800 hover:shadow-2xl">
+    <div className="bg-indigo-950 mt-6 p-6 rounded-3xl hover:scale-105 hover:shadow-gray-800 hover:shadow-2xl flex flex-col">
       <h2 className="text-center">
         {" "}
         <span className="text-purple-500 text-5xl font-extrabold">
@@ -21,6 +21,7 @@ const PriceCart = (props) => {
       {
         price.features.map((feature) =><Feature key={uuid()} feature={feature}></Feature>)
       }
+      <button className="w-full bg-green-400  text-xl hover:bg-green-700 py-2 rounded-lg font-bold mt-auto">Buy Now</button>
     </div>
   );
 };
