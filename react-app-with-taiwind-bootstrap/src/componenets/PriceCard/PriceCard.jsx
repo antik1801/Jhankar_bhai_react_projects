@@ -14,7 +14,7 @@ const PriceCard = (props) => {
           <div className='my-3'>  {
                 features.map((feature,index)=> <Features key={index} feature={feature}></Features>)
             }</div>
-            <button className='bg-slate-100 w-full '>Buy now</button>
+            <button className='bg-slate-100 w-full'>Buy now</button>
         </div>
     );
 };
