@@ -1,8 +1,8 @@
 import Accordion from 'react-bootstrap/Accordion';
 
-function BasicExample() {
+function Accordings() {
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey="0" flush>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Accordion Item #1</Accordion.Header>
         <Accordion.Body>
@@ -31,4 +31,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Accordings;

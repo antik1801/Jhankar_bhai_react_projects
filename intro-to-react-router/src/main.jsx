@@ -11,6 +11,9 @@ import Contacts from "./components/Contact/Contacts";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import First from "./components/First/First";
+import Friends from "./components/Friends/Friends";
+import Accordings from "./components/Accordings/Accordings";
+
 
 
 // const router = createBrowserRouter([
@@ -45,6 +48,10 @@ const router = createBrowserRouter ([
         element: <First></First>
       },
       {
+        path: "friends",
+        element: <Friends></Friends>,
+      },
+      {
         path: '/about',
         element: <About></About>,
       },
@@ -52,6 +59,11 @@ const router = createBrowserRouter ([
         path: '/contact',
         element: <Contact></Contact>,
       },
+      {
+        path:'/accordings',
+        element: <Accordings></Accordings>,
+      }
+      
     ]
   },
 ])
