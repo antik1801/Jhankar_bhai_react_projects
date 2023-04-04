@@ -5,10 +5,12 @@ const SinglePlayer = () => {
     const player = useLoaderData();
     
     // const singles = player.filter(eachPlayer => console.log(eachPlayer._id));
-    console.log(player);
+    console.log(player[0]);
     return (
         <div>
-            <h1>I am from single Player components.</h1>
+            <h1>Name: {player[0].name}</h1>
+            <img src={`${player[0].picture}`} alt="" />
+            
         </div>
     );
 };
