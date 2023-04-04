@@ -54,8 +54,10 @@ const router = createBrowserRouter([
       {
         path:'/singlePlayer/:singlePlayerId',
         element: <SinglePlayer></SinglePlayer>,
-        loader: ({params})=>{ 
-        return fetch(`player.json`)
+        loader: async ({params})=>{
+          const data = await fetch('player.json')
+          const res = await data.json()
+          return res.filter(item=> item._id === params.singlePlayerId)
         },     
       },
     ]
