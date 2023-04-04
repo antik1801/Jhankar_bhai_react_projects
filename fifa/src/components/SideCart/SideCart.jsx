@@ -7,7 +7,7 @@ const SideCart = (props) => {
     const players = [];
     let total = 0;
     const getPlayersNumber = getPlayersInfo();
-    console.log(getPlayersNumber);
+    // console.log(getPlayersNumber);
     for (const singlePlayer of selectedPlayers) {
         
         if(!singlePlayer?._id in selectedPlayers){
@@ -18,7 +18,7 @@ const SideCart = (props) => {
         quantity = quantity +  singlePlayer?.quantity;
         // console.log(singlePlayer)
     }
-    console.log(quantity);
+    // console.log(quantity);
     return (
     <div className="card h-50 text-center">
       <h3>Billinior's Club</h3>

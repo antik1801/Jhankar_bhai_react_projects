@@ -7,6 +7,7 @@ import NavScrollExample from "./components/Navbar/Navbar";
 import Connector from "./components/Connector/Connector";
 import Header from "./components/Header/Header";
 import Accordings from "./components/Accordings/Accordings";
+import SinglePlayer from "./components/SinglePlayer/SinglePlayer";
 
 // const router = createBrowserRouter ([
 //   {
@@ -49,7 +50,14 @@ const router = createBrowserRouter([
       {
         path:"/accordings",
         element: <Accordings></Accordings>,
-      }
+      },
+      {
+        path:'/singlePlayer/:singlePlayerId',
+        element: <SinglePlayer></SinglePlayer>,
+        loader: ({params})=>{ 
+        return fetch(`player.json`)
+        },     
+      },
     ]
   },
   

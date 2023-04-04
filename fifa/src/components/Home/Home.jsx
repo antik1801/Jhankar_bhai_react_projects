@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const { player, handleBuyNow } = props;
@@ -14,7 +15,10 @@ const Home = (props) => {
               <p>Price: $ {balance}</p>
               <p>Gender: {gender}</p>
             </div>
+            <div className="d-flex gap-3">
             <button onClick={()=>handleBuyNow(player)} className="btn btn-info">Buy now</button>
+            <Link to={`/singlePlayer/${_id}`}> <button className="btn btn-warning"> ReadMore</button> </Link>
+            </div>
           </div>
         </div>
   );
