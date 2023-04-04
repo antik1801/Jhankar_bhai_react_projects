@@ -13,6 +13,9 @@ import Home from "./components/Home/Home";
 import First from "./components/First/First";
 import Friends from "./components/Friends/Friends";
 import Accordings from "./components/Accordings/Accordings";
+import FriendDetail from "./components/FriendDetail/FriendDetail";
+import Posts from "./components/Posts/Posts";
+import PostDetail from "./components/PostDetail/PostDetail";
 
 
 
@@ -53,8 +56,18 @@ const router = createBrowserRouter ([
         loader: ()=>fetch('https://jsonplaceholder.typicode.com/users'),
       },
       {
+        path: 'friend/:friendId',
+        element: <FriendDetail></FriendDetail>,
+        loader: ({params})=>fetch(`https://jsonplaceholder.typicode.com/users/${params.friendId}`), 
+      },
+      {
         path: '/about',
         element: <About></About>,
+      },
+      {
+        path: '/posts',
+        element: <Posts></Posts>,
+        loader: ()=> fetch(`https://jsonplaceholder.typicode.com/posts`),
       },
       {
         path: '/contact',
@@ -63,8 +76,16 @@ const router = createBrowserRouter ([
       {
         path:'/accordings',
         element: <Accordings></Accordings>,
+      },
+      {
+        path : 'post/:postId',
+        element: <PostDetail></PostDetail>,
+        loader: ({params}) => fetch(`https://jsonplaceholder.typicode.com/posts/${params.postId}`), 
+      },
+      {
+        path: '*',
+        element: <h1 className="text-5xl font-extrabold">404 not found.</h1>
       }
-      
     ]
   },
 ])

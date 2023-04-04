@@ -8,9 +8,10 @@ const Friends = () => {
   return (
     <div>
       <h2>This are my friends {friends.length}</h2>
-      {
+
+      <div className="grid md:grid-cols-3 gap-3">{
         friends.map(friend=> <Friend key={friend.id} friend={friend}></Friend>)
-      }
+      }</div>
     </div>
   );
 };
