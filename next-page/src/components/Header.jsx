@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BoltIcon } from "@heroicons/react/24/solid";
+import { BoltIcon, RectangleGroupIcon } from "@heroicons/react/24/solid";
 import { Link, NavLink } from "react-router-dom";
 // parent Home.jsx
 const Header = () => {
@@ -10,7 +10,8 @@ const Header = () => {
       <div className="flex items-center justify-between">
         {/* logo section */}
         <Link to={"/"} className="nextPage-logo inline-flex items-center">
-          <BoltIcon className="h-12 w-12 text-blue-500"></BoltIcon>
+          {/* <BoltIcon className="h-12 w-12 text-blue-500"></BoltIcon> */}
+          <RectangleGroupIcon className="h-12 w-12 text-blue-500"></RectangleGroupIcon>
           <span className="ml-2 text-2xl tracking-wider text-gray-800 font-semibold font-mono">
             nextPage
           </span>

@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
+import Loader from "./Loader";
 
 const BookDetails = () => {
+  const navigation = useNavigation();
+  if (navigation.state === 'loading') {
+    return <Loader></Loader>
+  }
   const bookDetail = useLoaderData();
   const { image, title, desc, authors, publisher, year, rating, url, price } =
     bookDetail;
   const [fold, setFold] = useState(true);
+
+
+
   return (
     <div className="my-container">
       {/* Container Box */}

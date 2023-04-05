@@ -7,6 +7,7 @@ import Home from './components/Home'
 import About from './components/About'
 import Books from './components/Books'
 import BookDetails from './components/BookDetails'
+import Loader from './components/Loader'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About/>,
+      },
+      {
+        path: "/loader",
+        element: <Loader></Loader>
       }
     ]
   },
