@@ -5,7 +5,7 @@ import Product from '../Product/Product';
 import "./Shop.css"
 
 //parent App.jsx
-const shop = () => {
+const Shop = () => {
     const [products,setProducts] = useState([]);
     const [cart,setCart] = useState([]);
     const [storeProduct,setStoreProduct] = useState([]);
@@ -55,4 +55,4 @@ const shop = () => {
     );
 };
 
-export default shop;
+export default Shop;
