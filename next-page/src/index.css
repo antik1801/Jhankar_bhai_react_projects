@@ -18,3 +18,13 @@
 .default{
   @apply font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-blue-400
 }
+
+
+
+#error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
