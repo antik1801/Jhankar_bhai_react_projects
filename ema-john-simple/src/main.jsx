@@ -6,12 +6,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Shop from './components/Shop/Shop';
+
 import Home from './components/Layout/Home';
 import Orders from './components/Orders/Orders';
 import Inventory from './components/Inventory/Inventory';
 import Login from './components/Login/Login';
 import { cartProductsLoader } from './loaders/cartProductsLoader';
+import Shop from './components/shop/shop';
+import Checkout from './components/Checkout/Checkout';
 
 
 const router = createBrowserRouter([
@@ -21,7 +23,7 @@ const router = createBrowserRouter([
     children:[
       {
         path: "/",
-        element:<Shop />,
+        element:<Shop></Shop>,
       },
       {
         path: "orders",
@@ -36,7 +38,11 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
-      }
+      },
+      {
+        path: "/checkout",
+        element: <Checkout></Checkout>,
+      },
     ]
   },
 ])

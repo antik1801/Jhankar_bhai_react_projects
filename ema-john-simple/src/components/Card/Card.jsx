@@ -2,7 +2,7 @@ import React from "react";
 import "./Card.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-const Card = ({cart,handleClearCart}) => {
+const Card = ({ cart,handleClearCart,children}) => {
   let total = 0;
   let totalShipping = 0;
   let tax = 0;
@@ -28,6 +28,7 @@ const Card = ({cart,handleClearCart}) => {
         <span> Clear Cart </span>
         <FontAwesomeIcon icon={faTrash} />
       </button>
+      {children}
     </div>
   );
 };
