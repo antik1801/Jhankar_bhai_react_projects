@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Phone from "../Phone/Phone";
 import Card from "../Card/Card";
+import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import Loader from "../Loading/Loading";
 
 const Home = () => {
-  const [phones, setPhones] = useState([]);
+  const navigation = useNavigation();
+  console.log(navigation.state)
+  
+  const phones = useLoaderData();
   const [cart, setCart] = useState([]);
-  useEffect(() => {
-    fetch(`https://openapi.programming-hero.com/api/phones?search=iphone`)
-      .then((res) => res.json())
-      .then((data) => setPhones(data));
-  }, [cart]);
+
   const handleAddToCart = (price) => {
     const filteredData = phones?.data?.find(phone=> phone.slug.split("-")[1] == price )
     const phoneCart =[...cart, filteredData];

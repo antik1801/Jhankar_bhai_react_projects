@@ -30,7 +30,7 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/books"
+                to="/phones"
                 className={({ isActive }) =>
                   isActive ? "text-blue-600" : "default"
                 }
