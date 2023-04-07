@@ -14,7 +14,7 @@ const Home = () => {
     const filteredData = phones?.data?.find(phone=> phone.slug.split("-")[1] == price )
     const phoneCart =[...cart, filteredData];
     setCart(phoneCart)
-    console.log(cart);
+    
   };
   return (
     <div className="grid md:grid-cols-4 justify-between mt-4">
@@ -25,7 +25,7 @@ const Home = () => {
         ))}
       </div>
       <div className="cart col-span-1 border-2 shadow-lg h-1/3 sticky top-0">
-        <Card cart={cart}></Card>
+        <Card cart={cart? cart : []}></Card>
       </div>
     </div>
   );
