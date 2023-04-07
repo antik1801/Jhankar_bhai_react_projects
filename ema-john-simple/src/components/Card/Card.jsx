@@ -2,8 +2,7 @@ import React from "react";
 import "./Card.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-const Card = (props) => {
-  const { cart, handleClearCart } = props;
+const Card = ({cart,handleClearCart}) => {
   let total = 0;
   let totalShipping = 0;
   let tax = 0;
