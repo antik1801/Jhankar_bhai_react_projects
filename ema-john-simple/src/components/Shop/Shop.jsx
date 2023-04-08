@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-
 //parent App.jsx
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -65,7 +64,9 @@ const Shop = () => {
       <div className="cart-container">
         <Card cart={cart} handleClearCart={handleClearCart}>
           <Link to={"/orders"}>
-            <button className="btn-procced">Orders Review <FontAwesomeIcon icon={faArrowRight} /></button>
+            <button className="btn-procced">
+              Orders Review <FontAwesomeIcon icon={faArrowRight} />
+            </button>
           </Link>
         </Card>
       </div>
