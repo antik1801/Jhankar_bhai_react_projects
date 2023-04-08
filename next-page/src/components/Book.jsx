@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Book = ({book}) => {
 
     return (
-        <Link to={`../book/${book.isbn13}`}>
+        <Link to={`../book/${book.isbn13}`} state={book.title}>
                     <div className="overflow-hidden relative transition duration-200 transform hover:-translate-y-2 rounded shadow-2xl ">
         <img
           src={book.image}
