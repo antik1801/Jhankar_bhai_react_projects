@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             {
                 path: "/shop",
                 element: <Shop></Shop>,
-                loader: ()=> fetch('https://raw.githubusercontent.com/antik1801/Jhankar_bhai_react_projects/main/heroGadget-starter/public/products.json'),
+                loader: ()=> fetch('products.json'),
             },
             {
                 path: "/about",
