@@ -3,34 +3,41 @@
 
 // function 1: add data to local storage
 const addToDb = id =>{
-    let shoppingCart = {}
-    // get Previoud data from local storage
-    const storedCart = localStorage.getItem('shopping-cart')
+    // step 1 create an empty object and check anything existes in the local db? 
+    let shoppingCart = {};
+    const storedCart = localStorage.getItem('shopping-cart');
+
+    // step 2 if local db exists then parse the data from local storage
     if (storedCart) {
-        // if data exists in stored card
-        shoppingCart = JSON.parse(storedCart);
-    } else {
-        
+        shoppingCart = JSON.parse(storedCart)
     }
-// add quantity
+    // step 3 check if the quantity exists in the localstorage if yes please increase the ammount and set to the shoppingCart object or no set a new item key value
     const quantity = shoppingCart[id];
     if (quantity) {
         const newQuantity = quantity + 1;
         shoppingCart[id] = newQuantity;
     } else {
         shoppingCart[id] = 1;
-
-        /*
-        this block will generate a object like this 
-        shoppingCart = {
-            '623853b2578e9e6ad1ae0dd5': 1,
-         }
-        */
     }
-    localStorage.setItem('shopping-cart',JSON.stringify(shoppingCart))
+    // step 4 set the item to the local storage
+    localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart));
 
+}
+
+// get Stored Data from cart
+const getStoredCart = () =>{
+    // step 1 create an empty object and check anything existes in the local db? 
+    let shoppingCart = {};
+    const storedCart = localStorage.getItem('shopping-cart');
+    if (storedCart) {
+        shoppingCart = JSON.parse(storedCart)
+    }
+    // step 2 return shopping cart from function
+    return shoppingCart;
 }
 
 export {
     addToDb,
+    getStoredCart,
+    
 }
