@@ -8,11 +8,10 @@ import { useEffect } from "react";
 const App = () => {
   const loc = useLocation();
   useEffect(()=>{
-    console.log(loc);
     if (loc.pathname === '/') {
-      document.title = `HeroGadgets - Home`
+      document.title = `HeroGadgets-Home`
     } else {
-      document.title = `HeroGadgets - ${loc.pathname}`;
+      document.title = `HeroGadgets${loc.pathname.replace('/','-')}`;
     }
   },[loc])
   return(<>
