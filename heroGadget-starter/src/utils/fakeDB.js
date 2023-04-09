@@ -1,6 +1,8 @@
 // common function to connect local storage
 // I have been explained line by line throught the command 
 
+
+
 // function 1: add data to local storage
 const addToDb = id =>{
     // step 1 create an empty object and check anything existes in the local db? 
@@ -35,9 +37,25 @@ const getStoredCart = () =>{
     // step 2 return shopping cart from function
     return shoppingCart;
 }
+// Remove specifial element from local storage
+const removeFromDb = id => {
+    const storedCart = localStorage.getItem('shopping-cart');
+    if(storedCart){
+        const shoppingCart = JSON.parse(storedCart);
+        if(id in shoppingCart){
+            delete shoppingCart[id];
+            localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart))
+        }
+    }
+}
+
+// clear data from local storage
+
+const deleteShoppingCart =() => localStorage.removeItem('shopping-cart');
 
 export {
     addToDb,
     getStoredCart,
-    
+    removeFromDb,
+    deleteShoppingCart
 }
