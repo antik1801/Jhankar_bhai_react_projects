@@ -31,7 +31,7 @@ const Home = () => {
       <img
         src={heroImg}
         alt=''
-        className='w-5/6 mx-auto mb-12 -mt-12 lg:-mt-40 rounded-lg shadow-md bg-gray-500'
+        className='w-5/6 mx-auto mb-12 -mt-12 lg:-mt-[150px] rounded-lg shadow-md bg-gray-500'
       />
     </section>
   )

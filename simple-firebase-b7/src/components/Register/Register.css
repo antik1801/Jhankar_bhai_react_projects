@@ -1,0 +1,9 @@
+.eyeSlash,.eye{
+    height: 30px;
+    margin-bottom: 25px;
+    margin-right: 10px;
+}
+.eyeSlash,.eye:hover{
+    color: rgb(76, 200, 241);
+    cursor: pointer;
+}

@@ -19,6 +19,9 @@ export default {
         },
       },
     },
+    fontFamily:{
+      'manrope': ['Roboto', 'sans-serif'],
+    },
   },
   plugins: [],
 }

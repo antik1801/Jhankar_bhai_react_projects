@@ -1,0 +1,29 @@
+[
+    {
+      "_id": "6433231412b1c446bac7b356",
+      "picture": "./accounts1.png",
+      "description": "Accounting and Finance",
+      "jobs": 700
+    },
+    {
+      "_id": "643323145fc4b58fcfcbc2e3",
+      "picture": "./business.png",
+      "name": "Amazon",
+      "description": "Creative Design",
+      "jobs": 300
+    },
+    {
+      "_id": "6433231412f61ae46761ef0e",
+      "picture": "./social-media.png",
+      "name": "Ollyo",
+      "description": "Marketing and sales",
+      "jobs": 500
+    },
+    {
+      "_id": "6433231458d5b2719a40a86d",
+      "picture": "./chip.png",
+      "name": "InstaGram",
+      "description": "Enginnering job",
+      "jobs": 200
+    }
+  ]

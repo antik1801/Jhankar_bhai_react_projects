@@ -1,0 +1,111 @@
+[
+    {
+      "id": 1,
+      "title": "Web Developer",
+      "company": "Acme Inc.",
+      "location": "San Francisco, CA",
+      "salary": 80000,
+      "requirements": [
+        "Bachelor’s degree in Computer Science or a related field",
+        "Experience with HTML, CSS, and JavaScript",
+        "Experience with at least one web framework, such as React or Angular"
+      ],
+      "office": "onsite",
+      "logo": "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+      "phone": "555-1234",
+      "description": "Acme Inc. is seeking a skilled web developer to join our team. The ideal candidate will have a strong background in web development, including experience with HTML, CSS, and JavaScript, as well as at least one web framework such as React or Angular. The successful candidate will work closely with our development team to build and maintain our web applications and sites.",
+      "jobResponsibility": "Build web applications and sites using HTML, CSS, JavaScript, and a web framework such as React or Angular.",
+      "email": "antik@edu.texk.pk"
+    },
+    {
+      "id": 2,
+      "title": "Sales Manager",
+      "company": "XYZ Corporation",
+      "location": "New York, NY",
+      "salary": 100000,
+      "requirements": [
+        "Bachelor’s degree in Business Administration or a related field",
+        "Experience in B2B sales",
+        "Strong leadership and communication skills"
+      ],
+      "office": "onsite",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg",
+      "phone": "555-5678",
+      "description": "XYZ Corporation is seeking an experienced sales manager to lead our sales team. The successful candidate will have a Bachelor’s degree in Business Administration or a related field, experience in B2B sales, and strong leadership and communication skills. The sales manager will be responsible for developing and executing our sales strategy to achieve our revenue targets.",
+      "jobResponsibility": "Lead our sales team to success and drive B2B sales.",
+      "email": "antik@edu.texk.pk"
+    },
+    {
+      "id": 3,
+      "title": "UI/UX Designer",
+      "company": "ABC Corp.",
+      "location": "Seattle, WA",
+      "salary": 90000,
+      "requirements": [
+        "Bachelor’s degree in Graphic Design or a related field",
+        "Experience with user interface and experience design",
+        "Proficiency with design tools such as Sketch and Adobe Creative Suite"
+      ],
+      "office": "onsite",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Netflix_icon.svg/2048px-Netflix_icon.svg.png",
+      "phone": "555-9012",
+      "description": "Design Co. is looking for a creative graphic designer to join our team. The ideal candidate will have a strong portfolio demonstrating a variety of design styles and techniques, as well as proficiency in Adobe Creative Suite. The successful candidate will work closely with our design team to create compelling visual content for our clients.",
+      "jobResponsibility": "Create beautiful visual content for our clients using Adobe Creative Suite.",
+      "email": "antik@edu.texk.pk"
+    },
+    {
+      "id": 4,
+      "title": "Content Writer",
+      "company": "Global Media",
+      "location": "London, UK",
+      "salary": 60000,
+      "requirements": [
+        "Bachelor’s degree in English, Journalism, or a related field",
+        "Experience in writing for various media, including web and print",
+        "Excellent written and verbal communication skills in English"
+      ],
+      "office": "remote",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png",
+      "phone": "555-3456",
+      "description": "Growth Co. is seeking a talented marketing manager to develop and execute our marketing strategy. The successful candidate will have a Bachelor’s degree in Marketing or a related field, as well as experience in digital marketing, social media management, and email marketing. The marketing manager will work closely with our sales and design teams to create compelling campaigns that drive growth.",
+      "jobResponsibility": "Create compelling campaigns that drive growth through digital marketing, social media management, and email marketing.",
+      "email": "antik@edu.texk.pk"
+    },
+    {
+      "id": 5,
+      "title": "Data Scientist",
+      "company": "Tech Innovations",
+      "location": "San Jose, CA",
+      "salary": 120000,
+      "requirements": [
+        "Master’s degree in Computer Science, Statistics, or a related field",
+        "Experience with data analysis and machine learning",
+        "Proficiency with programming languages such as Python and R"
+      ],
+      "office": "onsite",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/2048px-Facebook_f_logo_%282021%29.svg.png",
+      "phone": "555-7890",
+      "description": "Join Writing Co. as a content writer and create high-quality written content for our clients. This position requires excellent writing skills, as well as experience in content creation, copywriting, or journalism. This is a remote position.",
+      "jobResponsibility": "Analyze complex data sets using machine learning, statistical analysis, and data visualization.",
+      "email": "antik@edu.texk.pk"
+    },
+    {
+      "id": 6,
+      "title": "Project Manager",
+      "company": "Blue Sky LLC",
+      "location": "Chicago, IL",
+      "salary": 95000,
+      "requirements": [
+        "Bachelor’s degree in Business Administration or a related field",
+        "Experience in project management",
+        "Strong organizational and leadership skills"
+      ],
+      "office": "remote",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/2449px-NASA_logo.svg.png",
+      "phone": "555-2345",
+      "description": "Analytics Corp. is seeking a talented data scientist to join our team. The ideal candidate will have a Master’s degree or PhD in a quantitative field, as well as experience in machine learning, statistical analysis, and data visualization. The successful candidate will work closely with our data",
+      "jobResponsibility": "Create high-quality written content for our clients.",
+      "email": "antik@edu.texk.pk"
+    }
+  ]
+  
