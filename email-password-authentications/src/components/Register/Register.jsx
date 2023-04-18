@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { app } from "../Firebase/firebase.config";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -28,6 +28,7 @@ const Register = () => {
     setSucces("");
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const name = event.target.name.value;
     console.log(email, password);
     if (!/(?=.*?[A-Z].*[A-Z])/.test(password)) {
       setError('Please add two uppercase in your password')            
@@ -49,13 +50,33 @@ const Register = () => {
         event.target.reset();
         setSucces("user has created successfully");
         toast.success("user has created successfully");
+        sendVarificationEmail(user);
+        updateUserData(result.user, name)
       })
       .catch((error) => {
         setError(error.message);
         toast.error(error.message);
       });
+      const sendVarificationEmail = user =>{
+        sendEmailVerification(user)
+        .then(result =>{
+           console.log(result);
+           toast.success('Email Varification Sent');
+          })
 
-  };
+      }
+      const updateUserData = (user, name) =>{
+        updateProfile(user,{
+          displayName: name
+        })
+        .then(()=>{
+          toast.success("name updated");
+        })
+        .catch(error => {
+          toast.error(error.message);
+        })
+      }
+  }
   return (
     <div>
       <h2>Please Register if you are new</h2>
@@ -63,6 +84,14 @@ const Register = () => {
       <p className="text-success">{success}</p>
       <form onSubmit={handleSubmit}>
         <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Enter your name here"
+          required
+        />
+        <br />
+         <input
           type="email"
           name="email"
           id="email"
@@ -80,9 +109,11 @@ const Register = () => {
                 placeholder="Enter your password"
                 required
               />
+              <br />
               <button className="btn-show" onClick={() => setControl(!control)}>
                 Hide
               </button>
+              <br />
             </div>
           ) : (
             <div className="btn-pass">
@@ -93,9 +124,11 @@ const Register = () => {
                 placeholder="Enter your password"
                 required
               />
+              <br />
               <button className="btn-show" onClick={() => setControl(!control)}>
                 See
               </button>
+              <br />
             </div>
           )}
         </div>
