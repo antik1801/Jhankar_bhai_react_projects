@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
     const [error,setError] = useState("");
@@ -10,7 +13,8 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email,password);
-
+        setError('');
+        setSuccess('');
         if (!/(?=.*?[A-Z].*[A-Z])/.test(password)) {
             setError('Please add two uppercase in your password')            
         }
@@ -19,12 +23,23 @@ const Login = () => {
             setError('Please add at least one special charector');
             return ;
         }
-
+        else if (password.length < 6) {
+            setError('Please must be 6 charector long')
+        }
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth,email,password)
+        .then(result =>{
+            const loggedUser = result.user;
+            setSuccess('user logged in successful')
+        })
+        .catch(error => {
+            console.log(error);
+            setError(error.message);
+        })
     }
   return (
     <div>
       <h2>Please Login</h2>
-      <p className="text-danger">{error}</p>
       <Form onSubmit={handleLogin}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -40,9 +55,12 @@ const Login = () => {
            Accept terms and conditions
           </label>
         </div>
-        <Button variant="primary" type="submit">
-          Submit
+        <p><small>New to this website? please <Link to={"/register"}>Register</Link> </small></p>
+        <Button className="btn btn-primary" variant="primary" type="submit">
+          Login
         </Button>
+        <p className="text-danger">{error}</p>
+      <p className="text-success">{success}</p>
       </Form>
     </div>
   );

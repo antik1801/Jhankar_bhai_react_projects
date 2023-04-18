@@ -3,6 +3,7 @@ import "./Register.css";
 import { app } from "../Firebase/firebase.config";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const auth = getAuth(app);
 
@@ -28,10 +29,17 @@ const Register = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     console.log(email, password);
-    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(pass)) {
-         setError('Password must contain 8 charector 1 upper 1 lower and 1 special charector');
-         return;
-    }
+    if (!/(?=.*?[A-Z].*[A-Z])/.test(password)) {
+      setError('Please add two uppercase in your password')            
+  }
+  else if (!/(?=.*?[#?!@$%^&*-])/.test(password))
+  {
+      setError('Please add at least one special charector');
+      return ;
+  }
+  else if (password.length < 6) {
+      setError('Please must be 6 charector long')
+  }
     // create user in firebase
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -92,7 +100,8 @@ const Register = () => {
           )}
         </div>
         <br />
-        <input type="submit" value="Register" />
+        <input type="submit" value="Register" className="btn btn-primary"/>
+        <p><small>Already have an account? please <Link to={"/login"}>login</Link></small></p>
       </form>
     </div>
   );
