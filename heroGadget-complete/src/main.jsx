@@ -10,6 +10,9 @@ import Shop from "./components/Shop";
 import Carts from "./components/Carts";
 import { productsAndCartData } from "./loaders/getCartAndProductData";
 import { Toaster } from "react-hot-toast";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import AuthProviders from "./providers/AuthProviders";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <Shop></Shop>,
-        loader: () => fetch("products.json"),
+        loader: () => fetch("/products.json"),
       },
       {
         path: "/about",
@@ -36,6 +39,14 @@ const router = createBrowserRouter([
         element: <Carts></Carts>,
         loader: productsAndCartData,
       },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      }
     ],
   },
 ]);
@@ -43,6 +54,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <Toaster />
+    <AuthProviders>
     <RouterProvider router={router}></RouterProvider>
+    </AuthProviders>
   </>
 );
