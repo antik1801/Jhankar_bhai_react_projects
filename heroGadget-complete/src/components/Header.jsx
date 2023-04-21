@@ -2,9 +2,25 @@ import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { CardContext } from "../App";
+import { AuthContext } from "../providers/AuthProviders";
+import { toast } from "react-hot-toast";
 
 const Header = () => {
   const [cart, setCart] = useContext(CardContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        {
+          toast.success("logout successfull");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // console.log(cart.length);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
@@ -30,6 +46,7 @@ const Header = () => {
             HeroGadget
           </span>
         </Link>
+        {user && <p className="font-semibold">Hello,{user.displayName}</p> }
         <ul className="items-center hidden space-x-8 lg:flex">
           <li>
             <NavLink
@@ -51,25 +68,30 @@ const Header = () => {
               Shop
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/login"
-              aria-label="login"
-              title="login"
-              className={({ isActive }) => (isActive ? "active" : "default")}
-            >
-              Login
-            </NavLink>
-          </li><li>
-            <NavLink
-              to="/register"
-              aria-label="register"
-              title="register"
-              className={({ isActive }) => (isActive ? "active" : "default")}
-            >
-              Register
-            </NavLink>
-          </li>
+          {!user && (
+            <li>
+              <NavLink
+                to="/login"
+                aria-label="login"
+                title="login"
+                className={({ isActive }) => (isActive ? "active" : "default")}
+              >
+                Login
+              </NavLink>
+            </li>
+          )}
+          {!user && (
+            <li>
+              <NavLink
+                to="/register"
+                aria-label="register"
+                title="register"
+                className={({ isActive }) => (isActive ? "active" : "default")}
+              >
+                Register
+              </NavLink>
+            </li>
+          )}
           <li>
             <Link to="/cart" aria-label="Cart" title="Cart">
               <div className="relative py-3">
@@ -90,6 +112,13 @@ const Header = () => {
               About Us
             </NavLink>
           </li>
+          {user && (
+            <li>
+              <button className="btn btn-primary pb-3" onClick={handleLogOut}>
+                Logout
+              </button>
+            </li>
+          )}
         </ul>
         <div className="lg:hidden">
           <button
@@ -167,6 +196,7 @@ const Header = () => {
                         Shop
                       </Link>
                     </li>
+                    {user && <li><p className="font-semibold">Hello,{user.displayName}</p></li>}
                     <li>
                       <Link
                         to="/cart"
@@ -192,6 +222,16 @@ const Header = () => {
                         About Us
                       </Link>
                     </li>
+                    {user && (
+                      <li>
+                        <button
+                          className="btn btn-primary pb-3"
+                          onClick={handleLogOut}
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 </nav>
               </div>

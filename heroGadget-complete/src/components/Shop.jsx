@@ -8,9 +8,6 @@ import { toast } from "react-hot-toast";
 const Shop = () => {
   const [cart, setCart] = useContext(CardContext);
   const products = useContext(ProductContext);
-  // console.log(productData);
-  // console.log(products);
-  //   console.log(cart);
   const handleAddToCart = (product) => {
     let newCart = []
     const exists = cart.find(

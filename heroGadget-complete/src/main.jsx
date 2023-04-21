@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import AuthProviders from "./providers/AuthProviders";
+import PrivateRoutes from "./privateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Carts></Carts>,
+        element: <PrivateRoutes><Carts></Carts></PrivateRoutes>,
         loader: productsAndCartData,
       },
       {
