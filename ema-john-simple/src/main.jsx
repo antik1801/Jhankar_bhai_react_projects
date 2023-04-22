@@ -6,49 +6,55 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
+import Shop from './components/Shop/Shop';
 import Home from './components/Layout/Home';
 import Orders from './components/Orders/Orders';
 import Inventory from './components/Inventory/Inventory';
 import Login from './components/Login/Login';
-import { cartProductsLoader } from './loaders/cartProductsLoader';
-import Shop from './components/shop/shop';
+import cartProductsLoader from './loaders/cartProductsLoader';
 import Checkout from './components/Checkout/Checkout';
-
+import SignUp from './components/SignUp/SignUp';
+import AuthProviders from './providers/AuthProviders';
+import PrivateRoutes from './routes/PrivateRoutes';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
-    children:[
+    path: '/',
+    element: <Home></Home>,
+    children: [
       {
-        path: "/",
-        element:<Shop></Shop>,
+        path: '/',
+        element: <Shop></Shop>
       },
       {
-        path: "orders",
+        path: 'orders',
         element: <Orders></Orders>,
-        loader: cartProductsLoader,
+        loader: cartProductsLoader
       },
       {
-        path: "/inventory",
-        element: <Inventory></Inventory>,
-
+        path: 'inventory',
+        element: <Inventory></Inventory>
       },
       {
-        path: "/login",
-        element: <Login></Login>,
+        path:'checkout',
+        element: <PrivateRoutes><Checkout></Checkout></PrivateRoutes>,
       },
       {
-        path: "/checkout",
-        element: <Checkout></Checkout>,
+        path: 'login',
+        element: <Login></Login>
       },
+      {
+        path: "signup",
+        element: <SignUp></SignUp>,
+      }
     ]
-  },
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-  <RouterProvider router={router}></RouterProvider>
- </React.StrictMode>,
+    <AuthProviders>
+    <RouterProvider router={router} />
+    </AuthProviders>
+  </React.StrictMode>,
 )
