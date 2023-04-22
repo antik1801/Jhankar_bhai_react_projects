@@ -5,14 +5,15 @@ import { AuthContext } from '../../providers/AuthProviders';
 
 const Login = () => {
     const {signIn,user} = useContext(AuthContext);
+    const [show,setShow] = useState(false);
     const [success, setSuccess] = useState('')
     const [error,setError] = useState('');
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from?.pathname || "/";
-    console.log(from);
+    const from = location.state?.from?.pathname || "/login";
+    // console.log(from);
 
     
     const handleLogIn = event =>{
@@ -47,7 +48,10 @@ const Login = () => {
                 </div>
                 <div className="form-control">
                     <label htmlFor="password">Password</label>
-                    <input type="password" name='password' id='password' required/>
+                    <input type={ show ? "text" : "password"} name='password' id='password' required/>
+                    <button onClick={()=>setShow(!show)} className='btn-show-Pass'><small>{
+                        show ? <span>Hide Password</span> : <span>Show Password</span>
+                        }</small></button>
                 </div>
                 <input className='btn-submit' type="submit" value="Login" />
             </form>

@@ -1,6 +1,5 @@
 .form-container {
     width: 500px;
-    height: 600px;
     margin: 20px auto;
     border: 1px solid #95A0A7;
     border-radius: 8px;
@@ -68,4 +67,8 @@
 }
 .loading-text{
     text-align: center;
+}
+.btn-show-Pass{
+    border: none;
+    margin-top: 10px;
 }
