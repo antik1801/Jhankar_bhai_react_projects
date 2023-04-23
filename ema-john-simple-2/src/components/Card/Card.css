@@ -1,0 +1,23 @@
+.cart{
+    color: black;
+    background-color: #FFE0B3;;
+    margin: auto;
+    padding: 23px 10px;
+    position: sticky;
+    top: 0;
+}
+.cart p{
+    font-size: 17px;
+}
+.btn-clear-cart{
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: #FF3030;
+    border-radius: 8px;
+    align-items: center;
+}
+.btn-clear-cart:hover{
+    background-color: rgba(236, 46, 46);
+}

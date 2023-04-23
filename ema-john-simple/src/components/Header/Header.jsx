@@ -16,7 +16,7 @@ const Header = () => {
       <img src={logo} alt="" />
       {user && (
         <span className="user">
-          Wellcome,{user.displayName}{" "}
+          Wellcome , {user.displayName ? user.displayName : 'user'}{" "}
           <button onClick={handleLogOut}>Logout</button>{" "}
         </span>
       )}
