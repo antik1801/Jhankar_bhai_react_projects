@@ -1,0 +1,8 @@
+.fa-facebook{
+    background-color: white;
+    color: rgb(72, 72, 235);
+}
+.bg-img{
+    background-image: url("../../../assets/bg.png");
+    height: fit-content;
+}

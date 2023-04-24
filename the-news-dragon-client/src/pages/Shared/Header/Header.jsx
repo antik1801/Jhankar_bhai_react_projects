@@ -8,9 +8,9 @@ import "./Header.css"
 const Header = () => {
   return (
     <Container>
-      <div className="text-center">
+      <div className="text-center mt-4 mb-3">
         <img src={logo} alt="" />
-        <p className="text-secondary">
+        <p className="text-secondary mt-2">
           <small>Journalism Without Fear or Favour</small>
         </p>
         <p>{moment().format("dddd, MMMM D, YYYY")}</p>
