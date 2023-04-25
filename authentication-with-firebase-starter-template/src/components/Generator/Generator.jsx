@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthProvider";
+import { useEffect, useState } from "react";
 import Color from "./Color";
 import "./Generator.css";
+import { useNavigate } from "react-router-dom";
 
 const Generator = () => {
   const [state, setState] = useState({
@@ -25,17 +24,13 @@ const Generator = () => {
       colors: colors,
     });
   }
-
-  const { user } = useContext(AuthContext);
-  console.log(user);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
+  const user = null;
+  const navigate = useNavigate();
+  // useEffect(()=>{
   //   if (!user) {
-  //     navigate("/login");
+  //     navigate("/login")
   //   }
-  // }, []);
-
+  // },[])
   return (
     <div className="color-container">
       {state.colors.map((color, index) => (
@@ -46,21 +41,6 @@ const Generator = () => {
           hexCode={color.hexCode}
         ></Color>
       ))}
-
-      {user ? (
-        <form action="">
-          <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            className="border border-black"
-          ></textarea>
-          <button>Add your comment</button>
-        </form>
-      ) : (
-        <Link to="/login">Login first to add your comment</Link>
-      )}
     </div>
   );
 };
