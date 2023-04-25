@@ -7,6 +7,7 @@ import Rooms from '../pages/Rooms/Rooms';
 import Pricing from '../pages/Pricing/Pricing';
 import Login from '../pages/Login/Login';
 import SignUp from '../pages/SignUp/SignUp';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home></Home>,
+                element: <PrivateRoute><Home></Home></PrivateRoute>,
             },
             {
                 path:"/features",
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: "/home",
                 element: <Home></Home>,
+            },
+            {
+                path: "/phoneVerify",
+                
             }
         ]
     }

@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "/logo.png";
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import moment from "moment";
 import "./Header.css";
 import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../auth/AuthProvider";
 
 const Header = () => {
+  const {user,logOut} = useContext(AuthContext)
+  const handleLogOut = () =>{
+    logOut()
+    .then(()=>{})
+    .catch(error=> console.log(error.message))
+  }
   return (
     <Container>
       <div className="text-center">
@@ -24,7 +31,7 @@ const Header = () => {
       <Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Nav className="me-auto">
-            <p>Hello, Gazi Ehsanul Haque</p>
+          
           </Nav>
         <Navbar.Collapse id="responsive-navbar-nav">
           <div className="mx-auto links ">
@@ -32,8 +39,15 @@ const Header = () => {
             <Link to="/features">Features</Link>
             <Link to="/rooms">Rooms</Link>
             <Link to="/pricing">Pricing</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">SignUp</Link>
+            {
+              !user && <Link to="/login">Login</Link>
+            }
+            {
+              !user &&  <Link to="/signup">SignUp</Link>
+            }
+            {
+              user && <Button variant="danger" onClick={handleLogOut}>Logout</Button>
+            }
           </div>
         </Navbar.Collapse>
       </Container>
