@@ -7,6 +7,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import LeftNav from "../pages/Shared/LeftNav/LeftNav";
 import RightNav from "../pages/Shared/RightNav/RightNav";
 import NavigationBar from "../pages/Shared/NavigationBar/NavigationBar";
+import { ToastContainer } from "react-toastify";
 
 const Main = () => {
   return (
@@ -27,6 +28,7 @@ const Main = () => {
         </Row>
       </Container>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

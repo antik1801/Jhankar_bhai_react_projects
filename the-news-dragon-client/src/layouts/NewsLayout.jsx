@@ -6,6 +6,7 @@ import "./Main.css";
 import { Col, Container, Row } from "react-bootstrap";
 import LeftNav from "../pages/Shared/LeftNav/LeftNav";
 import RightNav from "../pages/Shared/RightNav/RightNav";
+import { ToastContainer } from "react-toastify";
 
 const NewsLayout = () => {
   return (
@@ -22,6 +23,7 @@ const NewsLayout = () => {
         </Row>
       </Container>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import News from "../pages/News/News/News";
 import LoginLayout from "../layouts/LoginLayout";
 import Login from "../pages/Login/Login/Login";
 import Register from "../pages/Login/Register/Register";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
     {
