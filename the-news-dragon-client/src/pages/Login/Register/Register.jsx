@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 const Register = () => {
   const [show, setShow] = useState(false);
   const { createUser, sendVarificationMail ,updateInfo} = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -22,7 +23,7 @@ const Register = () => {
         toast("successfully created account");
         verifyEmail(user)
         updateUserData(result.user, name, photo)
-        console.log(user);
+        navigate('/category/0')
       })
       .catch((error) => {
         toast(error.message);
@@ -36,7 +37,6 @@ const Register = () => {
   }
 
   const updateUserData = (user,displayName,photo) =>{
-      console.log('hit');
       updateInfo(user,displayName,photo)
       .then(()=>{
         console.log('User name and photoURL updated')
