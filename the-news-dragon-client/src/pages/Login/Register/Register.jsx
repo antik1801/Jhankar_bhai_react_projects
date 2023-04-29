@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
   const [show, setShow] = useState(false);
+  const [accepted,setAccepted] = useState(false);
   const { createUser, sendVarificationMail ,updateInfo} = useContext(AuthContext);
   const navigate = useNavigate();
   const handleRegister = (e) => {
@@ -46,6 +47,9 @@ const Register = () => {
       })
   }
 
+  const handleAccepted = event =>{
+      setAccepted(event.target.checked);
+  }
   return (
     <Container className="mt-5">
       <Form
@@ -57,7 +61,7 @@ const Register = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter name (*)"
             name="name"
             required
           />
@@ -66,9 +70,9 @@ const Register = () => {
           <Form.Label>Photo URL</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter photo"
+            placeholder="Enter photo (optional)"
             name="photo"
-            required
+            
           />
         </Form.Group>
         <ToastContainer></ToastContainer>
@@ -76,7 +80,7 @@ const Register = () => {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Enter email (*)"
             name="email"
             required
           />
@@ -85,7 +89,7 @@ const Register = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type={show ? "text" : "password"}
-            placeholder="Password"
+            placeholder="Enter Password (*)"
             name="password"
             required
           />
@@ -93,8 +97,9 @@ const Register = () => {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <div className="d-flex justify-content-between flex-wrap">
             <Form.Check
+            onClick={handleAccepted}
               type="checkbox"
-              label="Accept tems and conditions"
+              label={<>Accept <Link to={"/terms"}>terms and conditions</Link> </>}
               name="accept"
               required
             />
@@ -106,7 +111,7 @@ const Register = () => {
           </div>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={!accepted}>
           Register
         </Button>
         <br />

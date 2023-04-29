@@ -5,14 +5,13 @@ import { AuthContext } from "../../../providers/AuthProviders";
 import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
-  const { signIn, passwordReset } = useContext(AuthContext);
-
+  const { signIn, passwordReset, user } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const emailRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/category/0";
 
   const handleLogin = (e) => {
     e.preventDefault();
