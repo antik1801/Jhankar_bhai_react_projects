@@ -1,0 +1,86 @@
+[
+    {
+      "id": "644e50a4894b72c700f49feb",
+      "index": 0,
+      "picture": "./assets/Sajek.png",
+      "district": "Lilian Mcneil",
+      "place": "Sajek",
+      "email": "lilianmcneil@webiotic.com",
+      "phone": "+1 (967) 474-2200",
+      "address": "408 Cyrus Avenue, Helen, Maryland, 396",
+      "details": "Et tempor do eiusmod mollit. Excepteur occaecat nostrud consequat occaecat sit in. Dolore nisi magna commodo occaecat ex ipsum ipsum do.\r\n",
+      "category": [
+        {
+          "balance": "$3,477.20",
+          "luxury": "Elite",
+          "ratings": 4.5
+        },
+        {
+          "balance": "$3,872.71",
+          "luxury": "Delux",
+          "ratings": 4.3
+        },
+        {
+          "balance": "$2,853.63",
+          "luxury": "Economy",
+          "ratings": 5.3
+        }
+      ]
+    },
+    {
+      "id": "644e50a415460860edc8330f",
+      "index": 1,
+      "picture": "./assets/Sreemongol.png",
+      "district": "Sreemongol",
+      "place": "CUJO",
+      "email": "jeanineflores@cujo.com",
+      "phone": "+1 (942) 412-3765",
+      "address": "260 Guider Avenue, Abiquiu, South Dakota, 8635",
+      "details": "Ipsum irure exercitation id et do culpa dolor amet pariatur commodo sunt sint ex nostrud. Nostrud do aliquip ut in ea ex sit Lorem. Laboris elit eiusmod velit veniam reprehenderit labore quis eiusmod occaecat dolore. Nostrud eu incididunt nulla tempor irure aute occaecat. Esse elit pariatur laborum voluptate sint fugiat aliquip ipsum laborum consequat. Ut do velit laborum commodo excepteur reprehenderit consectetur veniam. Cillum tempor aliquip laboris do fugiat.\r\n",
+      "category": [
+        {
+          "balance": "$3,307.99",
+          "luxury": "Elite",
+          "ratings": 3.2
+        },
+        {
+          "balance": "$1,292.66",
+          "luxury": "Delux",
+          "ratings": 3.3
+        },
+        {
+          "balance": "$1,567.90",
+          "luxury": "Economy",
+          "ratings": 3
+        }
+      ]
+    },
+    {
+      "id": "644e50a460f546792fe041b0",
+      "index": 2,
+      "picture": "./assets/sundorbon.png",
+      "district": "Velasquez Ware",
+      "place": "SUNDARBON",
+      "email": "velasquezware@uplinx.com",
+      "phone": "+1 (970) 563-2823",
+      "address": "564 Reeve Place, Breinigsville, North Carolina, 7552",
+      "details": "Do deserunt laboris esse enim magna dolor. Culpa deserunt non non non qui aliquip occaecat nulla qui. Ipsum exercitation adipisicing proident consequat non aliquip quis. Fugiat voluptate nisi ad nostrud ullamco quis. Ex aliqua excepteur aliqua id.\r\n",
+      "category": [
+        {
+          "balance": "$1,426.47",
+          "luxury": "Elite",
+          "ratings": 3.2
+        },
+        {
+          "balance": "$1,927.92",
+          "luxury": "Delux",
+          "ratings": 4.9
+        },
+        {
+          "balance": "$2,304.92",
+          "luxury": "Economy",
+          "ratings": 4.5
+        }
+      ]
+    }
+  ]
