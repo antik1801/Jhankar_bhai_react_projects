@@ -6,12 +6,12 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const firebaseConfig = {
-    apiKey: "AIzaSyAmqLcI0Ka6UHx_xu8HVWuk3e89sfqF1d0",
-    authDomain: "verify-otp-df9ce.firebaseapp.com",
-    projectId: "verify-otp-df9ce",
-    storageBucket: "verify-otp-df9ce.appspot.com",
-    messagingSenderId: "829737744550",
-    appId: "1:829737744550:web:f1439f8aa1df111f489c67",
+    apiKey: import.meta.env.VITE_APIKEY,
+    authDomain: import.meta.env.VITE_AUTHDOMAIN,
+    projectId: import.meta.env.VITE_PROJECTID,
+    storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+    appId: import.meta.env.VITE_APPID,
   };
 
   // Initialize Firebase
@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     const unSubscriber = onAuthStateChanged(firebase.auth(), (currentUser) => {
-      console.log(currentUser);
+      // console.log(currentUser);
       setUser(currentUser);
     });
 
