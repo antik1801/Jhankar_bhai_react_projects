@@ -1,6 +1,14 @@
-# My Live Site Link:
+# My Live Site Link: (Without authentication)
 ```
 https://hero-gadages-ph-hero.netlify.app/cart
+```
+# Live Site : (with authentication: firebase)
+```
+https://hero-gadgets-client.web.app/
+```
+# Live Site : (Netlify): 
+```
+https://zingy-kangaroo-2a5837.netlify.app
 ```
 
 # HeroGadget Starter Repository
