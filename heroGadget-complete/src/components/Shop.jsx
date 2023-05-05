@@ -6,6 +6,7 @@ import { CardContext, ProductContext } from "../App";
 import { toast } from "react-hot-toast";
 
 const Shop = () => {
+  
   const [cart, setCart] = useContext(CardContext);
   const products = useContext(ProductContext);
   const handleAddToCart = (product) => {

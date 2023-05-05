@@ -2,7 +2,7 @@ import { getStoredCart } from "../utils/fakeDB";
 
 export const productsAndCartData = async () => {
     // fetch the data from database
-    const productsData = await fetch('products.json')
+    const productsData = await fetch('https://hero-gadgets-server-antik1801.vercel.app/products')
     const products = await productsData.json();
     // match data that matches in localStorage
     let cartArray = [];

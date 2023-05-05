@@ -46,7 +46,7 @@ const Header = () => {
             HeroGadget
           </span>
         </Link>
-        {user && <p className="font-semibold">Hello,{user.displayName}</p> }
+        {user && <p className="font-semibold">Hello,{user.displayName}</p>}
         <ul className="items-center hidden space-x-8 lg:flex">
           <li>
             <NavLink
@@ -92,6 +92,14 @@ const Header = () => {
               </NavLink>
             </li>
           )}
+          {user && <li>
+            <div className="avatar online">
+              <div className="w-16 rounded-full">
+                <img src={user?.photoURL} title={user.displayName}/>
+              </div>
+            </div>
+          </li>}
+          
           <li>
             <Link to="/cart" aria-label="Cart" title="Cart">
               <div className="relative py-3">
@@ -196,7 +204,13 @@ const Header = () => {
                         Shop
                       </Link>
                     </li>
-                    {user && <li><p className="font-semibold">Hello,{user.displayName}</p></li>}
+                    {user && (
+                      <li>
+                        <p className="font-semibold">
+                          Hello,{user.displayName}
+                        </p>
+                      </li>
+                    )}
                     <li>
                       <Link
                         to="/cart"
