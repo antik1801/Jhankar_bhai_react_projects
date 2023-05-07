@@ -5,19 +5,22 @@ const Users = () => {
   const loadedUsers = useLoaderData();
   const [users, setUsers] = useState(loadedUsers);
   const handleDeleteUser = (id) => {
-    console.log(id);
+    // console.log(id);
     fetch(`http://localhost:5000/users/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
+        // console.log(data);
         if (data.deletedCount > 0) {
           alert("Deleted successfully");
-          const remaining = users.filter((user) => user._id != id);
+          const remaining = users.filter((user) => user._id !== id);
+        //   console.log(remaining);
           setUsers(remaining);
         }
       });
   };
+//   console.log(users);
   return (
     <div>
       <Link to={"/"}>
