@@ -3,6 +3,7 @@ import './App.css'
 import { useEffect } from 'react'
 
 function App() {
+  const [users, setUsers] = useState([])
   const handleAddUser = event =>{
     event.preventDefault()
     const form= event.target;
@@ -21,11 +22,14 @@ function App() {
     .then(res => res.json())
     .then(data => {
       console.log(data)
+      form.reset();
+      const newUsers = [...users, data]
+      setUsers(newUsers)
+      
     })
     .catch(error=> console.log(error))
 
   }
-  const [users, setUsers] = useState([])
   useEffect(()=>{
     fetch('http://localhost:5000/users')
     .then(res => res.json())
