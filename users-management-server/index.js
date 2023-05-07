@@ -14,13 +14,20 @@ app.get("/", (req, res) => {
     res.send('User management server is running')
 })
 app.use(cors());
+app.use(express.json())
+
 
 app.get('/users', (req, res)=>{
     res.send(users)
 })
 
 app.post('/users',(req,res)=>{
-    req.body()
+    console.log('post api hitting')
+    console.log(req.body)
+    const newUser = req.body
+    newUser.id = users.length + 1
+    users.push(newUser)
+    res.send(newUser)
 })
 
 app.listen(port, () => {
