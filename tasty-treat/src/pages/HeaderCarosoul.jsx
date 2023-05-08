@@ -2,110 +2,76 @@ import React from "react";
 
 const HeaderCarosoul = () => {
   return (
-    <div>
-      <p className="text-center">Eco Food bd</p>
-      <div
-        id="animation-carousel"
-        class="relative w-full"
-        data-carousel="static"
-      >
-        {/* <!-- Carousel wrapper --> */}
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-          {/* <!-- Item 1 --> */}
-          <div class="hidden duration-200 ease-linear" data-carousel-item>
-            <img
-              src="15.png"
-              class="absolute block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[300px]"
-              alt="..."
-            />
+    <>
+      <div className="carousel w-full ">
+        <div id="item1" className="carousel-item w-full grid grid-cols-2">
+          <div className="flex flex-col justify-center gap-5">
+            <h2 className="title-text text-3xl">Lets start a new begining of life with Masterchef</h2>
+            <p className="text-xl font-semibold">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.</p>
+            <button className="btn btn-primary w-32">Join now</button>
           </div>
-          {/* <!-- Item 2 --> */}
-          <div class="hidden duration-200 ease-linear" data-carousel-item>
-            <img
-              src="16.png"
-              class="absolute block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[300px]"
-              alt="..."
-            />
-          </div>
-          {/* <!-- Item 3 --> */}
-          <div
-            class="hidden duration-200 ease-linear"
-            data-carousel-item="active"
-          >
-            <img
-              src="17.png"
-              class="absolute block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[300px]"
-              alt="..."
-            />
-          </div>
-          {/* <!-- Item 4 --> */}
-          <div class="hidden duration-200 ease-linear" data-carousel-item>
-            <img
-              src="17.png"
-              class="absolute block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[300px]"
-              alt="..."
-            />
-          </div>
-          {/* <!-- Item 5 --> */}
-          <div class="hidden duration-200 ease-linear" data-carousel-item>
-            <img
-              src="18.png"
-              class="absolute block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[300px]"
-              alt="..."
-            />
-          </div>
+          <img
+            src="mc.jpg"
+            className="w-full max-h-[300px] cover"
+          />
         </div>
-        {/* <!-- Slider controls --> */}
-        <button
-          type="button"
-          class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          data-carousel-prev
-        >
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg
-              aria-hidden="true"
-              class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              ></path>
-            </svg>
-            <span class="sr-only">Previous</span>
-          </span>
-        </button>
-        <button
-          type="button"
-          class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          data-carousel-next
-        >
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg
-              aria-hidden="true"
-              class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              ></path>
-            </svg>
-            <span class="sr-only">Next</span>
-          </span>
-        </button>
+        <div id="item2" className="carousel-item w-full grid grid-cols-2">
+        <div className="flex flex-col justify-center gap-5">
+            <h2 className="title-text text-3xl">Be the maker of your own career</h2>
+            <p className="text-xl font-semibold">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.</p>
+            <button className="btn btn-primary w-32">Join now</button>
+          </div>
+          <img
+            src="budy.jpeg"
+            className="w-full max-h-[300px] cover"
+          />
+        </div>
+        <div id="item3" className="carousel-item w-full grid grid-cols-2">
+        <div className="flex flex-col justify-center gap-5">
+            <h2 className="title-text text-3xl">Join  the best team of chefs</h2>
+            <p className="text-xl font-semibold">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.</p>
+            <button className="btn btn-primary w-32">Join now</button>
+          </div>
+          <img
+            src="msi.jpg"
+            className="w-full max-h-[300px] cover"
+          />
+        </div>
+        <div id="item4" className="carousel-item w-full grid grid-cols-2">
+        <div className="flex flex-col justify-center gap-5">
+            <h2 className="title-text text-3xl">Let everyone know your success story</h2>
+            <p className="text-xl font-semibold">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.</p>
+            <button className="btn btn-primary w-32">Join now</button>
+          </div>
+          <img
+            src="winners.png"
+            className="w-full max-h-[300px] cover"
+          />
+        </div>
       </div>
-    </div>
+      <div className="flex justify-center w-full py-2 gap-2">
+        <a href="#item1" className="btn btn-xs">
+          1
+        </a>
+        <a href="#item2" className="btn btn-xs">
+          2
+        </a>
+        <a href="#item3" className="btn btn-xs">
+          3
+        </a>
+        <a href="#item4" className="btn btn-xs">
+          4
+        </a>
+      </div>
+    </>
   );
 };
 

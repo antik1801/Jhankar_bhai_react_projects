@@ -4,6 +4,7 @@ import HomePageChefCart from './HomePageChefCart';
 import { useLoaderData } from 'react-router-dom';
 import CarosoulInfo from './CarosoulInfo';
 import AwsomeSlider from '../components/AwsomeSlider';
+import HeroSection from './HeroSection';
 
 const HomePageLayout = () => {
     const chefs = useLoaderData();
@@ -11,7 +12,10 @@ const HomePageLayout = () => {
     return (
         <div>
             <div className='mx-[10vw] mt-5 mb-10'>
-            {/* <HeaderCarosoul></HeaderCarosoul> */}
+            <HeaderCarosoul></HeaderCarosoul>
+            </div>
+            <div className='mx-[10vw] mt-5 mb-10'>
+            <HeroSection></HeroSection>
             </div>
             <div className="mx-[10vw] grid grid-cols-1 md:grid-cols-3">
             {chefs.map(chef=>

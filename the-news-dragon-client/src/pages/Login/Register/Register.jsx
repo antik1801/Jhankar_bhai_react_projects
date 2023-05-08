@@ -4,12 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { ToastContainer, toast } from "react-toastify";
+import useTitle from "../../../hooks/useTitle";
 
 const Register = () => {
   const [show, setShow] = useState(false);
   const [accepted,setAccepted] = useState(false);
   const { createUser, sendVarificationMail ,updateInfo} = useContext(AuthContext);
   const navigate = useNavigate();
+  useTitle('Register')
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;

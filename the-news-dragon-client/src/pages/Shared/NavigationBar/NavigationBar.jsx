@@ -6,8 +6,11 @@ import { FaUserCircle } from "react-icons/fa";
 import Marquee from "react-fast-marquee";
 import "./Navigation.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+// import "./Navigation.css"
 
 const NavigationBar = () => {
+  const [isActive,setIsActive] = useState("/");
   const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
     logOut()
@@ -18,6 +21,9 @@ const NavigationBar = () => {
         toast(error.message);
       });
   };
+  const handleHilight = target =>{
+    setIsActive(target)
+  }
   return (
     <Container>
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -25,13 +31,13 @@ const NavigationBar = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mx-auto">
-              <Link to={"/"}  className="text-decoration-none">
+              <Link to={"/"}  className={`text-decoration-none`}>
                 Home
               </Link>
-              <Link to={""}  className="text-decoration-none">
+              <Link to={""}  className={`text-decoration-none`}>
                 About
               </Link>
-              <Link  to={""} className="text-decoration-none">
+              <Link  to={""} className={`text-decoration-none `} >
                 Carrer
               </Link>
             </Nav>

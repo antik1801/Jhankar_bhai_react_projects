@@ -3,6 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { ToastContainer, toast } from "react-toastify";
+import useTitle from "../../../hooks/useTitle";
 
 const Login = () => {
   const { signIn, passwordReset, user } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/category/0";
+  useTitle('Login')
 
   const handleLogin = (e) => {
     e.preventDefault();

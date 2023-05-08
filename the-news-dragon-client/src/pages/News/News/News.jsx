@@ -4,11 +4,13 @@ import Button from "react-bootstrap/Button";
 import { Link, useLoaderData } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import EditorsInside from "../EditorsInside.jsx/EditorsInside";
+import useTitle from "../../../hooks/useTitle";
 
 const News = () => {
   const news = useLoaderData();
   const { _id, title, details, image_url, category_id } = news;
   //   console.log(news);
+  useTitle('News Details')
   return (
     <div>
       <Card className="mt-3">

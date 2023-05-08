@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import NewsCart from '../NewsCart/NewsCart';
+import useTitle from '../../../hooks/useTitle';
 
 const Category = () => {
     const {id} = useParams();
     const categoryNews = useLoaderData()
-    // console.log(id);
+    useTitle('Catagory')
     return (
         <div>
             <h2>This is Category: {categoryNews.length}</h2> 

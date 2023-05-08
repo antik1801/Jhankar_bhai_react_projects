@@ -2,3 +2,9 @@ Nav a{
     margin-left: 10px;
     color: black;
 }
+.active{
+    color: blue;
+}
+.default{
+    color: black;
+}
