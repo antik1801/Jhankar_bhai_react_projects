@@ -24,7 +24,19 @@ async function run() {
         await client.connect();
         const chocolateCollection = client.db('chocolateDB').collection('chocolate')
 
-        
+        app.get('/chocolates', async(req,res)=>{
+            const cursor = chocolateCollection.find()
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
+        // ADD a chocklate to the db
+        app.post('/chocolates', async(req,res)=>{
+            const newChocolate = req.body;
+            console.log(newChocolate)
+            const result = await chocolateCollection.insertOne(newChocolate)
+            res.send(result)
+        })
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
