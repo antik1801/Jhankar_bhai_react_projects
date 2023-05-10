@@ -11,7 +11,6 @@ const AddChocolates = () => {
     const category = form.category.value;
     const photo = form.photo.value;
     const newChocolate = { name, country, category, photo };
-    console.log(newChocolate);
     fetch("http://localhost:5000/chocolates", {
       method: "POST",
       headers: {
@@ -21,7 +20,6 @@ const AddChocolates = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.acknowledged) {
           Swal.fire("Added Items!", "A new items added!", "success");
           form.reset();
@@ -34,9 +32,7 @@ const AddChocolates = () => {
         <p className="text-3xl mt-5 bg-gradient-to-r from-[#DC8D48] via-[#91572B] to-[#692911] w-1/2 text-white py-[16px] px-[65px] mx-auto text-center rounded-xl">
           Chocolate Management System
         </p>
-        <Link to={"/"}>
-          <button className="btn btn-ghost">All Chocolate</button>
-        </Link>
+        <Link to="/"><button className="btn btn-success">All Chocolate</button></Link>
         <form className="mx-[113px] py-[48px]" onSubmit={handleAddChocolate}>
           <h2 className="text-2xl font-bold text-center">New Chocolates</h2>
           <p className="text-center">
@@ -100,6 +96,9 @@ const AddChocolates = () => {
             className="btn btn-block bg-[#91572B]"
           />
         </form>
+        <Link to="/">
+          <button className="btn btn-ghost">All Chocolate</button>
+        </Link>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import ChocolateCarts from "./components/ChocolateCarts";
+import {Link} from 'react-router-dom'
 
 function App() {
   const [chocolates, setChocolates] = useState([]);
@@ -14,7 +15,7 @@ function App() {
       .then((data) => {
         setChocolates(data);
       });
-  }, []);
+  }, [render]);
 
   return (
     <div className="bg-gray-200 p-10">
@@ -22,6 +23,7 @@ function App() {
         <p className="text-3xl mt-5 bg-gradient-to-r from-[#DC8D48] via-[#91572B] to-[#692911] w-1/2 text-white py-[16px] px-[65px] mx-auto text-center rounded-xl">
           Chocolate Management System
         </p>
+        <Link to="/addChocolates" className="mx-auto"><button className="btn btn-success">Add Chocolate</button></Link>
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
