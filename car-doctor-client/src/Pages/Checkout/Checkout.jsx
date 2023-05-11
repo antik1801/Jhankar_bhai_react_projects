@@ -13,11 +13,16 @@ const Checkout = () => {
     const fname = form.firstName.value;
     const date = form.date.value;
     const phone = form.phone.value;
+    const email = form.email.value;
     const message = form.message.value;
-    console.log(fname,date, phone, message)
     const order = {
-        customer
+        customerName: fname,
+        date: date,
+        phone: phone,
+        message: message,
+        email: email,
     }
+    console.log(order)
   }
   return (
     <div>
@@ -40,6 +45,7 @@ const Checkout = () => {
               <input
                 type="text"
                 name="phone"
+                defaultValue={user?.phone}
                 placeholder="Your Phone"
                 className="input input-bordered"
                 required
@@ -58,6 +64,7 @@ const Checkout = () => {
             <div className="form-control">
               <input
                 type="email"
+                name="email"
                 placeholder="Your Email"
                 defaultValue={user?.email}
                 className="input input-bordered"
