@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Checkout = () => {
   const service = useLoaderData();
+  const {user} = useContext(AuthContext)
   const { title, price } = service;
   console.log(service);
   const handleFormSubmit = event =>{
@@ -16,15 +18,16 @@ const Checkout = () => {
   }
   return (
     <div>
-      <h2>Book Service: {title}</h2>
+      <h2 className="text-center text-3xl mb-9">Book Service: {title}</h2>
       <form onSubmit={handleFormSubmit}>
-      <div className="card-body space-y-10 bg-base-200 p-24 rounded-xl">
+      <div className="card-body space-y-10 bg-base-200 p-24 rounded-xl mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 space-x-5">
           <div className="space-y-10">
             <div className="form-control">
               <input
                 type="text"
                 name="firstName"
+                defaultValue={user?.displayName}
                 placeholder="First Name"
                 className="input input-bordered"
                 required
@@ -43,9 +46,8 @@ const Checkout = () => {
           <div className="space-y-10">
             <div className="form-control">
               <input
-                type="text"
-                placeholder="Last Name"
-                name="lastName"
+                type="date"
+                name="date"
                 className="input input-bordered"
                 required
               />
@@ -54,6 +56,7 @@ const Checkout = () => {
               <input
                 type="email"
                 placeholder="Your Email"
+                defaultValue={user?.email}
                 className="input input-bordered"
                 required
               />
