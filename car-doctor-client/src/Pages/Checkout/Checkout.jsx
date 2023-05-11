@@ -15,7 +15,7 @@ const Checkout = () => {
     const phone = form.phone.value;
     const email = form.email.value;
     const message = form.message.value;
-    const order = {
+    const bookings = {
         customerName: fname,
         date: date,
         phone: phone,
@@ -25,7 +25,14 @@ const Checkout = () => {
         service: title,
         price: price,
     }
-    fetch('')
+    console.log(bookings)
+    fetch('http://localhost:5000/bookings',{
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(bookings),
+    })
     .then(res => res.json())
     .then(data => {
         console.log(data)
