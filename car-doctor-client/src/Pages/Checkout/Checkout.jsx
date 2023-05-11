@@ -11,10 +11,13 @@ const Checkout = () => {
     event.preventDefault()
     const form = event.target;
     const fname = form.firstName.value;
-    const lname = form.lastName.value;
+    const date = form.date.value;
     const phone = form.phone.value;
     const message = form.message.value;
-    console.log(fname,lname, phone, message)
+    console.log(fname,date, phone, message)
+    const order = {
+        customer
+    }
   }
   return (
     <div>
