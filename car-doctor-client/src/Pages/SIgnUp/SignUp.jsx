@@ -22,6 +22,17 @@ const SignUp = () => {
               <form onSubmit={handleSignUp}>
                 <div className="form-control">
                 <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="name"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
@@ -42,6 +53,15 @@ const SignUp = () => {
                   className="input input-bordered"
                 />
                 <label className="label">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input
+                name="confirmPassword"
+                  type="text"
+                  placeholder="confirmPassword"
+                  className="input input-bordered"
+                />
+                <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?
                   </a>
@@ -51,7 +71,7 @@ const SignUp = () => {
                 <input type="submit" className="btn btn-primary" value="Login"></input>
               </div>
               </form>
-              <p className="my-4 text-center">Already Have an account?<Link to="/login" className="text-orange-400 font-bold"> Login</Link> </p>
+              <p className="my-4 text-center">Already Have an account?<Link to="/login" className="text-orange-400 font-bold">Login</Link> </p>
             </div>
           </div>
         </div>
