@@ -2,9 +2,9 @@ import React from "react";
 
 const BookingRow = ({ booking }) => {
   console.log(booking);
-  const { img } = booking;
+  const { img ,customerName,email,data,service,price} = booking;
   return (
-    <div>
+    
       <tr>
         <th></th>
         <td>
@@ -17,25 +17,18 @@ const BookingRow = ({ booking }) => {
                 />
               </div>
             </div>
-            <div>
-              <div className="font-bold">Hart Hagerty</div>
-              <div className="text-sm opacity-50">United States</div>
-            </div>
           </div>
         </td>
         <td>
-          Zemlak, Daniel and Leannon
-          <br />
-          <span className="badge badge-ghost badge-sm">
-            Desktop Support Technician
-          </span>
+          {customerName}
         </td>
-        <td>Purple</td>
+        <td>{email}</td>
+        <td>${price}</td>
         <th>
           <button className="btn btn-ghost btn-xs">details</button>
         </th>
       </tr>
-    </div>
+
   );
 };
 
