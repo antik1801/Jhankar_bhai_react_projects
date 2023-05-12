@@ -45,8 +45,9 @@ async function run() {
     })
     // See all the booking collections
     app.get('/bookings', async(req,res)=>{
+      console.log(req.query.email)
       let query = {}
-      if (req.query.email) {
+      if (req.query?.email) {
         query = req.query.email ;
       }
       const result = await bookingCollection.find().toArray()
