@@ -10,9 +10,10 @@ const Bookings = () => {
         .then(res=> res.json())
         .then(data => setState(data))
     },[])
+    console.log(bookings)
     return (
         <div>
-            
+            <h2 className='text-5xl'>Your Bookings: {bookings.length}</h2>
         </div>
     );
 };

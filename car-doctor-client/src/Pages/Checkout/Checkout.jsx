@@ -16,6 +16,7 @@ const Checkout = () => {
     const phone = form.phone.value;
     const email = form.email.value;
     const message = form.message.value;
+    const image = img;
     const bookings = {
         customerName: fname,
         date: date,
@@ -25,6 +26,7 @@ const Checkout = () => {
         service_id: _id,
         service: title,
         price: price,
+        img: image,
     }
     console.log(bookings)
     fetch('http://localhost:5000/bookings',{
