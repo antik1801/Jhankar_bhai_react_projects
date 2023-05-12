@@ -21,10 +21,12 @@ const Bookings = () => {
           <thead>
             <tr>
               <th></th>
+              <th>Image</th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-              <th></th>
+              <th>Email</th>
+              <th>Price</th>
+              <th>Options</th>
+            
             </tr>
           </thead>
           <tbody>
