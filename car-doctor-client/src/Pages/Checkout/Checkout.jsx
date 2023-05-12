@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
   const service = useLoaderData();
@@ -36,6 +37,13 @@ const Checkout = () => {
     .then(res => res.json())
     .then(data => {
         console.log(data)
+        if(data.insertedId){
+          Swal.fire(
+            'Services added!',
+            `Your booking tracking number is ${_id}!`,
+            'success'
+          )
+        }
     })
   }
   return (
