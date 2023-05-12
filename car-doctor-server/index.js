@@ -27,34 +27,34 @@ async function run() {
     const serviceCollection = client.db('carsDoctor').collection('services')
     const bookingCollection = client.db('carsDoctor').collection('bookings')
     // Read all the data from database
-    app.get('/services', async(req,res)=>{
-        const cursor = serviceCollection.find()
-        const result = await cursor.toArray();
-        res.send(result);
+    app.get('/services', async (req, res) => {
+      const cursor = serviceCollection.find()
+      const result = await cursor.toArray();
+      res.send(result);
     })
     // Read Specific Data from database
-    app.get('/services/:id', async(req, res)=>{
-        const id = req.params.id;
-        const query = {_id:new ObjectId(id)}
-        const options = {
-            // Include only the `title` and `imdb` fields in the returned document
-            projection: {title: 1, price: 1 , service_id: 1},
-          };
-        const result = await serviceCollection.findOne(query, options)
-        res.send(result)
+    app.get('/services/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const options = {
+        // Include only the `title` and `imdb` fields in the returned document
+        projection: { title: 1, price: 1, service_id: 1 },
+      };
+      const result = await serviceCollection.findOne(query, options)
+      res.send(result)
     })
     // See all the booking collections
-    app.get('/bookings', async(req,res)=>{
+    app.get('/bookings', async (req, res) => {
       console.log(req.query.email)
       let query = {}
       if (req.query?.email) {
-        query = req.query.email ;
+        query = { email: req.query.email }
       }
-      const result = await bookingCollection.find().toArray()
+      const result = await bookingCollection.find(query).toArray()
       res.send(result)
     })
     // Add a booking collection
-    app.post('/bookings',async(req, res)=>{
+    app.post('/bookings', async (req, res) => {
       const booking = req.body
       console.log(booking)
       const result = await bookingCollection.insertOne(booking)
@@ -71,10 +71,10 @@ async function run() {
 run().catch(console.dir);
 
 
-app.get('/', (req,res)=>{
-    res.send('Doctor car is running ')
+app.get('/', (req, res) => {
+  res.send('Doctor car is running ')
 })
 
-app.listen(port, ()=>{
-    console.log('Car doctor server is running on port', port)
+app.listen(port, () => {
+  console.log('Car doctor server is running on port', port)
 })
