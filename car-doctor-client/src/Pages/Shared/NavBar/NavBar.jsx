@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import { AuthContext } from "../../../context/AuthProvider";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 
 const NavBar = () => {
   const {logout,user} = useContext(AuthContext)
   const handleLogout = () =>{ 
       logout()
       .then(()=>{
-        
+      toast('Logout successfull')
       })
       .catch(error=> console.log(error))
   }
@@ -24,6 +26,7 @@ const NavBar = () => {
     <div className="navbar bg-base-100 h-28 mb-4">
       <div className="navbar-start">
         <div className="dropdown">
+          <ToastContainer></ToastContainer>
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
