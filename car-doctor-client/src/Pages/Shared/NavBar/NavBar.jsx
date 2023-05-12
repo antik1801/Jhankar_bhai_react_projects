@@ -10,7 +10,7 @@ const NavBar = () => {
   const handleLogout = () =>{ 
       logout()
       .then(()=>{
-      toast('Logout successfull')
+      toast('Logout successfull');
       })
       .catch(error=> console.log(error))
   }
@@ -18,8 +18,7 @@ const NavBar = () => {
     <>
       <li><Link to={"/"}>Home</Link></li>
       <li><Link to={"/about"}>About</Link></li>
-      <li><Link to={"/login"}>Login</Link></li>
-      <li>{user && <button className="btn btn-primary" onClick={handleLogout}>Logout</button> }</li>
+      <li>{user ?  <button className="btn btn-primary" onClick={handleLogout}>Logout</button> : <Link to={"/login"}>Login</Link> }</li>
     </>
   );
   return (
