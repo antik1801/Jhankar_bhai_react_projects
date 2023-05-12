@@ -43,6 +43,15 @@ async function run() {
         const result = await serviceCollection.findOne(query, options)
         res.send(result)
     })
+    // See all the booking collections
+    app.get('/bookings', async(req,res)=>{
+      let query = {}
+      if (req.query.email) {
+        query = req.query.email ;
+      }
+      const result = await bookingCollection.find().toArray()
+      res.send(result)
+    })
     // Add a booking collection
     app.post('/bookings',async(req, res)=>{
       const booking = req.body
