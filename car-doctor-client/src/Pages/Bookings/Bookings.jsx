@@ -1,31 +1,51 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import BookingRow from "./BookingRow";
+import Swal from "sweetalert2";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
-  const [render,setRender] = useState(false)
+  const [render, setRender] = useState(false);
   const [bookings, setBookings] = useState([]);
-  const handleConfirm = id => {
-    console.log(id)
-    fetch(`http://localhost:5000/bookings/${id}`, {
+  const handleConfirm = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure to confirm the order?",
+      text: "You will get 100% refund if you will get any bad services from us",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, confirm it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/bookings/${id}`, {
           method: "PATCH",
           headers: {
-            'content-type' : 'application/json',
+            "content-type": "application/json",
           },
-          body: JSON.stringify({status: 'confirm'})
+          body: JSON.stringify({ status: "confirm" }),
         })
-    .then(res => res.json())
-    .then(data => {
-      if (data.modifiedCount > 0) {
-        console.log(data)
-        
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+              const remaining = bookings.filter((booking) => booking._id != id);
+              Swal.fire(
+                "Confirmed!",
+                "Your order has been confirmed.",
+                "success"
+              );
+              const updated = bookings.find(booking._id === id)
+              updated.status = 'confirm'
+            }
+          });
       }
-    })
-  }
-  const handleRender = () =>{
-    setRender(!render)
-  }
+    });
+  };
+  const handleRender = () => {
+    setRender(!render);
+  };
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
   useEffect(() => {
     fetch(url)
@@ -47,13 +67,17 @@ const Bookings = () => {
               <th>Email</th>
               <th>Price</th>
               <th>Options</th>
-            
             </tr>
           </thead>
           <tbody>
-            {
-                bookings.map(booking => <BookingRow key={booking._id} booking={booking} handleRender={handleRender} handleConfirm={handleConfirm}></BookingRow>)
-            }
+            {bookings.map((booking) => (
+              <BookingRow
+                key={booking._id}
+                booking={booking}
+                handleRender={handleRender}
+                handleConfirm={handleConfirm}
+              ></BookingRow>
+            ))}
             {/* <tr>
               <th></th>
               <td>
