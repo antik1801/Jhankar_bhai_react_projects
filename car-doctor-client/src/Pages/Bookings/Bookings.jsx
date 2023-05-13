@@ -6,6 +6,23 @@ const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [render,setRender] = useState(false)
   const [bookings, setBookings] = useState([]);
+  const handleConfirm = id => {
+    console.log(id)
+    fetch(`http://localhost:5000/bookings/${id}`, {
+          method: "PATCH",
+          headers: {
+            'content-type' : 'application/json',
+          },
+          body: JSON.stringify({status: 'confirm'})
+        })
+    .then(res => res.json())
+    .then(data => {
+      if (data.modifiedCount > 0) {
+        console.log(data)
+        
+      }
+    })
+  }
   const handleRender = () =>{
     setRender(!render)
   }
@@ -35,7 +52,7 @@ const Bookings = () => {
           </thead>
           <tbody>
             {
-                bookings.map(booking => <BookingRow key={booking._id} booking={booking} handleRender={handleRender}></BookingRow>)
+                bookings.map(booking => <BookingRow key={booking._id} booking={booking} handleRender={handleRender} handleConfirm={handleConfirm}></BookingRow>)
             }
             {/* <tr>
               <th></th>

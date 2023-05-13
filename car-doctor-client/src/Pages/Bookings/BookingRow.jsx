@@ -1,12 +1,10 @@
 import React from "react";
 import Swal from "sweetalert2";
 
-const BookingRow = ({ booking , handleRender}) => {
+const BookingRow = ({ booking , handleRender, handleConfirm}) => {
   console.log(booking);
   const { _id, img, customerName, email, data, service, price } = booking;
-  const handleConfirm = id => {
-    console.log(id)
-  }
+  
   const handleDelete = (id) => {
     console.log(id);
     Swal.fire({
