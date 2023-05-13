@@ -33,11 +33,18 @@ async function run() {
     })
     // insert data in database
     app.post('/doctors', async(req,res)=>{
-        const newDoctors = req.body
-        console.log(doctors)
-        const result = await doctorCollection.insertOne(newDoctors)
-        // res.send(result)
+        try{
+            const newDoctor = req.body
+            console.log(newDoctor);
+            // const result = await coffeeCollection.insertOne(newCoffee)
+            // res.send(result)
+        }
+        catch(error){
+            console.log(error)
+        }
+       
     })
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
