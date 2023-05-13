@@ -67,6 +67,11 @@ async function run() {
       const result = await bookingCollection.deleteOne(query)
       res.send(result)
     })
+    // Update a specific information from bookings
+    app.patch('/bookings/:id', async(req,res)=>{
+      const updatedBooking = req.body
+      console.log(updatedBooking)
+    })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
