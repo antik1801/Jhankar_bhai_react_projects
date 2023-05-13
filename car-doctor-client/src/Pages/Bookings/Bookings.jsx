@@ -36,8 +36,10 @@ const Bookings = () => {
                 "Your order has been confirmed.",
                 "success"
               );
-              const updated = bookings.find(booking._id === id)
+              const updated = bookings.find(booking=> booking._id === id)
               updated.status = 'confirm'
+              const newBookings = [updated, ...remaining];
+              setBookings(newBookings)
             }
           });
       }

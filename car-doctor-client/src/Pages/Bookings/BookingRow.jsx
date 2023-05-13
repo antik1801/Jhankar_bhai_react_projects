@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 const BookingRow = ({ booking , handleRender, handleConfirm}) => {
   console.log(booking);
-  const { _id, img, customerName, email, data, service, price } = booking;
+  const { _id, img, customerName, email, data, service, price, status } = booking;
   
   const handleDelete = (id) => {
     console.log(id);
@@ -47,7 +47,9 @@ const BookingRow = ({ booking , handleRender, handleConfirm}) => {
       <td>{email}</td>
       <td>${price}</td>
       <th>
-        <button className="btn btn-ghost btn-xs" onClick={()=>handleConfirm(_id)}>Confirm</button>
+        {
+          status === 'confirm' ? <span className="font-bold text-primary">Confirmed</span> : <button className="btn btn-ghost btn-xs" onClick={()=>handleConfirm(_id)}>Confirm</button>
+        }
         <button
           className="btn btn-circle btn-xs my-auto"
           onClick={() => handleDelete(_id)}
