@@ -4,6 +4,9 @@ import Swal from "sweetalert2";
 const BookingRow = ({ booking , handleRender}) => {
   console.log(booking);
   const { _id, img, customerName, email, data, service, price } = booking;
+  const handleConfirm = id => {
+    console.log(id)
+  }
   const handleDelete = (id) => {
     console.log(id);
     Swal.fire({
@@ -46,7 +49,7 @@ const BookingRow = ({ booking , handleRender}) => {
       <td>{email}</td>
       <td>${price}</td>
       <th>
-        <button className="btn btn-ghost btn-xs">details</button>
+        <button className="btn btn-ghost btn-xs" onClick={()=>handleConfirm(_id)}>Confirm</button>
         <button
           className="btn btn-circle btn-xs my-auto"
           onClick={() => handleDelete(_id)}
