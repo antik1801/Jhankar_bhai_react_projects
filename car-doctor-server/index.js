@@ -69,8 +69,18 @@ async function run() {
     })
     // Update a specific information from bookings
     app.patch('/bookings/:id', async(req,res)=>{
+      const id = req.params.id
       const updatedBooking = req.body
+      const filter = {_id:new ObjectId(id)}
       console.log(updatedBooking)
+      const updatedDoc ={
+      $set:{
+        status: updatedBooking.status,
+      }
+      }
+      const result = await bookingCollection.updateOne(filter, updatedDoc)
+      res.send(result)
+      
     })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
