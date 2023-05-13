@@ -4,13 +4,17 @@ import BookingRow from "./BookingRow";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
+  const [render,setRender] = useState(false)
   const [bookings, setBookings] = useState([]);
+  const handleRender = () =>{
+    setRender(!render)
+  }
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setBookings(data));
-  }, []);
+  }, [render]);
   console.log(bookings);
   return (
     <div>
@@ -31,7 +35,7 @@ const Bookings = () => {
           </thead>
           <tbody>
             {
-                bookings.map(booking => <BookingRow key={booking._id} booking={booking}></BookingRow>)
+                bookings.map(booking => <BookingRow key={booking._id} booking={booking} handleRender={handleRender}></BookingRow>)
             }
             {/* <tr>
               <th></th>
