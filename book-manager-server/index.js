@@ -27,8 +27,16 @@ async function run() {
     const booksCollection = client.db("bookManagement").collection('books')
 
     // insert a book to db
-    
+    app.post("/uploadBook", async(req,res)=>{
+        const newBook = req.body;
+        console.log(data)
 
+    })
+    // Read data from database
+    app.get('/health', (req,res) =>{
+        res.send('All is well')
+    })
+    
 
 
 
