@@ -1,5 +1,5 @@
 const express = require('express')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 const port = process.env.PORT || 5000
 const cors = require('cors')
@@ -26,19 +26,45 @@ async function run() {
     await client.connect();
     const booksCollection = client.db("bookManagement").collection('books')
 
-    // insert a book to db
-    app.post("/uploadBook", async(req,res)=>{
-        const newBook = req.body;
+    //insert
+    app.post('/uploadBooks', async(req,res)=>{
+      try{
+        const data = req.body
         console.log(data)
-
+        const result = await booksCollection.insertOne(data)
+        res.send(result)
+      }
+      catch(error){
+        console.log(error)
+      }
     })
-    // Read data from database
-    app.get('/health', (req,res) =>{
-        res.send('All is well')
+    //get data
+    app.get('/allBooks',async(req,res)=>{
+     try {
+       const cursor = booksCollection.find()
+      const result = await cursor.toArray()
+      res.send(result)
+     } catch (error) {
+      console.log(error)
+     }
+    } )
+    //update data
+    app.patch('/books/:id', async(req,res)=>{
+      const id = req.params.id;
+      console.log(id)
+      const updateBookData = req.body
+      const filter = {_id:new ObjectId(id)}
+      const options = {upsert:true}
+      const updateDoc = {
+        $set:{
+          ...updateBookData,
+        }
+      }
+      const result = await booksCollection.updateOne(filter,updateDoc)
+      res.send(result)
     })
-    
 
-
+  
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
