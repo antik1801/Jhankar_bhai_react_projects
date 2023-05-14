@@ -13,8 +13,14 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "details/:id", element: <BookDetails /> },
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "details/:id",
+        element: <BookDetails />,
+      },
       {
         path: "/dashboard/user/bookmarked",
         element: <BookMarkedBooks />,
@@ -25,10 +31,22 @@ const router = createBrowserRouter([
     path: "/admin/dashboard",
     element: <AdminDashboardLayout />,
     children: [
-      { path: "/admin/dashboard", element: <Dashboard></Dashboard> },
-      { path: "/admin/dashboard/upload", element: <UploadBooks /> },
-      { path: "/admin/dashboard/manage", element: <ManageBooks /> },
-      { path: "/admin/dashboard/edit-books", element: <EditBooks /> },
+      {
+        path: "/admin/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/admin/dashboard/upload",
+        element: <UploadBooks />,
+      },
+      {
+        path: "/admin/dashboard/manage",
+        element: <ManageBooks />,
+      },
+      {
+        path: "/admin/dashboard/edit-books",
+        element: <EditBooks />,
+      },
     ],
   },
 ]);
