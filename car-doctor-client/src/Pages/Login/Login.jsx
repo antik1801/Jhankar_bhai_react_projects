@@ -10,7 +10,7 @@ const Login = () => {
   const location = useLocation()
   let from = location.state?.from?.pathname || "/";
   const handleLogin = event =>{
-    event.preventDefault()
+    event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -19,19 +19,8 @@ const Login = () => {
       const user = result.user;
       // navigate(from, { replace: true });
       const loggedUser = {
-        email: user.email
+        email: user.email,
       }
-      fetch(`http://localhost:5000/jwt`,{
-        method: 'POST',
-        headers:{
-          "content-type": 'application/json',
-        },
-        body: JSON.stringify(loggedUser)
-      })
-      .then(res=> res.json())
-      .then(data=>{
-        console.log("JWT response",data)
-      })
       console.log(loggedUser)
       toast("Login successful")
     })
