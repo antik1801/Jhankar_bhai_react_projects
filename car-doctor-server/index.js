@@ -22,7 +22,19 @@ const client = new MongoClient(uri, {
 
 const varifyJET = (req,res,next) =>{
   console.log('Hitting verify JWT')
-
+  console.log(req.headers.authorization)
+  const authorization = req.headers.authorization
+  if (!authorization) {
+    return res.status(401).send({error: true, message: 'Unauthorized access!'})
+  }
+  const token = authorization.split(' ')[1];
+  console.log('Token inside verify JWT', token)
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error,decoded)=>{
+    if (error) {
+      return res.status(403).send({error: true, message: 'Unauthorized access'})
+    }
+    
+  })
 }
 
 async function run() {
@@ -76,7 +88,7 @@ async function run() {
     // See all the booking collections
     app.get('/bookings', varifyJET,  async (req, res) => {
       try {
-        console.log(req.headers.authorization)
+        // console.log(req.headers.authorization)
         let query = {}
         if (req.query?.email) {
           query = { email: req.query.email }
