@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const BookDetails = () => {
+  useEffect(()=>{
+    fetch()
+  },[])
   return <div>details</div>;
 };
 

@@ -19,7 +19,7 @@ const BookCard = ({book}) => {
           </p>
         </div>
         <div className="card-footer">
-          <Link to="details/34" className="text-decoration-none btn btn-primary">
+          <Link to={`details/${_id}`} className="text-decoration-none btn btn-primary">
             See details
           </Link>
         </div>
