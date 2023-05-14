@@ -27,7 +27,7 @@ async function run() {
     const booksCollection = client.db("bookManagement").collection('books')
 
     //insert
-    app.post('/uploadBooks', async(req,res)=>{
+    app.post('/books', async(req,res)=>{
       try{
         const data = req.body
         console.log(data)
@@ -39,18 +39,19 @@ async function run() {
       }
     })
     //get data
-    app.get('/allBooks',async(req,res)=>{
+    app.get('/books',async(req,res)=>{
      try {
        const cursor = booksCollection.find()
       const result = await cursor.toArray()
       res.send(result)
      } catch (error) {
-      console.log(error)
+      console.log(error.message)
      }
     } )
     //update data
     app.patch('/books/:id', async(req,res)=>{
-      const id = req.params.id;
+      try{
+         const id = req.params.id;
       console.log(id)
       const updateBookData = req.body
       const filter = {_id:new ObjectId(id)}
@@ -62,14 +63,24 @@ async function run() {
       }
       const result = await booksCollection.updateOne(filter,updateDoc)
       res.send(result)
+      }
+      catch(error){
+        res.send(error.message)
+      }
+     
     })
     app.delete('/books/:id', async(req,res)=>{
-      const id = req.params.id;
+      try{
+         const id = req.params.id;
       const query = {_id:new ObjectId(id)}
       const result = await booksCollection.deleteOne(query)
       res.send(result)
+      }
+     catch(err){
+      res.send(err.message)
+     }
     })
-
+    
   
 
     // Send a ping to confirm a successful connection
