@@ -18,9 +18,21 @@ const Login = () => {
     .then(result => {
       const user = result.user;
       // navigate(from, { replace: true });
+      // token generate
       const loggedUser = {
         email: user.email,
       }
+      fetch('http://localhost:5000/jwt',{
+        method: 'POST',
+        headers: {
+          'content-type' : 'application/json',
+        },
+        body: JSON.stringify(loggedUser)
+      })
+      .then(res => res.json())
+      .then(data =>{
+        console.log('JWT Token',data)
+      })
       console.log(loggedUser)
       toast("Login successful")
     })
