@@ -27,13 +27,8 @@ async function run() {
     // MongoDB collections
     const serviceCollection = client.db('carsDoctor').collection('services')
     const bookingCollection = client.db('carsDoctor').collection('bookings')
-    // services related route
-    app.post('/jwt', (req,res)=>{
-      const user = req.body;
-      console.log(user);
-      const token = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn: '1hr' });
-      res.send(token)
-    })
+    // JWT CODES
+
     // Read all the data from database routes
     app.get('/services', async (req, res) => {
       const cursor = serviceCollection.find()
