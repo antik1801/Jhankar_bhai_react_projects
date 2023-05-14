@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import img from "../../assets/images/login/login.svg"
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const {createUser} = useContext(AuthContext)
@@ -15,11 +16,13 @@ const SignUp = () => {
         console.log(name,email,password,confirm)
         createUser(email,password)
         .then(result=>{
+          toast("SignUp successful!")
           const user = result.user;
           console.log(user)
         })
         .catch(error=>{
-          console.log(error)
+          toast(error.message);
+          console.log(error);
         })
       }
     return (

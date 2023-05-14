@@ -28,11 +28,11 @@ const route = createBrowserRouter([
             },
             {
                 path: "/book/:id",
-                element: <BookServices></BookServices>
+                element:<BookServices></BookServices>
             },
             {
                 path: "checkout/:id",
-                element: <Checkout></Checkout>,
+                element: <PrivateRoute><Checkout></Checkout></PrivateRoute>,
                 loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`),
             },
             {

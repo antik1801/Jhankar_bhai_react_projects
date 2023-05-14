@@ -1,16 +1,21 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
-import { Navigate } from 'react-router-dom';
+import { Navigate,  useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const PrivateRoute = ({children}) => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  
    const {user,loading} = useContext(AuthContext)
    if (loading) {
     return <progress className="progress w-56"></progress>;
    }
-   if(user?.email){
+   if(user){
     return children;
    }
-  return <Navigate to={"/login"} replace></Navigate>
+  toast('Please login first!')
+  return <Navigate to={"/login"} state={{from:location }} replace></Navigate>
 
 };
 
