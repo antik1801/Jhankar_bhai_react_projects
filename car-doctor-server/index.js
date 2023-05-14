@@ -33,7 +33,8 @@ const varifyJET = (req,res,next) =>{
     if (error) {
       return res.status(403).send({error: true, message: 'Unauthorized access'})
     }
-    
+    req.decoded = decoded;
+    next();
   })
 }
 
@@ -89,6 +90,7 @@ async function run() {
     app.get('/bookings', varifyJET,  async (req, res) => {
       try {
         // console.log(req.headers.authorization)
+        console.log('Came Back after verify')
         let query = {}
         if (req.query?.email) {
           query = { email: req.query.email }
