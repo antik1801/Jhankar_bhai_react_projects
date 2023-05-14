@@ -59,14 +59,19 @@ async function run() {
     })
     // Read Specific Data from database
     app.get('/services/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) }
-      const options = {
-        // Include only the `title` and `imdb` fields in the returned document
-        projection: { title: 1, price: 1, service_id: 1, img: 1 },
-      };
-      const result = await serviceCollection.findOne(query, options)
-      res.send(result)
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) }
+        const options = {
+          // Include only the `title` and `imdb` fields in the returned document
+          projection: { title: 1, price: 1, service_id: 1, img: 1 },
+        };
+        const result = await serviceCollection.findOne(query, options)
+        res.send(result)
+      } catch (error) {
+        res.send(error.message)
+      }
+    
     })
     // See all the booking collections
     app.get('/bookings', varifyJET,  async (req, res) => {
@@ -84,31 +89,46 @@ async function run() {
     })
     // Add a booking collection
     app.post('/bookings', async (req, res) => {
-      const booking = req.body
-      console.log(booking)
-      const result = await bookingCollection.insertOne(booking)
-      res.send(result)
+      try {
+        const booking = req.body
+        console.log(booking)
+        const result = await bookingCollection.insertOne(booking)
+        res.send(result)
+      } catch (error) {
+        res.send(error.message)
+      }
+     
     })
     // delete a specific item
     app.delete('/bookings/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) }
-      const result = await bookingCollection.deleteOne(query)
-      res.send(result)
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) }
+        const result = await bookingCollection.deleteOne(query)
+        res.send(result)
+      } catch (error) {
+        res.send(error.message)
+      }
+    
     })
     // Update a specific information from bookings
     app.patch('/bookings/:id', async (req, res) => {
-      const id = req.params.id
-      const updatedBooking = req.body
-      const filter = { _id: new ObjectId(id) }
-      console.log(updatedBooking)
-      const updatedDoc = {
-        $set: {
-          status: updatedBooking.status,
+      try {
+        const id = req.params.id
+        const updatedBooking = req.body
+        const filter = { _id: new ObjectId(id) }
+        console.log(updatedBooking)
+        const updatedDoc = {
+          $set: {
+            status: updatedBooking.status,
+          }
         }
+        const result = await bookingCollection.updateOne(filter, updatedDoc)
+        res.send(result)
+      } catch (error) {
+        res.send(error.message)
       }
-      const result = await bookingCollection.updateOne(filter, updatedDoc)
-      res.send(result)
+
 
     })
     // Send a ping to confirm a successful connection
