@@ -11,6 +11,7 @@ const NavBar = () => {
       logout()
       .then(()=>{
       toast('Logout successfull');
+      localStorage.removeItem('car-access-token')
       })
       .catch(error=> console.log(error))
   }

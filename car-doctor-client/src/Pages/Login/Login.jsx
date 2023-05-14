@@ -17,7 +17,7 @@ const Login = () => {
     signIn(email,password)
     .then(result => {
       const user = result.user;
-      // navigate(from, { replace: true });
+      
       // token generate
       const loggedUser = {
         email: user.email,
@@ -32,6 +32,9 @@ const Login = () => {
       .then(res => res.json())
       .then(data =>{
         console.log('JWT Token',data)
+        // Warning: LocalStorage is not the best it is the second best to access the token
+        localStorage.setItem('car-access-token', data.token)
+        navigate(from, { replace: true });
       })
       console.log(loggedUser)
       toast("Login successful")
