@@ -18,26 +18,10 @@ const Login = () => {
     signIn(email,password)
     .then(result => {
       const user = result.user;
-      
+      console.log(user)
+      navigate(from, { replace: true });
       // token generate
-      const loggedUser = {
-        email: user.email,
-      }
-      fetch('http://localhost:5000/jwt',{
-        method: 'POST',
-        headers: {
-          'content-type' : 'application/json',
-        },
-        body: JSON.stringify(loggedUser)
-      })
-      .then(res => res.json())
-      .then(data =>{
-        console.log('JWT Token',data)
-        // Warning: LocalStorage is not the best it is the second best to access the token
-        localStorage.setItem('car-access-token', data.token)
-        navigate(from, { replace: true });
-      })
-      console.log(loggedUser)
+      console.log(user)
       toast("Login successful")
     })
     .catch(error=>{
