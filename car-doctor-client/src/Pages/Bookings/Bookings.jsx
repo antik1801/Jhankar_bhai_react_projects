@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [render, setRender] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const navigate = useNavigate();
   const handleConfirm = (id) => {
     console.log(id);
     Swal.fire({
@@ -57,8 +59,16 @@ const Bookings = () => {
       }
     })
       .then((res) => res.json())
-      .then((data) => setBookings(data));
-  }, [render]);
+      .then((data) => {
+        if (!data.error) {
+          setBookings(data)
+        }
+        else{
+          // logout and then navigate
+          navigate('/');
+        }
+      });
+  }, [render,navigate,url]);
   console.log(bookings);
   return (
     <div>
