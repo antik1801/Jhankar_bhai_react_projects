@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const SocialLogin = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return (
+    <div>
+      <div className="divider">OR</div>
+      <div className="text-center">
+        <button className="btn btn-circle btn-outline">
+          G
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default SocialLogin;

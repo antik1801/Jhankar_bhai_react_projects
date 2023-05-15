@@ -3,6 +3,7 @@ import img from "../../assets/images/login/login.svg"
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const {signIn} = useContext(AuthContext);
@@ -87,6 +88,7 @@ const Login = () => {
             </div>
             </form>
             <p className="my-4 text-center">New to car doctors <Link to="/signup" className="text-orange-400 font-bold">Sign Up</Link> </p>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>
