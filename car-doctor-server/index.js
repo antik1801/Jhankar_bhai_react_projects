@@ -20,23 +20,21 @@ const client = new MongoClient(uri, {
   }
 });
 
-const varifyJET = (req,res,next) =>{
-  console.log('Hitting verify JWT')
-  console.log(req.headers.authorization)
-  const authorization = req.headers.authorization
+const varifyJWT = (req,res,next) =>{
+  const authorization = req.headers.authorization;
   if (!authorization) {
-    return res.status(401).send({error: true, message: 'Unauthorized access!'})
+    return res.status(401).send({error:true,message:"Unauthorized access"})
   }
-  const token = authorization.split(' ')[1];
-  console.log('Token inside verify JWT', token)
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error,decoded)=>{
-    if (error) {
-      return res.status(403).send({error: true, message: 'Unauthorized access'})
+  const token = authorization.split(" ")[1]
+  jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, (err,decoded)=>{
+    if (err) {
+      return res.status(401).send({error: true, message:"Unauthorized access"})
     }
     req.decoded = decoded;
     next();
   })
 }
+
 
 async function run() {
   try {
@@ -87,10 +85,10 @@ async function run() {
     
     })
     // See all the booking collections
-    app.get('/bookings', varifyJET,  async (req, res) => {
+    app.get('/bookings',varifyJWT, async (req, res) => {
       try {
-        // console.log(req.headers.authorization)
-        console.log('Came Back after verify')
+        const decoded = req.decoded
+        console.log('Came Back after verify',decoded)
         let query = {}
         if (req.query?.email) {
           query = { email: req.query.email }
