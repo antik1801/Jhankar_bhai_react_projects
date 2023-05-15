@@ -1,10 +1,11 @@
 import React from "react";
 import Swal from "sweetalert2";
 
-const BookingRow = ({ booking , handleRender, handleConfirm}) => {
+const BookingRow = ({ booking, handleRender, handleConfirm }) => {
   console.log(booking);
-  const { _id, img, customerName, email, data, service, price, status } = booking;
-  
+  const { _id, img, customerName, email, data, service, price, status } =
+    booking;
+
   const handleDelete = (id) => {
     console.log(id);
     Swal.fire({
@@ -17,9 +18,12 @@ const BookingRow = ({ booking , handleRender, handleConfirm}) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://car-doctor-server-liard-alpha.vercel.app/bookings/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -47,9 +51,16 @@ const BookingRow = ({ booking , handleRender, handleConfirm}) => {
       <td>{email}</td>
       <td>${price}</td>
       <th>
-        {
-          status === 'confirm' ? <span className="font-bold text-primary">Confirmed</span> : <button className="btn btn-ghost btn-xs" onClick={()=>handleConfirm(_id)}>Confirm</button>
-        }
+        {status === "confirm" ? (
+          <span className="font-bold text-primary">Confirmed</span>
+        ) : (
+          <button
+            className="btn btn-ghost btn-xs"
+            onClick={() => handleConfirm(_id)}
+          >
+            Confirm
+          </button>
+        )}
         <button
           className="btn btn-circle btn-xs my-auto"
           onClick={() => handleDelete(_id)}

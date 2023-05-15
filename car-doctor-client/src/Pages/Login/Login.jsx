@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const {signIn} = useContext(AuthContext);
+  const {signIn,user} = useContext(AuthContext);
   const navigate = useNavigate()
   const location = useLocation()
   let from = location.state?.from?.pathname || "/";

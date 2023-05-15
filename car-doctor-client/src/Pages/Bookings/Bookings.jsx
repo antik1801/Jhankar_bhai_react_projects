@@ -21,13 +21,16 @@ const Bookings = () => {
       confirmButtonText: "Yes, confirm it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}`, {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ status: "confirm" }),
-        })
+        fetch(
+          `https://car-doctor-server-liard-alpha.vercel.app/bookings/${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ status: "confirm" }),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
@@ -38,10 +41,10 @@ const Bookings = () => {
                 "Your order has been confirmed.",
                 "success"
               );
-              const updated = bookings.find(booking=> booking._id === id)
-              updated.status = 'confirm'
+              const updated = bookings.find((booking) => booking._id === id);
+              updated.status = "confirm";
               const newBookings = [updated, ...remaining];
-              setBookings(newBookings)
+              setBookings(newBookings);
             }
           });
       }
@@ -50,25 +53,24 @@ const Bookings = () => {
   const handleRender = () => {
     setRender(!render);
   };
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const url = `https://car-doctor-server-liard-alpha.vercel.app/bookings?email=${user?.email}`;
   useEffect(() => {
-    fetch(url,{
-      method: 'GET',
+    fetch(url, {
+      method: "GET",
       headers: {
-        authorization: `Bearer ${localStorage.getItem('car-access-token')}`,
-      }
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
         if (!data.error) {
-          setBookings(data)
-        }
-        else{
+          setBookings(data);
+        } else {
           // logout and then navigate
-          navigate('/');
+          navigate("/");
         }
       });
-  }, [render,navigate,url]);
+  }, [render, navigate, url]);
   console.log(bookings);
   return (
     <div>

@@ -41,9 +41,9 @@ const AuthProvider = ({ children }) => {
       console.log("Current User", currentUser);
       if (currentUser && currentUser.email) {
         const loggedUser = {
-            email: currentUser.email,
-          }
-        fetch("http://localhost:5000/jwt", {
+          email: currentUser.email,
+        };
+        fetch("https://car-doctor-server-liard-alpha.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -56,9 +56,8 @@ const AuthProvider = ({ children }) => {
             // Warning: LocalStorage is not the best it is the second best to access the token
             localStorage.setItem("car-access-token", data.token);
           });
-      }
-      else{
-        localStorage.removeItem('car-access-token')
+      } else {
+        localStorage.removeItem("car-access-token");
       }
     });
     return () => {
