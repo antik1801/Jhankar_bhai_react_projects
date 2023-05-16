@@ -33,7 +33,11 @@ async function run() {
     })
     // Read all services
     app.get('/services', async(req,res)=>{
-        const result = await serviceCollection.find().toArray()
+        let query = {}
+        if (req.query?.email) {
+            query={email: req.query.email}
+        }
+        const result = await serviceCollection.find(query).toArray()
         res.send(result)
     })
     // Add data to the service
@@ -60,7 +64,14 @@ async function run() {
         const result = await serviceCollection.updateOne(filter,updateService)
         res.send(result)
     })
-    
+    app.delete('/services/:id', async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)}
+        const result = await serviceCollection.deleteOne
+        (query)
+        res.send(result)
+    })
+
 
 
     // Send a ping to confirm a successful connection
