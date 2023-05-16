@@ -12,22 +12,28 @@ import { Link, useLoaderData } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const {totalProducts} = useLoaderData()
-  const itemsPerPage = 10; // TODO ITEMS
+  const [currentPage, setCurrentPage] = useState(0)
+  const {totalProducts} = useLoaderData();
+  const [itemsPerPage, setItemsPerPage] = useState(10)
+  // console.log(totalProducts);
+  // const itemsPerPage = 10; // TODO ITEMS
   const totalPages = Math.ceil(totalProducts / itemsPerPage);
-  // const pageNumbers = [];
+  // let pageNumbers = [];
   // for (let i = 1; i <= totalPages; i++) {
   //   pageNumbers.push(i);
   // } 
 
   const pageNumbers = [...Array(totalPages)?.keys()]
+ 
+  // console.log(pageNumbers)
   /*
     pagination steps:
     1. determine the total number of content inside database - done
     2. decide the number of items per page - (temporary)
     3. determine the total number of pages - done
     4. create the pagination buttons
-
+    5. Determine the current page
+    6. 
   */
   useEffect(() => {
     fetch("http://localhost:5000/products")
@@ -79,7 +85,11 @@ const Shop = () => {
     setCart([]);
     deleteShoppingCart();
   };
-
+  const options = [5,10,20]
+  const handleSelectChange = event =>{
+    setItemsPerPage(parseInt(event.target.value))
+    setCurrentPage(0)
+  }
   return (
     <>
     <div className="shop-container">
@@ -102,9 +112,23 @@ const Shop = () => {
     </div>
     {/* Pagination */}
     <div className="pagination">
+      <p>Current page no: {currentPage}</p>
       {
-        pageNumbers.map(number => <button key={number}>{number}</button>)
+        pageNumbers.map(number => 
+        <button 
+        key={number}
+        className={currentPage === number ? 'selected' : ' '}
+        onClick={()=>setCurrentPage(number)}
+        >{number}</button>)
       }
+      <select value={itemsPerPage} onChange={handleSelectChange}>
+        {
+          options.map(option => ( 
+          <option key={option} value={option}>
+            {option}
+          </option> ))
+        }
+      </select>
     </div>
     </>
   );
