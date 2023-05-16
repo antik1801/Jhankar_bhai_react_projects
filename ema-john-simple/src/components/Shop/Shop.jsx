@@ -20,8 +20,7 @@ const Shop = () => {
   //   pageNumbers.push(i);
   // } 
 
-  const pageNumbers = [...Array(totalPages).keys()]
-  
+  const pageNumbers = [...Array(totalPages)?.keys()]
   /*
     pagination steps:
     1. determine the total number of content inside database - done
