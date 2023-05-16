@@ -5,7 +5,7 @@ const cartProductsLoader = async () => {
     const storedCart = getShoppingCart();
     const ids = Object.keys(storedCart)
 
-    console.log(ids);
+    // console.log(ids);
     const loadedProducts = await fetch(`http://localhost:5000/productsById`,{
         method: 'POST',
         headers: {
@@ -14,7 +14,7 @@ const cartProductsLoader = async () => {
         body: JSON.stringify(ids)
     });
     const products = await loadedProducts.json();
-
+    // console.log("Products by ID",products)
     
 
     const savedCart = [];
