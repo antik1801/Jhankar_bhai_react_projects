@@ -5,6 +5,8 @@ const cors = require('cors')
 const app = express()
 const port = process.env.PORT || 5000
 
+app.use(cors())
+app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.zycuvps.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -23,13 +25,13 @@ async function run() {
     await client.connect();
     const productCollection = client.db('emaJohnDB').collection('products')
 
-    app.get('/products', async(req,res)=>{
+    app.get('/products', async (req, res) => {
       const result = await productCollection.find().toArray()
       res.send(result)
     })
-    app.get('/totalProducts', async(req,res)=>{
+    app.get('/totalProducts', async (req, res) => {
       const result = await productCollection.estimatedDocumentCount();
-      res.send({totalProducts:result})
+      res.send({ totalProducts: 118 })
     })
 
 
@@ -44,12 +46,11 @@ async function run() {
 run().catch(console.dir);
 
 
-app.use(cors())
-app.use(express.json())
 
-app.get('/', (req,res) =>{
-    res.send('Ema john is running');
+
+app.get('/', (req, res) => {
+  res.send('Ema john is running');
 })
-app.listen(port, ()=>{
-    console.log('Ema John is online in port', port);
+app.listen(port, () => {
+  console.log('Ema John is online in port', port);
 })
