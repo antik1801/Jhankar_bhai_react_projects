@@ -13,7 +13,11 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const {totalProducts} = useLoaderData()
-  
+  /*
+    pagination steps:
+    1. determine the total number of content inside database - done
+    2. 
+  */
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
