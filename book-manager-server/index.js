@@ -35,7 +35,7 @@ async function run() {
         res.send(result)
       }
       catch(error){
-        console.log(error.message)
+        console.log(error.message  )
       }
     })
     //get data
