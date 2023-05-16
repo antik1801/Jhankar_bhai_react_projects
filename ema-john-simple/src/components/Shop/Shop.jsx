@@ -13,10 +13,22 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const {totalProducts} = useLoaderData()
+  const itemsPerPage = 10; // TODO ITEMS
+  const totalPages = Math.ceil(totalProducts / itemsPerPage);
+  // const pageNumbers = [];
+  // for (let i = 1; i <= totalPages; i++) {
+  //   pageNumbers.push(i);
+  // } 
+
+  const pageNumbers = [...Array(totalPages).keys()]
+  
   /*
     pagination steps:
     1. determine the total number of content inside database - done
-    2. 
+    2. decide the number of items per page - (temporary)
+    3. determine the total number of pages - done
+    4. create the pagination buttons
+
   */
   useEffect(() => {
     fetch("http://localhost:5000/products")
@@ -70,6 +82,7 @@ const Shop = () => {
   };
 
   return (
+    <>
     <div className="shop-container">
       <div className="products-container">
         {products.map((product) => (
@@ -88,6 +101,13 @@ const Shop = () => {
         </Cart>
       </div>
     </div>
+    {/* Pagination */}
+    <div className="pagination">
+      {
+        pageNumbers.map(number => <button key={number}>{number}</button>)
+      }
+    </div>
+    </>
   );
 };
 
