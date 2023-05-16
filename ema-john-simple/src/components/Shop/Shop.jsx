@@ -33,14 +33,14 @@ const Shop = () => {
     3. determine the total number of pages - done
     4. create the pagination buttons
     5. Determine the current page
-    6. 
+    6. Load api data - 
   */
-  useEffect(() => {
-    fetch("http://localhost:5000/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
-
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/products")
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts(data));
+  // }, []);
+  
   useEffect(() => {
     const storedCart = getShoppingCart();
     const savedCart = [];
@@ -60,6 +60,15 @@ const Shop = () => {
     // step 5: set the cart
     setCart(savedCart);
   }, [products]);
+
+  useEffect(()=>{
+    async function fetchData(){
+      const response = await fetch(`http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`);
+      const data = await response.json()
+      setProducts(data)
+    }
+    fetchData();
+  },[currentPage, itemsPerPage])
 
   const handleAddToCart = (product) => {
     // cart.push(product); '
