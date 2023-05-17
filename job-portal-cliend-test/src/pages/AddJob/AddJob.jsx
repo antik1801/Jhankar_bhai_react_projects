@@ -14,20 +14,8 @@ const AddJob = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    data.skills = selectedOption;
+  const onSubmit = (data) => console.log(data);
 
-    fetch("http://localhost:5000/post-job", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      });
-    console.log(data);
-  };
   const options = [
     { value: "JavaScript", label: "JavaScript" },
     { value: "C++", label: "C++" },
@@ -38,7 +26,7 @@ const AddJob = () => {
     { value: "MongoDB", label: "MongoDB" },
     { value: "Redux", label: "Redux" },
   ];
-//   console.log(user);
+  //   console.log(user);
   return (
     <div className="add-job-container">
       <div className="add-job row">
@@ -70,6 +58,9 @@ const AddJob = () => {
               <option value="writer">Writer</option>
               <option value="Developer">Developer</option>
             </select>
+
+            
+
             <select className="text-input" {...register("status")}>
               <option value="remote">Remote</option>
               <option value="offline">Offline</option>
