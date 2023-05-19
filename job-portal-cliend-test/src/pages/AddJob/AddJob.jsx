@@ -3,7 +3,11 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./AddJob.css";
 import CreatableSelect from "react-select/creatable";
+// import Select from "react-select";
 import { AuthContext } from "../../provider/AuthProvider";
+
+
+
 const AddJob = () => {
   const { user } = useContext(AuthContext);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -14,7 +18,10 @@ const AddJob = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) =>{
+    data.skills = selectedOption;  
+    console.log(data)
+  };
 
   const options = [
     { value: "JavaScript", label: "JavaScript" },
@@ -26,7 +33,7 @@ const AddJob = () => {
     { value: "MongoDB", label: "MongoDB" },
     { value: "Redux", label: "Redux" },
   ];
-  //   console.log(user);
+    // console.log(user);
   return (
     <div className="add-job-container">
       <div className="add-job row">
@@ -59,12 +66,18 @@ const AddJob = () => {
               <option value="Developer">Developer</option>
             </select>
 
-            
-
             <select className="text-input" {...register("status")}>
               <option value="remote">Remote</option>
               <option value="offline">Offline</option>
             </select>
+
+            <CreatableSelect
+              
+              defaultValue={selectedOption}
+              onChange={setSelectedOption}
+              options={options}
+              isMulti
+            />
             <input
               className="text-input"
               {...register("image")}
@@ -85,13 +98,13 @@ const AddJob = () => {
               placeholder="your email"
               type="email"
             />
-            <CreatableSelect
+            {/* <CreatableSelect
               className="w-75"
               defaultValue={selectedOption}
               onChange={setSelectedOption}
               options={options}
               isMulti
-            />
+            /> */}
             <input
               className="text-input"
               {...register("description")}
