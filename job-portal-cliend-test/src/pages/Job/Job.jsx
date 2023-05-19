@@ -6,6 +6,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 const Job = ({ job }) => {
   const {
+    _id,
     title,
     salary,
     deadline,
@@ -16,7 +17,11 @@ const Job = ({ job }) => {
     skills,
     vacancy,
   } = job || {};
+  const handleApply = (id) => {
+    console.log(id);
+  };
   return (
+    <>
     <div className="job col-md-12 col-sm-12 col-lg-6 ">
       <div className="row d-flex justify-content-center align-items-center single-card">
         <div className="col-md-4">
@@ -30,8 +35,10 @@ const Job = ({ job }) => {
           <h2>{title}</h2>
           <p>{description}</p>
           <div className="all-skils d-flex  flex-wrap justify-content-around align-items-center">
-            {skills?.map((skill) => (
-              <button className="bg-dark text-white p-1">{skill?.value}</button>
+            {skills?.map((skill, index) => (
+              <button key={index} className="bg-dark text-white p-1">
+                {skill?.value}
+              </button>
             ))}
           </div>
           <div className="card-footer text-start p-4 mt-3 d-flex justify-content-between ">
@@ -43,13 +50,37 @@ const Job = ({ job }) => {
             <p>Category: {category}</p>
           </div>
           <div className="text-end">
-            <button>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              className="btn btn-primary"
+              onClick={() => handleApply(_id)}
+            >
               Apply <FaArrowRight />
             </button>
           </div>
         </div>
       </div>
     </div>
+    {/* Modals Open */}
+    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+        ...
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </>
   );
 };
 
