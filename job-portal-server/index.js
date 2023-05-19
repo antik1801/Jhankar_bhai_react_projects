@@ -38,10 +38,15 @@ async function run() {
             }
         })
         // Find all jobs 
-        app.get('/allJobs', async(req,res)=>{
+        app.get('/allJobs/:text', async(req,res)=>{
             try {
-                const result = await jobCollection.find().toArray();
-                res.send(result)
+                console.log(req.params.text);
+                if (req.params.text == 'remote' || req.params.text=='offline') {
+                    const result = await jobCollection.find({category: req.params.text}).toArray()
+                    return res.send(result)
+                }
+                // const result = await jobCollection.find().toArray();
+                // res.send(result)
             } catch (error) {
                 res.send(error.message)
             }
