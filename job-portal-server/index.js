@@ -28,6 +28,7 @@ async function run() {
         app.post('/postjob', async (req, res) => {
             try {
                 const body = req.body;
+                body.createAt = new Date();
                 const result = await jobCollection.insertOne(body);
                 res.send(result);
             } catch (error) {
@@ -38,10 +39,10 @@ async function run() {
         app.get('/allJobs/:text', async(req,res)=>{
             try {
                 if (req.params.text == 'remote' || req.params.text=='offline') {
-                    const result = await jobCollection.find({status: req.params.text}).toArray()
+                    const result = await jobCollection.find({status: req.params.text}).sort({createAt: -1}).toArray()
                     return res.send(result)
                 }
-                const result = await jobCollection.find({}).toArray();
+                const result = await jobCollection.find({}).sort({createAt: -1}).toArray();
                 res.send(result);
 
             } catch (error) {
