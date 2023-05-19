@@ -5,9 +5,6 @@ const cors = require('cors')
 const app = express()
 const port = process.env.PORT || 5000
 
-// jobPortal
-// HcrRl8ARJuyjxYI4
-
 app.use(cors())
 app.use(express.json())
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zycuvps.mongodb.net/?retryWrites=true&w=majority`;
@@ -40,13 +37,13 @@ async function run() {
         // Find all jobs 
         app.get('/allJobs/:text', async(req,res)=>{
             try {
-                console.log(req.params.text);
                 if (req.params.text == 'remote' || req.params.text=='offline') {
-                    const result = await jobCollection.find({category: req.params.text}).toArray()
+                    const result = await jobCollection.find({status: req.params.text}).toArray()
                     return res.send(result)
                 }
-                // const result = await jobCollection.find().toArray();
-                // res.send(result)
+                const result = await jobCollection.find({}).toArray();
+                res.send(result);
+
             } catch (error) {
                 res.send(error.message)
             }
