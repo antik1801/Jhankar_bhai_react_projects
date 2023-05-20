@@ -24,6 +24,17 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
         const jobCollection = client.db('jobDB').collection('jobs')
+        // indexing
+        const indexKeys = {title: 1, category: 1}
+        const indexOptions = {name : 'titleCategory' }
+
+        const result = await jobCollection.createIndex(indexKeys,indexOptions)
+
+        // search field
+        
+
+
+
         // Add a Job
         app.post('/postjob', async (req, res) => {
             try {
@@ -48,7 +59,28 @@ async function run() {
             } catch (error) {
                 res.send(error.message)
             }
+
         })
+
+        app.get('/myJobs/:email', async(req,res)=>{
+            try {
+                console.log(req.params.email)
+                const result = await jobCollection.find({postedBy: req.params.email}).toArray()
+                res.send(result)
+            } catch (error) {
+                res.send(error.message)
+            }
+           
+        })
+        // server side indexing
+
+
+
+
+
+
+
+
         //
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
