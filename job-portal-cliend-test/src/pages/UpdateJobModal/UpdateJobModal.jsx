@@ -2,8 +2,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useForm } from "react-hook-form";
 
 const UpdateJobModal = (props) => {
@@ -16,7 +16,8 @@ const UpdateJobModal = (props) => {
 
   const { handleJobUpdate } = props;
   //   console.log(handleJobUpdate);
-  return (
+  return ( 
+    <>
     <Modal
       {...props}
       size="lg"
@@ -93,10 +94,11 @@ const UpdateJobModal = (props) => {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        {/* <Button onClick={props.onHide}>Close</Button> */}
-        {/* <button className="bg-danger">Update</button> */}
+        <Button onClick={props.onHide}>Close</Button>
+        <button className="bg-danger">Update</button>
       </Modal.Footer>
     </Modal>
+    </>
   );
 };
 

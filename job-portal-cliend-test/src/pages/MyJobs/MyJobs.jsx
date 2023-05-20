@@ -26,7 +26,7 @@ const MyJobs = () => {
       });
   }, [user, control]);
   const handleSearch = () => {
-    fetch(`http://localhost:5000/getJobsByText/${searchText}`)
+    fetch(`http://localhost:5000/jobSearchByTitle/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -84,13 +84,13 @@ const MyJobs = () => {
                 <td>{job.salary}</td>
                 <td>
                   <Button variant="primary" onClick={() => setModalShow(true)}>
-                    Edit
+                    Launch vertically centered modal
                   </Button>
+
                   <UpdateJobModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     job={job}
-                    handleJobUpdate={handleJobUpdate}
                   />
                 </td>
                 <td>
