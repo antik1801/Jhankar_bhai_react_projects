@@ -25,13 +25,27 @@ async function run() {
         await client.connect();
         const jobCollection = client.db('jobDB').collection('jobs')
         // indexing
-        const indexKeys = {title: 1, category: 1}
-        const indexOptions = {name : 'titleCategory' }
+        const indexKeys = { title: 1, category: 1 }
+        const indexOptions = { name: 'titleCategory' }
 
-        const result = await jobCollection.createIndex(indexKeys,indexOptions)
+        const result = await jobCollection.createIndex(indexKeys, indexOptions)
 
         // search field
-        
+        app.get('/jobSearchByTitle/:text', async (req, res) => {
+            try {
+                const searchText = req.params.text;
+            const result = await jobCollection.find({
+                $or: [
+                    { title: { $regex: searchText, $options: "i" } },
+                    { category: { $regex: searchText, $options: "i" } },
+                ]
+            }).toArray();
+            res.send(result)
+            } catch (error) {
+                res.send(error.message)
+            }
+            
+        })
 
 
 
@@ -47,13 +61,13 @@ async function run() {
             }
         })
         // Find all jobs 
-        app.get('/allJobs/:text', async(req,res)=>{
+        app.get('/allJobs/:text', async (req, res) => {
             try {
-                if (req.params.text == 'remote' || req.params.text=='offline') {
-                    const result = await jobCollection.find({status: req.params.text}).sort({createAt: -1}).toArray()
+                if (req.params.text == 'remote' || req.params.text == 'offline') {
+                    const result = await jobCollection.find({ status: req.params.text }).sort({ createAt: -1 }).toArray()
                     return res.send(result)
                 }
-                const result = await jobCollection.find({}).sort({createAt: -1}).toArray();
+                const result = await jobCollection.find({}).sort({ createAt: -1 }).toArray();
                 res.send(result);
 
             } catch (error) {
@@ -62,15 +76,15 @@ async function run() {
 
         })
 
-        app.get('/myJobs/:email', async(req,res)=>{
+        app.get('/myJobs/:email', async (req, res) => {
             try {
                 console.log(req.params.email)
-                const result = await jobCollection.find({postedBy: req.params.email}).toArray()
+                const result = await jobCollection.find({ postedBy: req.params.email }).toArray()
                 res.send(result)
             } catch (error) {
                 res.send(error.message)
             }
-           
+
         })
         // server side indexing
 
