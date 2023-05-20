@@ -34,21 +34,9 @@ const MyJobs = () => {
       });
   };
 
-  const handleJobUpdate = (data) => {
-    console.log(data);
-    fetch(`http://localhost:5000/updateJob/${data._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.modifiedCount > 0) {
-          setControl(!control);
-        }
-        console.log(result);
-      });
-  };
+  const handleJobUpdate = (data) =>{
+    console.log(data)
+  }
 
   return (
     <div>
@@ -84,13 +72,14 @@ const MyJobs = () => {
                 <td>{job.salary}</td>
                 <td>
                   <Button variant="primary" onClick={() => setModalShow(true)}>
-                    Launch vertically centered modal
+                    Edit
                   </Button>
 
                   <UpdateJobModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     job={job}
+                    handleJobUpdate={handleJobUpdate}
                   />
                 </td>
                 <td>
