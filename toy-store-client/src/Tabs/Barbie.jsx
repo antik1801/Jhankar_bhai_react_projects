@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Barbie = () => {
   const [barbies, setBaebies] = useState([]);
-  const url = `http://localhost:5000/category?subCategory=${"barbie"}`;
+  const url = `https://toy-store-server-ashy.vercel.app/category?subCategory=${"barbie"}`;
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())

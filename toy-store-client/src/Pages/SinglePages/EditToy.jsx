@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { toast } from "react-toastify";
-import Select from "react-select";
-
+import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../ContextProviders/AuthProviders";
+import Select from "react-select";
+import Swal from "sweetalert2";
 
 const subCategoryOptions = [
   { value: "astronut", label: "Astronut" },
@@ -21,11 +21,12 @@ const mainCategoryOptions = [
   { value: "cartoon", label: "Cartoon" },
 ];
 
-const AddAToy = () => {
+const EditToy = () => {
   const [subCategory, setSubCategoryOption] = useState(null);
   const [mainCategory, setMainCategory] = useState(null);
+  const singleToy = useLoaderData();
   const { user } = useContext(AuthContext);
-  const handleAddToy = (event) => {
+  const handleEditToy = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -51,31 +52,47 @@ const AddAToy = () => {
       mainCategory,
     };
     console.log(toy);
-    fetch("https://toy-store-server-ashy.vercel.app/addToy", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(toy),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          toast("A new toy inserted");
-          form.reset();
-        }
-        console.log(data);
-      });
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        fetch(
+          `https://toy-store-server-ashy.vercel.app/updateToy/${singleToy._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(toy),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount > 0) {
+              Swal.fire("Your edited has changed", "", "success");
+              console.log(data);
+            }
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   };
   return (
     <div>
-      <p className="text-xl font-bold text-center  mt-10">Add a Product</p>
-      <form className="flex justify-center" onSubmit={handleAddToy}>
+      <p className="text-xl font-bold text-center  mt-10">Edit Product</p>
+      <form className="flex justify-center" onSubmit={handleEditToy}>
         <div className="w-2/3 space-y-6 border-2 p-10 my-16">
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="text"
               name="name"
+              defaultValue={singleToy.name}
               id="floating_email"
               className="block py-2.5 px-2 w-full text-sm  appearance-none text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -92,6 +109,7 @@ const AddAToy = () => {
             <input
               type="text"
               name="photo"
+              defaultValue={singleToy.photo}
               id="floating_password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -108,6 +126,7 @@ const AddAToy = () => {
             <input
               type="text"
               name="description"
+              defaultValue={singleToy.description}
               id="floating_repeat_password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -159,6 +178,7 @@ const AddAToy = () => {
               <input
                 type="text"
                 name="price"
+                defaultValue={singleToy.price}
                 id="floating_phone"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -175,6 +195,7 @@ const AddAToy = () => {
               <input
                 type="number"
                 name="rating"
+                defaultValue={singleToy.rating}
                 id="floating_company"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -191,6 +212,7 @@ const AddAToy = () => {
               <input
                 type="text"
                 name="quantity"
+                defaultValue={singleToy.quantity}
                 id="floating_company"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -268,4 +290,4 @@ const AddAToy = () => {
   );
 };
 
-export default AddAToy;
+export default EditToy;

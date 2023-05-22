@@ -4,24 +4,27 @@ import "react-tabs/style/react-tabs.css";
 import Barbie from "../Tabs/Barbie";
 import Anime from "../Tabs/Anime";
 import Cars from "../Tabs/Cars";
+import Education from "./Education";
+import Extertainment from "./Extertainment";
+import Cartoon from "./Cartoon";
 const TabCategory = () => {
   return (
     <div className="mx-20">
       <p className="text-center text-3xl font-semibold text-gray-600">Toy Categories</p>
       <Tabs>
         <TabList>
-          <Tab>Barbie Category</Tab>
-          <Tab>Anime Category</Tab>
-          <Tab>Cars Collection</Tab>
+          <Tab>Education</Tab>
+          <Tab>Entertainment</Tab>
+          <Tab>Cartoon</Tab>
         </TabList>
         <TabPanel>
-          <Barbie></Barbie>
+          <Education></Education>
         </TabPanel>
         <TabPanel>
-          <Anime></Anime>
+          <Extertainment></Extertainment>
         </TabPanel>
          <TabPanel>
-          <Cars></Cars>
+          <Cartoon></Cartoon>
         </TabPanel>
       </Tabs>
     </div>

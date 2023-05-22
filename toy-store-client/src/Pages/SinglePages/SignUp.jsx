@@ -9,7 +9,7 @@ const SignUp = () => {
     const {createUser,userUpdate} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/login"
+    const from = location.state?.from?.pathname || "/login";
     const handleRegister = event =>{
         event.preventDefault()
         const form = event.target;
@@ -23,7 +23,7 @@ const SignUp = () => {
             updateNameAndPhoto(user, name, photo);
             toast('User created')
             console.log(user);
-            navigate("/", {replace:true});
+            navigate(from, {replace:true});
         })
         .catch(err=>{
             toast(err.message)

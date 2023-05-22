@@ -2,28 +2,35 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../ContextProviders/AuthProviders";
 import SingleRows from "./SingleRows";
 import { useLoaderData } from "react-router-dom";
+import SingleRowsForMyToys from "./SingleRowsForMyToys";
 
 const MyToys = () => {
   const [myToys, setMyToys] = useState([]);
-//   const [itemsPerPage, setItemsPerPage] = useState(10);
-//   const [currentPage, setCurrentPage] = useState(0);
-//   const { totalToys } = useLoaderData();
-//   const totalPages = Math.ceil(totalToys / itemsPerPage);
-//   const pageNumbers = [...Array(totalPages)?.keys()];
+  const [controll,setControll] = useState(false);
+  //   const [itemsPerPage, setItemsPerPage] = useState(10);
+  //   const [currentPage, setCurrentPage] = useState(0);
+  //   const { totalToys } = useLoaderData();
+  //   const totalPages = Math.ceil(totalToys / itemsPerPage);
+  //   const pageNumbers = [...Array(totalPages)?.keys()];
   const { user } = useContext(AuthContext);
-  console.log(user.email)
+  console.log(user.email);
   useEffect(() => {
-    fetch(`http://localhost:5000/sellerItems?email=${user?.email}`)
+    fetch(
+      `https://toy-store-server-ashy.vercel.app/sellerItems?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setMyToys(data);
       });
-  }, []);
-//   const options = [5,10]
-//   const handleSelectChange = (event) => {
-//     setItemsPerPage(parseInt(event.target.value));
-//     setCurrentPage(0);
-//   };
+  }, [controll]);
+  const handleControll = () =>{
+    setControll(!controll)
+  }
+  //   const options = [5,10]
+  //   const handleSelectChange = (event) => {
+  //     setItemsPerPage(parseInt(event.target.value));
+  //     setCurrentPage(0);
+  //   };
   return (
     <div className="mx-10">
       <div className="overflow-x-auto w-full">
@@ -35,16 +42,21 @@ const MyToys = () => {
               <th>Name</th>
               <th>Seller</th>
               <th>Seller Email</th>
+              <th>Category</th>
               <th>Sub Category</th>
               <th>price</th>
               <th>Quantity</th>
-              <th>Option</th>
+              <th className="text-center">Option</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
             {myToys.map((toy) => (
-              <SingleRows key={toy._id} toy={toy}></SingleRows>
+              <SingleRowsForMyToys
+                key={toy._id}
+                toy={toy}
+                handleControll={handleControll}
+              ></SingleRowsForMyToys>
             ))}
           </tbody>
           {/* foot */}
