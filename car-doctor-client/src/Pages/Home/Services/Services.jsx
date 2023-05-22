@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import ServiceCart from "./ServiceCart";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState([])
+  const [asc,setAsc] = useState(true);
   useEffect(() => {
-    fetch("https://car-doctor-server-liard-alpha.vercel.app/services")
+    fetch(`http://localhost:5000/services?sort=${asc ? 'asc' : 'dsc'}`)
       .then((res) => res.json())
       .then((data) => setServices(data));
-  }, []);
+  }, [asc]);
   return (
     <div>
       <div className="text-center">
@@ -18,6 +19,7 @@ const Services = () => {
           humour, or randomised words <br /> which don{"'"}t look even slightly
           believable.{" "}
         </p>
+        <button className="btn btn-primary" onClick={()=>setAsc(!asc)}>{asc ? 'Price Hight to low' : 'Price Low to High'}</button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service) => (
