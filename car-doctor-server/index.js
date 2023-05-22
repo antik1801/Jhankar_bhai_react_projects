@@ -62,7 +62,7 @@ async function run() {
       try {
         const sort = req.query.sort;
         // const query = {}
-        const query = { price: { $nin: [30, 200] } } || {}
+        const query = {}
         const options = {
           sort: { price: sort === 'asc' ? 1 : -1 },
         }
