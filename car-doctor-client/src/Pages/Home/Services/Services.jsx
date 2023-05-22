@@ -8,10 +8,10 @@ const Services = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services?sort=${asc ? "asc" : "dsc"}`)
+    fetch(`http://localhost:5000/services?sort=${asc ? "asc" : "dsc"}&search=${search}`)
       .then((res) => res.json())
       .then((data) => setServices(data));
-  }, [asc]);
+  }, [asc,search]);
 
   const handleSearch = () =>{
     console.log(searchRef.current.value);
