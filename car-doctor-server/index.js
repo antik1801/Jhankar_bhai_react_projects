@@ -63,7 +63,13 @@ async function run() {
         const sort = req.query.sort;
         const search = req.query.search;
         // const query = {}
-        db.InspirationalWomen.find({first_name: { $regex: /Harriet/i} })
+        // db.InspirationalWomen.find({first_name: { $regex: /Harriet/i} })
+        const query = {
+          "title": {
+             "$regex": search,
+             "$options": "i"
+          }
+       }
         const options = {
           sort: { price: sort === 'asc' ? 1 : -1 },
         }
