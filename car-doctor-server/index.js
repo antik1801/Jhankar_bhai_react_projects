@@ -20,15 +20,15 @@ const client = new MongoClient(uri, {
   }
 });
 
-const varifyJWT = (req,res,next) =>{
+const varifyJWT = (req, res, next) => {
   const authorization = req.headers.authorization;
   if (!authorization) {
-    return res.status(401).send({error:true,message:"Unauthorized access"})
+    return res.status(401).send({ error: true, message: "Unauthorized access" })
   }
   const token = authorization.split(" ")[1]
-  jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, (err,decoded)=>{
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).send({error: true, message:"Unauthorized access"})
+      return res.status(401).send({ error: true, message: "Unauthorized access" })
     }
     req.decoded = decoded;
     next();
@@ -51,8 +51,8 @@ async function run() {
         const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: '1h',
         })
-        console.log({token})
-        res.send({token})
+        console.log({ token })
+        res.send({ token })
       } catch (error) {
         res.send(error.message)
       }
@@ -60,13 +60,17 @@ async function run() {
     // Read all the data from database routes
     app.get('/services', async (req, res) => {
       try {
-        const cursor = serviceCollection.find()
+        const query = {}
+        const options = {
+          sort: { price: -1 },
+        };
+        const cursor = serviceCollection.find(query,options)
         const result = await cursor.toArray();
         res.send(result);
       } catch (error) {
         res.send(error.message)
       }
-     
+
     })
     // Read Specific Data from database
     app.get('/services/:id', async (req, res) => {
@@ -82,15 +86,15 @@ async function run() {
       } catch (error) {
         res.send(error.message)
       }
-    
+
     })
     // See all the booking collections
-    app.get('/bookings',varifyJWT, async (req, res) => {
+    app.get('/bookings', varifyJWT, async (req, res) => {
       try {
         const decoded = req.decoded
-        console.log('Came Back after verify',decoded)
-        if(decoded.email != req.query.email){
-          return res.status(403).send({error: 1, message: 'Forbidden access'})
+        console.log('Came Back after verify', decoded)
+        if (decoded.email != req.query.email) {
+          return res.status(403).send({ error: 1, message: 'Forbidden access' })
         }
         let query = {}
         if (req.query?.email) {
@@ -112,7 +116,7 @@ async function run() {
       } catch (error) {
         res.send(error.message)
       }
-     
+
     })
     // delete a specific item
     app.delete('/bookings/:id', async (req, res) => {
@@ -124,7 +128,7 @@ async function run() {
       } catch (error) {
         res.send(error.message)
       }
-    
+
     })
     // Update a specific information from bookings
     app.patch('/bookings/:id', async (req, res) => {
