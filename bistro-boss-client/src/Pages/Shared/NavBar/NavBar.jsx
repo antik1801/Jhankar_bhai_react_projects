@@ -2,7 +2,7 @@ const NavBar = () => {
   const navOptions = (
     <>
       <li>
-        <a>Item 1</a>
+        <a>Item 55</a>
       </li>
       <li tabIndex={0}>
         <a>Parent</a>
