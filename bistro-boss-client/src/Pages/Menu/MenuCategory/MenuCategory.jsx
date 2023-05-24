@@ -9,6 +9,7 @@ const MenuCategory = ({ items }) => {
           <MenuItem key={item._id} item={item}></MenuItem>
         ))}
       </div>
+      
     </div>
   );
 };

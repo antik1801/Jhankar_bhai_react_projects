@@ -3,8 +3,8 @@ import Cover from "../../Shared/Cover/Cover";
 import menuBG from "../../../assets/menu/banner3.jpg";
 import dessertBG from "../../../assets/menu/dessert-bg.jpeg";
 import pizzaImg from "../../../assets/menu/pizza-bg.jpg";
-import saladBG from '../../../assets/menu/salad-bg.jpg'
-import soupBG from '../../../assets/menu/soup-bg.jpg'
+import saladBG from "../../../assets/menu/salad-bg.jpg";
+import soupBG from "../../../assets/menu/soup-bg.jpg";
 import PopularMenu from "../../Home/PopularMenu/PopularMenu";
 import useMenu from "../../../hooks/useMenu";
 import SectionTitle from "../../../components/SectionTitle";
@@ -27,23 +27,23 @@ const Menu = () => {
         subheading={"Don't Miss"}
       ></SectionTitle>
       <MenuCategory items={offereds}></MenuCategory>
-      <Button details={'Order Your Favourite Food'}></Button>
+      <Button details={"Order Your Favourite Food"} link='/order'></Button>
       {/* Dessert menu items */}
       <Cover title={"Desserts"} img={dessertBG}></Cover>
       <MenuCategory items={desserts}></MenuCategory>
-      <Button details={'Order Your Favourite Food'}></Button>
+      <Button details={"Order Your Favourite Food"} link='/order'></Button>
       {/* Pizza Section */}
       <Cover title={"Pizza"} img={pizzaImg}></Cover>
       <MenuCategory items={pizzas}></MenuCategory>
-      <Button details={'Order Your Favourite Food'}></Button>
+      <Button details={"Order Your Favourite Food"} link='/order'></Button>
       {/* Salads */}
       <Cover title={"Salad"} img={saladBG}></Cover>
       <MenuCategory items={salads}></MenuCategory>
-      <Button details={'Order Your Favourite Food'}></Button>
+      <Button details={"Order Your Favourite Food"} link='/order'></Button>
       {/* Soup BG */}
       <Cover title={"Soup"} img={soupBG}></Cover>
       <MenuCategory items={soups}></MenuCategory>
-      <Button details={'Order Your Favourite Food'}></Button>
+      <Button details={"Order Your Favourite Food"} link='/order'></Button>
     </div>
   );
 };
