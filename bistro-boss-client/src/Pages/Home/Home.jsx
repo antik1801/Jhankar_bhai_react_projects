@@ -15,9 +15,6 @@ const Home = () => {
             <Category></Category>
             <Hero></Hero>
             <PopularMenu></PopularMenu>
-            <div className="text-center">
-            <Button details="View full menu"></Button>
-            </div>
             <CallUs number="88-01869694519"></CallUs>
             <Recommended></Recommended>
             <Featured></Featured>

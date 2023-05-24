@@ -42,7 +42,7 @@ const Testimonials = () => {
             <div className="m-24 flex flex-col justify-center items-center space-y-3">
             <Rating style={{ maxWidth: 250 }} value={review.rating} readOnly/>
             <FaComment className="text-5xl text-blue-400"/>
-            <p>{review.details}</p>
+            <p className="text-center">{review.details}</p>
             <h3 className="text-2xl text-orange-400">{review.name}</h3>
             </div>
             </SwiperSlide>)
