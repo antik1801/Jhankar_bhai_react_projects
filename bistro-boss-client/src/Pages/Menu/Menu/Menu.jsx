@@ -1,9 +1,15 @@
 import React from 'react';
+import Cover from '../../Shared/Cover/Cover';
+import menuBG from '../../../assets/menu/banner3.jpg'
+import PopularMenu from '../../Home/PopularMenu/PopularMenu';
+
 
 const Menu = () => {
+    
     return (
         <div>
-            main menu bar
+                <title>Bistro - Menu</title>
+                <Cover img={menuBG} title={"Our menu"}></Cover>
         </div>
     );
 };
