@@ -10,7 +10,7 @@ const Featured = () => {
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde perspiciatis numquam amet optio nemo autem corporis ullam accusamus blanditiis nisi nihil, asperiores impedit eum, provident officiis a magnam reprehenderit modi at odio. Nobis ea possimus id quis, repellendus enim vero atque tenetur rem. Reprehenderit eligendi fuga veritatis beatae, tenetur dolore!</p>
     </div>
     return (
-        <div className='featured-item text-white pt-10 bg-fixed'>
+        <div className='featured-item text-white pt-10 bg-fixed mb-20'>
             <SectionTitle heading={"From Our menu"} subheading={"Check it out"}></SectionTitle>
             <div className='md:flex justify-center items-center py-16 px-36 gap-10 bg-black bg-opacity-30'>
                 <div>
