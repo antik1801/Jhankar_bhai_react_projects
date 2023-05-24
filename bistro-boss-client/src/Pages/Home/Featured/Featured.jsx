@@ -18,7 +18,7 @@ const Featured = () => {
                 </div>
                 <div>
                     {featuredText}
-                    <button className="btn btn-outline mt-3">Order Now</button>
+                    <button className="btn btn-outline border-0 border-b-4 mt-3">Order Now</button>
                 </div>
 
             </div>

@@ -6,6 +6,7 @@ import Featured from "./Featured/Featured";
 import Hero from "./Hero/Hero";
 import PopularMenu from "./PopularMenu/PopularMenu";
 import Recommended from "./Recommended/Recommended";
+import Testimonials from "./Testimonials/Testimonials";
 
 const Home = () => {
     return (
@@ -20,6 +21,7 @@ const Home = () => {
             <CallUs number="88-01869694519"></CallUs>
             <Recommended></Recommended>
             <Featured></Featured>
+            <Testimonials></Testimonials>
         </div>
     );
 };
