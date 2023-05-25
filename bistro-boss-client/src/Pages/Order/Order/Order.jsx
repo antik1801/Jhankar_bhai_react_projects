@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import orderBG from "../../../assets/shop/order.jpg";
 import Cover from "../../Shared/Cover/Cover";
 // import Tab from "../../../components/Tab";
-import imgSalad from '../../../assets/menu/salad-bg.jpg'
-import imgPizza from '../../../assets/menu/pizza-bg.jpg'
-import imgSoup from '../../../assets/menu/soup-bg.jpg'
-import imgDessert from '../../../assets/menu/dessert-bg.jpeg'
-import imgOffered from '../../../assets/shop/order.jpg'
+import imgSalad from "../../../assets/menu/salad-bg.jpg";
+import imgPizza from "../../../assets/menu/pizza-bg.jpg";
+import imgSoup from "../../../assets/menu/soup-bg.jpg";
+import imgDessert from "../../../assets/menu/dessert-bg.jpeg";
+import imgOffered from "../../../assets/shop/order.jpg";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenu from "../../../hooks/useMenu";
 import FoodCard from "../../../components/FoodCard";
 import OrderTab from "../OrderTab/OrderTab";
+import { useParams } from "react-router-dom";
 
 const Order = () => {
+  const category = ['salad','pizza','soup','dessert','drinks'] 
+  const {categories} = useParams();
+  console.log(categories)
   const [active, setActive] = useState("tab1");
   const [tabIndex, setTabIndex] = useState(0);
   const [menu] = useMenu();
@@ -40,16 +44,16 @@ const Order = () => {
           <OrderTab items={salads} img={imgSalad}></OrderTab>
         </TabPanel>
         <TabPanel>
-            <OrderTab items={pizzas} img={imgPizza}></OrderTab>
+          <OrderTab items={pizzas} img={imgPizza}></OrderTab>
         </TabPanel>
         <TabPanel>
-            <OrderTab items={soups} img={imgSoup}></OrderTab>
+          <OrderTab items={soups} img={imgSoup}></OrderTab>
         </TabPanel>
         <TabPanel>
-            <OrderTab items={desserts} img={imgDessert}></OrderTab>
+          <OrderTab items={desserts} img={imgDessert}></OrderTab>
         </TabPanel>
         <TabPanel>
-            <OrderTab items={drinks} img={imgOffered}></OrderTab>
+          <OrderTab items={drinks} img={imgOffered}></OrderTab>
         </TabPanel>
       </Tabs>
     </div>

@@ -18,6 +18,8 @@ const Menu = () => {
   const salads = menu.filter((item) => item.category === "salad");
   const pizzas = menu.filter((item) => item.category === "pizza");
   const offereds = menu.filter((item) => item.category === "offered");
+  const drinks = menu.filter((item) => item.category === "drinks");
+
   return (
     <div>
       <title>Bistro - Menu</title>
@@ -27,23 +29,35 @@ const Menu = () => {
         subheading={"Don't Miss"}
       ></SectionTitle>
       <MenuCategory items={offereds}></MenuCategory>
-      <Button details={"Order Your Favourite Food"} link='/order'></Button>
+      <Button
+        details={"Order Your Favourite Food"}
+        link="/order/dessert"
+      ></Button>
       {/* Dessert menu items */}
       <Cover title={"Desserts"} img={dessertBG}></Cover>
       <MenuCategory items={desserts}></MenuCategory>
-      <Button details={"Order Your Favourite Food"} link='/order/dessert'></Button>
+      <Button
+        details={"Order Your Favourite Food"}
+        link="/order/dessert"
+      ></Button>
       {/* Pizza Section */}
       <Cover title={"Pizza"} img={pizzaImg}></Cover>
       <MenuCategory items={pizzas}></MenuCategory>
-      <Button details={"Order Your Favourite Food"} link='/order/pizza'></Button>
+      <Button
+        details={"Order Your Favourite Food"}
+        link="/order/pizza"
+      ></Button>
       {/* Salads */}
       <Cover title={"Salad"} img={saladBG}></Cover>
       <MenuCategory items={salads}></MenuCategory>
-      <Button details={"Order Your Favourite Food"} link='/order/salad'></Button>
+      <Button
+        details={"Order Your Favourite Food"}
+        link="/order/salad"
+      ></Button>
       {/* Soup BG */}
       <Cover title={"Soup"} img={soupBG}></Cover>
       <MenuCategory items={soups}></MenuCategory>
-      <Button details={"Order Your Favourite Food"} link='/order/soup'></Button>
+      <Button details={"Order Your Favourite Food"} link="/order/soup"></Button>
     </div>
   );
 };
