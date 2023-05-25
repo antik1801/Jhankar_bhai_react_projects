@@ -5,24 +5,25 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 const Main = () => {
-  const loc = useLocation();
+  const location = useLocation();
+  const noHeaderFooter = location.pathname.includes('/login')
   useEffect(() => {
-    if (loc.pathname === "/") {
+    if (location.pathname === "/") {
       document.title = "Bistro - home";
     } else {
-      document.title = `Bistro ${loc.pathname.replace("/", "- ")}`;
+      document.title = `Bistro ${location.pathname.replace("/", "- ")}`;
     }
-    if (loc.state) {
-      document.title = loc.state;
+    if (location.state) {
+      document.title = location.state;
     }
-  }, [loc]);
+  }, [location]);
   return (
     <div className="">
-      <NavBar></NavBar>
+     { noHeaderFooter || <NavBar></NavBar> }
       <div className="mb-24">
         <Outlet></Outlet>
       </div>
-      <Footer></Footer>
+     { noHeaderFooter || <Footer></Footer> }
     </div>
   );
 };
