@@ -14,16 +14,18 @@ const OrderTab = ({ items, img }) => {
   };
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 space-y-6">
+    <div>
       <Swiper
         pagination={pagination}
         modules={[Pagination]}
         className="mySwiper"
       >
         <SwiperSlide>
-          {items.map((item) => (
-            <FoodCard key={item._id} item={item} img={img}></FoodCard>
-          ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 space-y-6">
+            {items.map((item) => (
+              <FoodCard key={item._id} item={item} img={img}></FoodCard>
+            ))}
+          </div>
         </SwiperSlide>
       </Swiper>
     </div>
