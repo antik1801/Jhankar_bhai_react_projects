@@ -17,9 +17,9 @@ import { useParams } from "react-router-dom";
 const Order = () => {
   const category = ['salad','pizza','soup','dessert','drinks'] 
   const {categories} = useParams();
-  console.log(categories)
+  const initialIndex = category.indexOf(categories)
   const [active, setActive] = useState("tab1");
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(initialIndex);
   const [menu] = useMenu();
   const desserts = menu.filter((item) => item.category === "dessert");
   const soups = menu.filter((item) => item.category === "soup");
