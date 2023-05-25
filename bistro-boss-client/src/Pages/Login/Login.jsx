@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -7,6 +7,8 @@ import {
 } from "react-simple-captcha";
 
 const Login = () => {
+    const captchaRef = useRef(null);
+    const [disabled, setDisabled] = useState(true)
     useEffect(()=>{
         loadCaptchaEnginge(6);
     },[])
@@ -18,6 +20,19 @@ const Login = () => {
     const loginInfo = { email, password };
     console.log(loginInfo);
   };
+  const handleValidateCaptcha = event =>{
+    event.preventDefault();
+    const user_captcha_value = captchaRef.current.value;
+    console.log(user_captcha_value);
+    if (validateCaptcha(user_captcha_value)) {
+        alert('Captcha Matched');
+        
+    }
+
+    else {
+        alert('Captcha Does Not Match');
+    }
+  }
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
@@ -40,6 +55,7 @@ const Login = () => {
                 placeholder="email"
                 className="input input-bordered"
                 name="email"
+                required
               />
             </div>
             <div className="form-control">
@@ -51,6 +67,7 @@ const Login = () => {
                 placeholder="password"
                 className="input input-bordered"
                 name="password"
+                required
               />
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
@@ -67,10 +84,13 @@ const Login = () => {
                 placeholder="Type the captcha above"
                 className="input input-bordered"
                 name="captcha"
+                ref={captchaRef}
+                required
               />
+              <button className="btn btn-outline btn-xs mt-2" onClick={handleValidateCaptcha}>Validate</button>
             </div>
             <div className="form-control mt-6">
-              <input type="submit" value="Login" className="btn btn-primary" />
+              <input disabled={disabled} type="submit" value="Login" className="btn btn-primary" />
             </div>
           </form>
         </div>
