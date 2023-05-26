@@ -25,12 +25,11 @@ const Login = () => {
     const user_captcha_value = captchaRef.current.value;
     console.log(user_captcha_value);
     if (validateCaptcha(user_captcha_value)) {
-        alert('Captcha Matched');
-        
+        setDisabled(false);
     }
-
     else {
-        alert('Captcha Does Not Match');
+        
+        setDisabled(true)
     }
   }
   return (
