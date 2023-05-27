@@ -30,11 +30,20 @@ const NavBar = () => {
       </li>
 
       {user ? (
-        <li>
-          <button className="btn btn-ghost" onClick={handleSignOut}>
-            Sign Out
-          </button>{" "}
-        </li>
+        <>
+          <li>
+            <div className="avatar">
+              <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img src={user.photoURL} title={user.displayName}/>
+              </div>
+            </div>
+          </li>
+          <li>
+            <button className="btn btn-ghost mt-1" onClick={handleSignOut}>
+              Sign Out
+            </button>{" "}
+          </li>
+        </>
       ) : (
         <li>
           <Link to="/login">Login</Link>
