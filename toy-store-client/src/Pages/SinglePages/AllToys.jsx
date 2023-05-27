@@ -11,16 +11,17 @@ const AllToys = () => {
   const totalPages = Math.ceil(totalToys / itemsPerPage);
   const pageNumbers = [...Array(totalPages)?.keys()];
   const [modalData, setModalData] = useState({});
+  const [buttonAsc,setButtonDes] = useState(true);
   useEffect(() => {
     fetch(
-      `https://toy-store-server-ashy.vercel.app/allToys?page=${currentPage}&limit=${itemsPerPage}`
+      `https://toy-store-server-ashy.vercel.app/allToys?page=${currentPage}&limit=${itemsPerPage}}&sort=${buttonAsc ? 'asc' : 'des'}`
     )
       .then((res) => res.json())
       .then((data) => {
         setToys(data);
         console.log(data);
       });
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, buttonAsc]);
 
   const options = [5, 10, 15, 20];
   const handleSelectChange = (event) => {
@@ -57,6 +58,9 @@ const AllToys = () => {
         <button className="btn btn-primary" onClick={handleSearch}>
           Search
         </button>
+      </div>
+      <div>
+        <button className="btn btn-primary" onClick={()=>{setButtonDes(!buttonAsc)}} >{buttonAsc ? "Sort By Descending" : "Sort By Ascending"}</button>
       </div>
       <div className="">
         <div className="overflow-x-auto w-full">

@@ -8,7 +8,7 @@ const Services = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services?sort=${asc ? "asc" : "dsc"}&search=${search}`)
+    fetch(`http://localhost:5000/services?search=${search}&sort=${asc ? "asc" : "dsc"}`)
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, [asc,search]);
