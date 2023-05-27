@@ -6,13 +6,18 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../ContextProviders/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true)
 
     const {login} = useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     useEffect(()=>{
         loadCaptchaEnginge(6);
@@ -25,7 +30,12 @@ const Login = () => {
     login(email,password)
     .then(result =>{
       const user = result.user;
-      console.log(user);
+      Swal.fire(
+        'User Logged in!',
+        'Welcome to Bistro boss!',
+        'success'
+      )
+      navigate(from, { replace: true });
     })
     .catch(error=>{
       console.log(error.message);
@@ -34,7 +44,7 @@ const Login = () => {
   const handleValidateCaptcha = event =>{
     event.preventDefault();
     const user_captcha_value = captchaRef.current.value;
-    console.log(user_captcha_value);
+    // console.log(user_captcha_value);
     if (validateCaptcha(user_captcha_value)) {
         setDisabled(false);
     }

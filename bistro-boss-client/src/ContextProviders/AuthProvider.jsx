@@ -18,8 +18,8 @@ const AuthProvider = ({children}) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth,email,password);
     }
-    const setPictureAndName = (user, userName, userImage) =>{
-        return updateProfile(user, {
+    const setPictureAndName = (userName, userImage) =>{
+        return updateProfile(auth.currentUser, {
             displayName: userName,
             photoURL: userImage,
         })

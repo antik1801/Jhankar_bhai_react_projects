@@ -1,17 +1,50 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../ContextProviders/AuthProvider";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const SignUp = () => {
+
+  const {createUser,setPictureAndName} = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+    const name = data.name;
+    const photo = data.photo;
+    createUser(data.email, data.password)
+    .then(result =>{
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      updateProfile(name,photo)
+      Swal.fire(
+        'New User Created!',
+        'Seccessfully Logged in!',
+        'success'
+      )
+      navigate('/');
+      location.reload();
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   };
 
-
+  const updateProfile = (userName,displayPhoto) =>{
+    setPictureAndName(userName,displayPhoto)
+    .then(()=>{})
+    .catch(err=>{
+      toast(err.message);
+    })
+  }
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -37,6 +70,21 @@ const SignUp = () => {
                 {...register("name", { required: true })}
               />
               {errors.name && (
+                <span className="text-red-600">This field is required</span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Photo URL"
+                className="input input-bordered"
+                name="photo"
+                {...register("photo", { required: true })}
+              />
+              {errors.photo && (
                 <span className="text-red-600">This field is required</span>
               )}
             </div>
@@ -93,9 +141,10 @@ const SignUp = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">SignUp</button>
+              <input type="submit" value="SignUp" className="btn btn-primary"/>
             </div>
           </form>
+          <p><small>Already have an account? <Link to="/login" className="text-orange-400 text-xl">Please Login</Link> </small></p>
         </div>
       </div>
     </div>
