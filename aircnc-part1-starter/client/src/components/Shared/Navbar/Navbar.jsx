@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../Container/Container";
 import Logo from "./Logo";
 import Search from "./Search";
+import MenuDropdown from "./MenuDropdown";
 
 const Navbar = () => {
   return (
@@ -11,7 +12,7 @@ const Navbar = () => {
             <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
                 <Logo></Logo>
                 <Search></Search>
-                <div>Menu</div>
+                <MenuDropdown></MenuDropdown>
             </div>
         </Container>
       </div>
