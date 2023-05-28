@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../Shared/Container/Container";
 import { categories } from "./categoriesData";
 import CategoryBox from "./CategoryBox";
+import { useSearchParams } from "react-router-dom";
 
 const Categories = () => {
   return (
