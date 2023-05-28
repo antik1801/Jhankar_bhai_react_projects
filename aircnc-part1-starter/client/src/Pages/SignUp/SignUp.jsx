@@ -17,6 +17,11 @@ const SignUp = () => {
   } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  // handle user registration
+  const handleSubmit = event =>{
+    event.preventDefault();
+    
+  }
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
