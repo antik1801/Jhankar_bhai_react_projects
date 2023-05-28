@@ -6,6 +6,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useRef } from "react";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signIn, loading, setLoading, signInWithGoogle, resetPassword } =
@@ -23,7 +24,11 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        Swal.fire(
+          'Sucessfuly logged in!',
+          'Welcome to AIR-CNC!',
+          'success'
+        )
         navigate(from, { replace: true });
       })
       .catch((error) => {

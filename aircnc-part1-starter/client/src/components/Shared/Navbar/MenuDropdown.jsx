@@ -3,10 +3,22 @@ import Avatar from "./Avatar";
 import { useCallback, useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const MenuDropdown = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  // handle logout
+  const handleLogout = () =>{
+    logOut()
+    .then(()=>{
+      toast.success('logout sucessful')
+    })
+    .catch(err=>{
+      console.log(err.message);
+    })
+
+  }
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -35,7 +47,7 @@ const MenuDropdown = () => {
             </Link>
             {user ? (
               <div
-                onClick={logOut}
+                onClick={handleLogout}
                 className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
               >
                 Logout
