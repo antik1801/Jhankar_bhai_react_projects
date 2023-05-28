@@ -5,7 +5,19 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-    const {signIn,loading,setLoading,signInWithGoogle,resetPassword} = useContext(AuthContext)
+  const { signIn, loading, setLoading, signInWithGoogle, resetPassword } =
+    useContext(AuthContext);
+    // handle google sign in
+    const handleGoogleSignIn = () =>{
+        signInWithGoogle()
+        .then(result=>{
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
