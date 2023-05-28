@@ -63,7 +63,7 @@ const SignUp = () => {
         console.log(error.message);
         toast.error(error.message);
       });
-    console.log(url);
+    // console.log(url);
   };
   const handleGoogleSignIn = () => {
     signInWithGoogle()

@@ -42,7 +42,7 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         toast.success("User logged-in");
         navigate(from, { replace: true });
       })
