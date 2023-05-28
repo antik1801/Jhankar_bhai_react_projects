@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import {TbFidgetSpinner} from 'react-icons/tb'
 
 const Login = () => {
   const { signIn, loading, setLoading, signInWithGoogle, resetPassword } =
@@ -73,7 +74,7 @@ const Login = () => {
               type="submit"
               className="bg-rose-500 w-full rounded-md py-3 text-white"
             >
-              Continue
+              { loading ? <TbFidgetSpinner size={24} className="m-auto animate-spin"></TbFidgetSpinner> : "Continue"}
             </button>
           </div>
         </form>
