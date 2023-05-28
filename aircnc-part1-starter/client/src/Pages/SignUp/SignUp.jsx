@@ -15,13 +15,56 @@ const SignUp = () => {
     createUser,
     updateUserProfile,
   } = useContext(AuthContext);
+  const navigate = useNavigate()
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   // handle user registration
-  const handleSubmit = event =>{
+  const handleSubmit = (event) => {
     event.preventDefault();
-    
-  }
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const name = event.target.name.value;
+
+    // image upload
+    const image = event.target.image.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        createUser(email, password)
+          .then((result) => {
+            const imageURL = imageData.data.display_url;
+            updateUserProfile(name,imageURL)
+            .then(()=>{
+                toast.success('Signup Successful');
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.log(error.message);
+                toast.error(error.message);
+              });
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error.message);
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error.message);
+        toast.error(error.message);
+      });
+    console.log(url);
+  };
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
@@ -44,6 +87,7 @@ const SignUp = () => {
           <p className="text-sm text-gray-400">Welcome to AirCNC</p>
         </div>
         <form
+          onSubmit={handleSubmit}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
