@@ -1,8 +1,13 @@
 import React from "react";
 import Button from "./Button";
+import ButtonCart from "./ButtonCart";
 
-const FoodCard = ({ item , img}) => {
+const FoodCard = ({ item }) => {
   const { name, _id, recipe, image, price } = item;
+  const handleAddToCart = item =>{
+    console.log(item);
+    // Tan stack query
+  }
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
@@ -17,7 +22,8 @@ const FoodCard = ({ item , img}) => {
         <h2 className="card-title">{name}</h2>
         <p>{recipe}</p>
         <div className="card-actions justify-center">
-        <Button details="Add to cart"></Button>
+        {/* <Button details="Add to cart" ></Button> */}
+        <ButtonCart details={"Add to Cart"} handleAddToCart={handleAddToCart} item={item}></ButtonCart>
         </div>
       </div>
     </div>
