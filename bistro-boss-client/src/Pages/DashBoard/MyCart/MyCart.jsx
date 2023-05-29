@@ -1,13 +1,17 @@
 import React from "react";
 import useCart from "../../../hooks/useCart";
+import {FaTrashAlt} from 'react-icons/fa'
 
 const MyCart = () => {
+  const handleDelete = () =>{
+
+  }
   const [cart] = useCart();
-//   console.log(cart);
+  //   console.log(cart);
   const total = cart.reduce((sum, item) => item.price + sum, 0);
   return (
     <div>
-      <div className="uppercase font-semibold flex justify-between h-10">
+      <div className="uppercase font-semibold flex justify-between h-10 gap-10">
         <h3 className="text-3xl">Total items : {cart.length}</h3>
         <h3 className="text-3xl">Total price : $ {total}</h3>
         <button className="btn btn-warning btn-sm">Pay</button>
@@ -27,42 +31,23 @@ const MyCart = () => {
             </tr>
           </thead>
           <tbody>
-            {
-                cart.map((row,index)=> 
-                    <tr key={row._id}>
-                    <th>
-                      {index+1}
-                    </th>
-                    <td>
-                      <div className="flex items-center space-x-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src="/tailwind-css-component-profile-2@56w.png"
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold">Hart Hagerty</div>
-                          <div className="text-sm opacity-50">United States</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      Zemlak, Daniel and Leannon
-                      <br />
-                      <span className="badge badge-ghost badge-sm">
-                        Desktop Support Technician
-                      </span>
-                    </td>
-                    <td>Purple</td>
-                    <td>
-                      <button className="btn btn-ghost btn-xs">details</button>
-                    </td>
-                  </tr>
-                    )
-            }
+            {cart.map((item, index) => (
+              <tr key={item._id}>
+                <th>{index + 1}</th>
+                <td>
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-12 h-12">
+                      <img src={item.image} />
+                    </div>
+                  </div>
+                </td>
+                <td>{item.name}</td>
+                <td className="text-end">$ {item.price}</td>
+                <td>
+                  <button className="btn btn-ghost btn-xs" onClick={()=>handleDelete(item)}> <FaTrashAlt size={20} className="text-red-600"/> </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
