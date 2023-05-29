@@ -17,14 +17,12 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    // console.log(data);
     const name = data.name;
     const photo = data.photo;
     createUser(data.email, data.password)
     .then(result =>{
-      const loggedUser = result.user;
-      console.log(loggedUser);
       updateProfile(name,photo)
+      const loggedUser = result.user;
       Swal.fire(
         'New User Created!',
         'Seccessfully Logged in!',
@@ -34,15 +32,18 @@ const SignUp = () => {
       location.reload();
     })
     .catch(err=>{
+      toast.error(err.message)
       console.log(err);
     })
+
+    
   };
 
   const updateProfile = (userName,displayPhoto) =>{
     setPictureAndName(userName,displayPhoto)
     .then(()=>{})
     .catch(err=>{
-      toast(err.message);
+      toast.error(err.message);
     })
   }
   return (
@@ -75,13 +76,13 @@ const SignUp = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Photo URL</span>
+                <span className="label-text">Profile Picture</span>
               </label>
               <input
                 type="text"
+                name="photo"
                 placeholder="Photo URL"
                 className="input input-bordered"
-                name="photo"
                 {...register("photo", { required: true })}
               />
               {errors.photo && (
