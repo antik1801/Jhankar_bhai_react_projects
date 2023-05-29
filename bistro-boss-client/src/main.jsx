@@ -5,8 +5,9 @@ import { RouterProvider } from "react-router-dom";
 import router from "./Routers/router";
 import "@smastrom/react-rating/style.css";
 import AuthProvider from "./ContextProviders/AuthProvider";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import ScrollToTop from "./Routers/ScrollToTop";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

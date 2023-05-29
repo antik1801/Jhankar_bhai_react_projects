@@ -28,13 +28,20 @@ const NavBar = () => {
       <li>
         <Link to="/order/salad">Order Food</Link>
       </li>
-
+      <li>
+        <Link to="/">
+          <button className="btn gap-2">
+            Inbox
+            <div className="badge badge-secondary">+99</div>
+          </button>
+        </Link>
+      </li>
       {user ? (
         <>
           <li>
             <div className="avatar">
               <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src={user.photoURL} title={user.displayName}/>
+                <img src={user.photoURL} title={user.displayName} />
               </div>
             </div>
           </li>
@@ -54,8 +61,8 @@ const NavBar = () => {
   return (
     <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white max-w-screen-xl ">
       <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+        <div className="dropdown text-black">
+          <label tabIndex={0} className="btn btn-ghost lg:hidden text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
