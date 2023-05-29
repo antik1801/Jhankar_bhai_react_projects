@@ -4,16 +4,19 @@ import ButtonCart from "./ButtonCart";
 import { AuthContext } from "../ContextProviders/AuthProvider";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import useCart from "../hooks/useCart";
 
 const FoodCard = ({ item }) => {
   const {user} = useContext(AuthContext);
   const { name, _id, recipe, image, price } = item;
+  const [,refetch] = useCart();
   const navigate = useNavigate()
   const location = useLocation();
   const handleAddToCart = item =>{
     console.log(item);
     if (user && user.email) {
       const cartItem = {menuItemId: _id,name,image,price,email:user.email}
+      refetch(); // refetch cart to update the number of items in cart
       fetch('http://localhost:5000/carts',{
         method: 'POST',
         headers: {
