@@ -26,6 +26,7 @@ async function run() {
 
         const menuCollection = client.db('bistroDb').collection('menu')
         const reviewCollection = client.db('bistroDb').collection('reviews')
+        const cartCollection = client.db('bistroDb').collection('reviews')
 
         // Get Method
         app.get('/menu', async (req, res) => {
@@ -67,3 +68,18 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log('Bistro Boss is sitting on the port', port);
 })
+
+
+/**
+ * ---------------------------------------
+ * NAMEING CONVENTIONS
+ * ----------------------------------------
+ * USERS : user collection
+ * app.get('/users')
+ * app.get('/users/:id')
+ * app.post('/users')
+ * app.patch('/users/:id')
+ * app.put('/users/:id')
+ * app.delete('/users/:id')
+ * 
+ */
