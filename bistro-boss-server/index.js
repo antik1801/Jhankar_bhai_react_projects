@@ -1,5 +1,5 @@
 const express = require('express')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors')
 const app = express()
 require('dotenv').config()
@@ -65,11 +65,25 @@ async function run() {
 
         //cart collection
         app.post('/carts', async(req,res)=>{
+           try {
             const item = req.body;
             const result = await cartCollection.insertOne(item);
             res.send(result);
+           } catch (error) {
+            res.send(error.message)
+           }
         })
-
+        // Delete Item
+        app.delete('/carts/:id', async(req,res)=>{
+            try {
+                const id = req.params.id;
+                const query = { _id:new ObjectId(id)}
+                const result = await cartCollection.deleteOne(query);
+                res.send(result);
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
