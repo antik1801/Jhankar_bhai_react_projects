@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../ContextProviders/AuthProvider";
 import { toast } from "react-toastify";
+import { FaShoppingCart } from "react-icons/fa";
 
 const NavBar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -31,8 +32,8 @@ const NavBar = () => {
       <li>
         <Link to="/">
           <button className="btn gap-2">
-            Inbox
-            <div className="badge badge-secondary">+99</div>
+            <FaShoppingCart />
+            <div className="badge badge-secondary">+0</div>
           </button>
         </Link>
       </li>
