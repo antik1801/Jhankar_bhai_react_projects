@@ -22,7 +22,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || "/";
     useEffect(()=>{
         loadCaptchaEnginge(6);
-        document.title("BistroBoss - login");
+        // document.title("BistroBoss - login");
     },[])
   const handleLogin = (event) => {
     event.preventDefault();
