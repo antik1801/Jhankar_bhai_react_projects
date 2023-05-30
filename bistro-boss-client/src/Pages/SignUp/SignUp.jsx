@@ -4,6 +4,7 @@ import { AuthContext } from "../../ContextProviders/AuthProvider";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, setPictureAndName } = useContext(AuthContext);
@@ -174,6 +175,7 @@ const SignUp = () => {
               </Link>{" "}
             </small>
           </p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

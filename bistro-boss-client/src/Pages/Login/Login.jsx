@@ -9,6 +9,7 @@ import { AuthContext } from "../../ContextProviders/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
     const captchaRef = useRef(null);
@@ -115,6 +116,7 @@ const Login = () => {
             </div>
           </form>
             <p><small>New Here? <Link to='/signup'>Create an account?</Link> </small></p>
+            <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>
