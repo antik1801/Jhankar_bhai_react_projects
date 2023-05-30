@@ -5,10 +5,8 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const SignUp = () => {
-
-  const {createUser,setPictureAndName} = useContext(AuthContext);
+  const { createUser, setPictureAndName } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -21,44 +19,42 @@ const SignUp = () => {
     const name = data.name;
     const photo = data.photo;
     createUser(data.email, data.password)
-    .then(result =>{
-      updateProfile(name,photo)
-      // save user to database
-      fetch('http://localhost:5000/users',{
-      method: 'PUT',
+      .then((result) => {
+        updateProfile(name, photo);
+        // save user to database
+        fetch("http://localhost:5000/users", {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+        const loggedUser = result.user;
+        reset();
+        Swal.fire("New User Created!", "Seccessfully Logged in!", "success");
+        navigate("/");
+        location.reload();
       })
-      .then(res=> res.json())
-      .then(data=>{
-        console.log(data);
-      })
-      .catch(error=>{
-        toast.error(error.message)
-      })
-      const loggedUser = result.user;
-      reset();
-      Swal.fire(
-        'New User Created!',
-        'Seccessfully Logged in!',
-        'success'
-      )
-      navigate('/');
-      location.reload();
-    })
-    .catch(err=>{
-      toast.error(err.message)
-      console.log(err);
-    })
-
-    
+      .catch((err) => {
+        toast.error(err.message);
+        console.log(err);
+      });
   };
 
-  const updateProfile = (userName,displayPhoto) =>{
-    setPictureAndName(userName,displayPhoto)
-    .then(()=>{})
-    .catch(err=>{
-      toast.error(err.message);
-    })
-  }
+  const updateProfile = (userName, displayPhoto) => {
+    setPictureAndName(userName, displayPhoto)
+      .then(() => {})
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -131,7 +127,7 @@ const SignUp = () => {
                   minLength: 8,
                   maxLength: 20,
                   pattern:
-                  /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                    /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
                 })}
               />
               {errors.password?.type == "required" && (
@@ -146,7 +142,10 @@ const SignUp = () => {
                 <p role="alert">Password not be more than 20 charectors</p>
               )}
               {errors.password?.type === "pattern" && (
-                <p role="alert" className="text-red-600">Password must have one uppercase one lowercase one special symble one number</p>
+                <p role="alert" className="text-red-600">
+                  Password must have one uppercase one lowercase one special
+                  symble one number
+                </p>
               )}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
@@ -155,10 +154,17 @@ const SignUp = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <input type="submit" value="SignUp" className="btn btn-primary"/>
+              <input type="submit" value="SignUp" className="btn btn-primary" />
             </div>
           </form>
-          <p><small>Already have an account? <Link to="/login" className="text-orange-400 text-xl">Please Login</Link> </small></p>
+          <p>
+            <small>
+              Already have an account?{" "}
+              <Link to="/login" className="text-orange-400 text-xl">
+                Please Login
+              </Link>{" "}
+            </small>
+          </p>
         </div>
       </div>
     </div>
