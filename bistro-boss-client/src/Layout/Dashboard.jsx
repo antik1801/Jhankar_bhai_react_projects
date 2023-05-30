@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { FaShoppingCart, FaWallet, FaCalendarAlt, FaHome } from "react-icons/fa";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
     const location = useLocation();
@@ -10,6 +11,7 @@ const Dashboard = () => {
             document.title = location.state;
           }
     },[location])
+    const [cart] = useCart();
   return (
     <div>
       <div className="drawer drawer-mobile ">
@@ -29,7 +31,8 @@ const Dashboard = () => {
             <li><NavLink to="/dashboard/home"><FaHome />User Home</NavLink></li>
             <li><NavLink to="/dashboard/reservations"><FaCalendarAlt/>Reservations</NavLink></li> 
             <li><NavLink to="/dashboard/history"><FaWallet/>Payment Histroy</NavLink></li>
-            <li><NavLink to="/dashboard/mycart"><FaShoppingCart/>My Cart</NavLink></li>
+            <li><NavLink to="/dashboard/mycart">
+            <FaShoppingCart/>My Cart<div className="badge badge-secondary">+{cart?.length}</div></NavLink></li>
             <div className="divider"></div>
             <li><NavLink to="/"><FaHome />Home</NavLink></li>
             <li><NavLink to="/menu">Our Menu</NavLink></li>
