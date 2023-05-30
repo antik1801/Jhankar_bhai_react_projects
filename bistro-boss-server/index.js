@@ -23,10 +23,21 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // await client.connect();
-
+        const userCollection = client.db('bistroDb').collection('users');
         const menuCollection = client.db('bistroDb').collection('menu')
         const reviewCollection = client.db('bistroDb').collection('reviews')
         const cartCollection = client.db('bistroDb').collection('cart')
+
+        //users related api
+        app.post('/users', async (req, res) => {
+            try {
+                const users = req.body;
+                const result = await userCollection.insertOne(users);
+                res.send(result)
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
 
         // Get Method
         app.get('/menu', async (req, res) => {
@@ -46,38 +57,38 @@ async function run() {
                 res.send(error.message);
             }
         })
-        app.get('/carts', async(req,res) =>{
+        app.get('/carts', async (req, res) => {
             try {
                 const email = req.query.email;
-            if (!email) {
-                res.send([]);
-            }
-            else{
-                const query = { email : email }
-                const result = await cartCollection.find(query).toArray()
-                res.send(result);
-            }
+                if (!email) {
+                    res.send([]);
+                }
+                else {
+                    const query = { email: email }
+                    const result = await cartCollection.find(query).toArray()
+                    res.send(result);
+                }
             } catch (error) {
                 res.send(error.message)
             }
-            
+
         })
 
         //cart collection
-        app.post('/carts', async(req,res)=>{
-           try {
-            const item = req.body;
-            const result = await cartCollection.insertOne(item);
-            res.send(result);
-           } catch (error) {
-            res.send(error.message)
-           }
+        app.post('/carts', async (req, res) => {
+            try {
+                const item = req.body;
+                const result = await cartCollection.insertOne(item);
+                res.send(result);
+            } catch (error) {
+                res.send(error.message)
+            }
         })
         // Delete Item
-        app.delete('/carts/:id', async(req,res)=>{
+        app.delete('/carts/:id', async (req, res) => {
             try {
                 const id = req.params.id;
-                const query = { _id:new ObjectId(id)}
+                const query = { _id: new ObjectId(id) }
                 const result = await cartCollection.deleteOne(query);
                 res.send(result);
             } catch (error) {
