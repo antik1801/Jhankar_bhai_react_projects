@@ -31,8 +31,14 @@ async function run() {
         //users related api
         app.post('/users', async (req, res) => {
             try {
-                const users = req.body;
-                const result = await userCollection.insertOne(users);
+                const user = req.body;
+                const query = { email: user.email }
+                const existingUser = await userCollection.findOne(query)
+                console.log('existing user',existingUser);
+                if (existingUser) {
+                    return res.send({ message: 'User Already Existes' })
+                }
+                const result = await userCollection.insertOne(user);
                 res.send(result)
             } catch (error) {
                 res.send(error.message)
@@ -40,6 +46,17 @@ async function run() {
         })
 
         // Get Method
+
+        app.get('/users', async (req,res) =>{
+            try {
+                const result = await userCollection.find().toArray();
+                res.send(result)            
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
+
+
         app.get('/menu', async (req, res) => {
             try {
                 const result = await menuCollection.find().toArray();
