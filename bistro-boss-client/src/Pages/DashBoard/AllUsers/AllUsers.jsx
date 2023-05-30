@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaTrashAlt, FaUserShield } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const { data: users = [], refetch } = useQuery(["users"], async () => {
@@ -10,8 +11,35 @@ const AllUsers = () => {
   const handleDelete = user => {
     console.log(user)
   }
-  const handleMakeAdmin = id => {
-    console.log(id);
+  const handleMakeAdmin = user => {
+    Swal.fire({
+        title: `sure you want to make ${user.name} admin?`,
+        text: "You will remove him from admin anytime!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: ' Confirm! '
+      }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:5000/users/admin/${user._id}`,{
+                method: 'PATCH'
+            })
+            .then(res => res.json())
+            .then(data=> {
+                refetch();
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    Swal.fire(
+                        'Updated!',
+                        `${user.name} successfully updated to admin!`,
+                        'success'
+                      )
+                }
+            })
+        }
+      })
+   
   }
   return (
     <div className="w-full">
@@ -38,7 +66,7 @@ const AllUsers = () => {
                 <td>
                     {user.role === 'admin' ? <p className="text-green-400">Admin</p> : <button
                     className="btn btn-ghost btn-xs"
-                    onClick={() => handleMakeAdmin(user._id)}
+                    onClick={() => handleMakeAdmin(user)}
                   >
                     <FaUserShield size={25} className="text-blue-600" />{" "}
                   </button> }
