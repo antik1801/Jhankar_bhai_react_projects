@@ -14,6 +14,7 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -22,7 +23,19 @@ const SignUp = () => {
     createUser(data.email, data.password)
     .then(result =>{
       updateProfile(name,photo)
+      // save user to database
+      fetch('http://localhost:5000/users',{
+      method: 'PUT',
+      })
+      .then(res=> res.json())
+      .then(data=>{
+        console.log(data);
+      })
+      .catch(error=>{
+        toast.error(error.message)
+      })
       const loggedUser = result.user;
+      reset();
       Swal.fire(
         'New User Created!',
         'Seccessfully Logged in!',

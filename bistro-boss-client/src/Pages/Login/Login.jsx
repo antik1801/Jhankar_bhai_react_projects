@@ -8,6 +8,7 @@ import {
 import { AuthContext } from "../../ContextProviders/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const captchaRef = useRef(null);
@@ -39,6 +40,7 @@ const Login = () => {
     })
     .catch(error=>{
       console.log(error.message);
+      toast.error(error.message)
     })
   };
   const handleValidateCaptcha = event =>{
