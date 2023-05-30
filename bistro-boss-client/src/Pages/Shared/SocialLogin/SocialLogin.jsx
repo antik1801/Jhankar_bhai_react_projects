@@ -14,7 +14,10 @@ const SocialLogin = () => {
     googleLogin()
       .then((result) => {
         const loggedUser = result.user;
-        const saveUser = { name: loggedUser.displayName, email: loggedUser.email };
+        const saveUser = {
+          name: loggedUser.displayName,
+          email: loggedUser.email,
+        };
         fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
@@ -24,10 +27,7 @@ const SocialLogin = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            if (data.insertedId) {
-              navigate(from, { replace: true });
-              toast.success("Successfuly Loggedin");
-            }
+            navigate(from, { replace: true });
           })
           .catch((error) => {
             toast.error(error.message);
