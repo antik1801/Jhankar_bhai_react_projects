@@ -5,7 +5,11 @@ import {
   FaWallet,
   FaCalendarAlt,
   FaHome,
+  FaUtensils,
+  FaHamburger,
+  FaBook,
 } from "react-icons/fa";
+import {HiUserGroup} from "react-icons/hi"
 import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
@@ -42,26 +46,31 @@ const Dashboard = () => {
                 <li>
                   <NavLink to="/dashboard/home">
                     <FaHome />
-                    User Home
+                    Admin Home
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/dashboard/reservations">
-                    <FaCalendarAlt />
-                    Reservations
+                    <FaUtensils />
+                    Add Items
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/dashboard/history">
-                    <FaWallet />
-                    Payment Histroy
+                    <FaHamburger />
+                    Manage Items
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/mycart">
-                    <FaShoppingCart />
-                    My Cart
-                    <div className="badge badge-secondary">+{cart?.length}</div>
+                  <NavLink to="/dashboard/history">
+                    <FaBook />
+                    Manage Bookings
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/allusers">
+                    <HiUserGroup />
+                    All Users
                   </NavLink>
                 </li>
               </>
