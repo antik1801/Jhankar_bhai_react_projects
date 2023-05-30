@@ -91,7 +91,7 @@ async function run() {
 
         })
         // patch apis
-        app.patch('users/admin/:id', async (req, res) => {
+        app.patch('/users/admin/:id', async (req, res) => {
             try {
                 const id = req.params.id;
                 const filter = { _id: new ObjectId(id) }
