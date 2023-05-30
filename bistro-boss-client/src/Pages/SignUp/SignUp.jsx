@@ -20,27 +20,36 @@ const SignUp = () => {
     const photo = data.photo;
     createUser(data.email, data.password)
       .then((result) => {
+        const loggedUser = result.user;
         updateProfile(name, photo);
         // save user to database
+
+        const saveUser = { name: data.name, email: data.email };
         fetch("http://localhost:5000/users", {
-          method: "PUT",
+          method: "POST",
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(),
+          body: JSON.stringify(saveUser),
         })
           .then((res) => res.json())
           .then((data) => {
+            if (data.insertedId) {
+              reset();
+              Swal.fire(
+                "New User Created!",
+                "Seccessfully Logged in!",
+                "success"
+              );
+              navigate("/");
+              location.reload();
+            }
             console.log(data);
           })
           .catch((error) => {
+            console.log(error.message);
             toast.error(error.message);
           });
-        const loggedUser = result.user;
-        reset();
-        Swal.fire("New User Created!", "Seccessfully Logged in!", "success");
-        navigate("/");
-        location.reload();
       })
       .catch((err) => {
         toast.error(err.message);
