@@ -11,12 +11,13 @@ import {
 } from "react-icons/fa";
 import {HiUserGroup} from "react-icons/hi"
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const location = useLocation();
 
   // TODO : Load data to the server dynammically is Admin based on data
-  const isAdmin = true;
+  const isAdmin = useAdmin();
 
   useEffect(() => {
     document.title = `Bistro ${location.pathname.replace("/", "- ")}`;
