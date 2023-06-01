@@ -13,5 +13,6 @@ const useAdmin = () => {
       return res.data.admin;
     },
   });
+  return [isAdmin, isAdminLoadin];
 };
 export default useAdmin;

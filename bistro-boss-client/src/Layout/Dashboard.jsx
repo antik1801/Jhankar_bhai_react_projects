@@ -18,6 +18,7 @@ const Dashboard = () => {
 
   // TODO : Load data to the server dynammically is Admin based on data
   const isAdmin = useAdmin();
+  // const isAdmin = true;
 
   useEffect(() => {
     document.title = `Bistro ${location.pathname.replace("/", "- ")}`;

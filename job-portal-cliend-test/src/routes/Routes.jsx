@@ -12,6 +12,7 @@ import MainLayout from "../layouts/Main/MainLayout";
 import Home from "../pages/Home/Home";
 import AddJob from "../pages/AddJob/AddJob";
 import MyJobs from "../pages/MyJobs/MyJobs";
+import BuyNow from "../pages/BuyNow/BuyNow";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
             <ServiceDetails></ServiceDetails>
           </PrivateRoute>
         ),
+      },
+      {
+        path:"/buy/:id",
+        element: <h1>Mafia</h1>,
+        loader: ({params})=>fetch(`http://localhost:5000/jobs/${params.id}`), 
       },
       {
         path: "login",

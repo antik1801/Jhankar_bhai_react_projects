@@ -56,9 +56,19 @@ async function run() {
                 res.send(error.message)
             }
         })
+        // use verifyJWT before using verify admin
+        const verifyAdmin = async(req,res,next) =>{
+            const email = req.decoded.email;
+            const query = {email: email}
+            const user = await userCollection.findOne(query);
+            if (user?.role !== 'admin') {
+                return res.status(403).send({error: true, message: 'forbidden message'})
+            }
+            next();
+        }
 
         //users related api
-        app.post('/users',verifyJWT, async (req, res) => {
+        app.post('/users',verifyJWT,verifyAdmin, async (req, res) => {
             try {
                 const user = req.body;
                 const query = { email: user.email }
@@ -73,7 +83,7 @@ async function run() {
                 res.send(error.message)
             }
         })
-
+        
         // Get Method
         // Security layer:
         app.get('/users/admin/:email', verifyJWT, async(req,res)=>{
@@ -84,6 +94,7 @@ async function run() {
             const query = {email: email};
             const user = await userCollection.findOne(query)
             const result = {admin: user?.role === 'admin'}
+            res.send(result);
 
         })
         app.get('/users', async (req, res) => {

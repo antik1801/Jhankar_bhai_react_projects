@@ -34,9 +34,9 @@ const MyJobs = () => {
       });
   };
 
-  const handleJobUpdate = (data) =>{
-    console.log(data)
-  }
+  const handleJobUpdate = (data) => {
+    console.log(data);
+  };
 
   return (
     <div>
