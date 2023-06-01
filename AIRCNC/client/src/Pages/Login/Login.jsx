@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useRef } from "react";
 import Swal from "sweetalert2";
+import { saveUser } from "../../api/auth";
 
 const Login = () => {
   const { signIn, loading, setLoading, signInWithGoogle, resetPassword } =
@@ -41,8 +42,8 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        const user = result.user;
         // console.log(user);
+        saveUser(result.user)
         toast.success("User logged-in");
         navigate(from, { replace: true });
       })
