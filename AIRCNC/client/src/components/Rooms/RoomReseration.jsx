@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const RoomReseration = ({ roomData }) => {
   const { user, role } = useContext(AuthContext);
+  console.log(roomData);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const total_price =
@@ -31,32 +32,35 @@ const RoomReseration = ({ roomData }) => {
       email: user?.email,
       image: user?.photoURL,
     },
-    host: roomData.host.mail,
+    host: roomData.host.email,
     location: roomData.location,
     price: total_price,
     to: value.endDate,
     from: value.startDate,
     title: roomData.title,
+    roomId: roomData._id,
+    image: roomData.image,
   });
   const handleSelect = (ranges) => {
     setValue({ ...value });
   };
   const modalHandeler = () => {
     addBookings(bookingInfo)
-    .then(data=>{
-      toast.success('Booking room successful')
-      updateStatus()
-      console.log(data)
-      closeModal();
-    })
-    .catch(error=>{
-      closeModal();
-      console.log(error.message)
-    })
+      .then((data) => {
+        updateStatus(roomData._id, true).then((data) => {
+          toast.success("Booking room successful");
+          console.log(data);
+          closeModal();
+        });
+      })
+      .catch((error) => {
+        closeModal();
+        console.log(error.message);
+      });
   };
-  const closeModal= () =>{
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
@@ -73,7 +77,7 @@ const RoomReseration = ({ roomData }) => {
         {" "}
         <Button
           onClick={() => setIsOpen(true)}
-          disabled={roomData.host.email === user.email}
+          disabled={roomData.host.email === user.email || roomData?.booked}
           label="Reserve"
         ></Button>{" "}
       </div>
@@ -81,12 +85,14 @@ const RoomReseration = ({ roomData }) => {
         <div>Total</div>
         <div>$ {total_price}</div>
       </div>
+    
       <BookingModal
         isOpen={isOpen}
         bookingInfo={bookingInfo}
         modalHandler={modalHandeler}
         closeModal={closeModal}
       ></BookingModal>
+      
     </div>
   );
 };
