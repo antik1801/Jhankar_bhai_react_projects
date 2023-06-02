@@ -1,14 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../Button/Button";
 import Calender from "./Calender";
 import { AuthContext } from "../../providers/AuthProvider";
+import BookingModal from "../Modal/BookingModal";
+import { formatDistance } from 'date-fns'
 
 const RoomReseration = ({roomData}) => {
   const { user, role } = useContext(AuthContext);
+  const total_price = parseFloat(formatDistance(new Date(roomData.to),new Date(roomData.from)).split(" ")[0])*parseFloat(roomData.price)
+  
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [bookingInfo, setBookingInfo] = useState({
+    guest: {
+      name: user?.displayName, email: user?.email, image: user?.photoURL,
+    },
+    host: roomData.host.mail,
+    location: roomData.location,
+    price: total_price,
+  })
+  
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
-        <div className="text-2xl font-semibold">$ 200</div>
+        <div className="text-2xl font-semibold">$ {roomData.price}</div>
         <div className="font-light text-neutral-600">night</div>
       </div>
       <hr />
@@ -19,12 +34,13 @@ const RoomReseration = ({roomData}) => {
       <hr />
       <div className="p-4">
         {" "}
-        <Button disabled={roomData.host.email === user.email} label="Reserve"></Button>{" "}
+        <Button onClick={()=>setIsOpen(true)} disabled={roomData.host.email === user.email} label="Reserve"></Button>{" "}
       </div>
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
         <div>Total</div>
-        <div>$ 300</div>
+        <div>$ {total_price}</div>
       </div>
+      {/* <BookingModal isOpen={isOpen}></BookingModal> */}
     </div>
   );
 };
