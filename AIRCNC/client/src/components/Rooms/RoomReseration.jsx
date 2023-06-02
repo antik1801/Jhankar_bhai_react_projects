@@ -3,23 +3,47 @@ import Button from "../Button/Button";
 import Calender from "./Calender";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingModal from "../Modal/BookingModal";
-import { formatDistance } from 'date-fns'
+import { formatDistance } from "date-fns";
 
-const RoomReseration = ({roomData}) => {
+const RoomReseration = ({ roomData }) => {
   const { user, role } = useContext(AuthContext);
-  const total_price = parseFloat(formatDistance(new Date(roomData.to),new Date(roomData.from)).split(" ")[0])*parseFloat(roomData.price)
-  
+  const [isOpen, setIsOpen] = useState(false);
+  const total_price =
+    parseFloat(
+      formatDistance(new Date(roomData.to), new Date(roomData.from)).split(
+        " "
+      )[0]
+    ) * parseFloat(roomData.price);
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [value, setValue] = useState({
+    startDate: new Date(roomData?.from),
+    endDate: new Date(roomData?.to),
+    key: "selection",
+  });
+
   const [bookingInfo, setBookingInfo] = useState({
     guest: {
-      name: user?.displayName, email: user?.email, image: user?.photoURL,
+      name: user?.displayName,
+      email: user?.email,
+      image: user?.photoURL,
     },
     host: roomData.host.mail,
     location: roomData.location,
     price: total_price,
-  })
-  
+    to: value.endDate,
+    from: value.startDate,
+    title: roomData.title,
+    guest: roomData.total_guest,
+  });
+  const handleSelect = (ranges) => {
+    setValue({ ...value });
+  };
+  const modalHandeler = () => {
+    console.log(bookingInfo);
+  };
+  const closeModal= () =>{
+    setIsOpen(false);
+  }
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
@@ -28,19 +52,28 @@ const RoomReseration = ({roomData}) => {
       </div>
       <hr />
       <div className="flex justify-center">
-        <Calender></Calender>
+        <Calender value={value} handleSelect={handleSelect}></Calender>
       </div>
 
       <hr />
       <div className="p-4">
         {" "}
-        <Button onClick={()=>setIsOpen(true)} disabled={roomData.host.email === user.email} label="Reserve"></Button>{" "}
+        <Button
+          onClick={() => setIsOpen(true)}
+          disabled={roomData.host.email === user.email}
+          label="Reserve"
+        ></Button>{" "}
       </div>
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
         <div>Total</div>
         <div>$ {total_price}</div>
       </div>
-      {/* <BookingModal isOpen={isOpen}></BookingModal> */}
+      <BookingModal
+        isOpen={isOpen}
+        bookingInfo={bookingInfo}
+        modalHandler={modalHandeler}
+        closeModal={closeModal}
+      ></BookingModal>
     </div>
   );
 };
