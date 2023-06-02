@@ -5,43 +5,59 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import HostRequestModal from "../../Modal/HostRequestModal";
+import { becomeHost } from "../../../api/auth";
 
 const MenuDropdown = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, role, setRole } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-  const [modal,setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   // handle logout
-  const handleLogout = () =>{
+  // console.log(role);
+  const handleLogout = () => {
     logOut()
-    .then(()=>{
-      toast.success('logout sucessful')
-    })
-    .catch(err=>{
-      console.log(err.message);
-    })
-
-  }
-  const modalHandler = email =>{
-    console.log('Modal clicked')
-  }
-  const closeModal = () =>{
+      .then(() => {
+        toast.success("logout sucessful");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const modalHandler = (email) => {
+    becomeHost(email).then((data) => {
+      console.log(data);
+      toast.success("You are host now, Post Rooms");
+      setRole("host");
+    });
+    closeModal();
+  };
+  const closeModal = () => {
     setModal(false);
-  }
+  };
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div onClick={()=>setModal(true)} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          AirCNC your home
+        <div className="hidden md:block py-3 px-4 text-sm font-semibold  rounded-full  transition cursor-pointer">
+          {!role && (
+            <button
+              onClick={() => setModal(true)}
+              disabled={!user}
+              className="hover:bg-neutral-100 py-3 px-4"
+            >
+              AirCNC your home
+            </button>
+          )}
         </div>
         <div
           onClick={toggleOpen}
           className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
         >
           <AiOutlineMenu />
-          <div className="hidden md:block"><Avatar /></div>
+          <div className="hidden md:block">
+            <Avatar />
+          </div>
         </div>
       </div>
       {isOpen && (
@@ -55,19 +71,21 @@ const MenuDropdown = () => {
             </Link>
             {user ? (
               <>
-              <Link
+                <Link
                   to="/dashboard"
                   className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                 >
                   Dashboard
                 </Link>
-              <div
-                onClick={handleLogout}
-                className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
-              >
-                Logout
-              </div>
-
+                <div
+                  onClick={()=>{
+                    setRole(null)
+                    logOut()
+                  }}
+                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                >
+                  Logout
+                </div>
               </>
             ) : (
               <>
@@ -88,7 +106,12 @@ const MenuDropdown = () => {
           </div>
         </div>
       )}
-       <HostRequestModal isOpen={modal} modalHandler={modalHandler} email={user?.email} closeModal={closeModal}></HostRequestModal>
+      <HostRequestModal
+        isOpen={modal}
+        modalHandler={modalHandler}
+        email={user?.email}
+        closeModal={closeModal}
+      ></HostRequestModal>
     </div>
   );
 };
