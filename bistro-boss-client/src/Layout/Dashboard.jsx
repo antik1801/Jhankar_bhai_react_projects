@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   // TODO : Load data to the server dynammically is Admin based on data
   const isAdmin = useAdmin();
-  // const isAdmin = true;
+  // const isAdmin = true; 
 
   useEffect(() => {
     document.title = `Bistro ${location.pathname.replace("/", "- ")}`;
@@ -52,9 +52,9 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/reservations">
+                  <NavLink to="/dashboard/addItem">
                     <FaUtensils />
-                    Add Items
+                    Add an Items
                   </NavLink>
                 </li>
                 <li>
