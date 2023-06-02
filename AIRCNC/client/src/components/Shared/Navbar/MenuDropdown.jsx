@@ -46,12 +46,21 @@ const MenuDropdown = () => {
               Home
             </Link>
             {user ? (
+              <>
+              <Link
+                  to="/dashboard"
+                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Dashboard
+                </Link>
               <div
                 onClick={handleLogout}
                 className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
               >
                 Logout
               </div>
+
+              </>
             ) : (
               <>
                 <Link

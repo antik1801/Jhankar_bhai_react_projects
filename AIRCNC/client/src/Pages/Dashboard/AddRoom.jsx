@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import AddRoomForm from "../../components/Forms/AddRoomForm";
 import { imageUpload } from "../../api/utils";
 import { AuthContext } from "../../providers/AuthProvider";
+import { addRoom } from "../../api/rooms";
+import { toast } from "react-hot-toast";
 
 const AddRoom = () => {
   const { user } = useContext(AuthContext);
@@ -16,6 +18,7 @@ const AddRoom = () => {
   const handleFormSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
+    const form = event.target;
     const location = event.target.location.value;
     const title = event.target.title.value;
     const from = dates.startDate;
@@ -26,6 +29,7 @@ const AddRoom = () => {
     const bathrooms = event.target.bathrooms.value;
     const category = event.target.category.value;
     const image = event.target.image.files[0];
+    // post room data in the database
     // upload image
     imageUpload(image)
       .then((data) => {
@@ -43,7 +47,19 @@ const AddRoom = () => {
           bedrooms,
           bathrooms,
           category,
+          from,to
         };
+        // post roomdata to server
+        addRoom(roomData)
+        .then(data => {
+          toast.success('Room Added')
+          form.reset();
+            console.log(data)
+        })
+        .catch(err=>{
+            console.log(err.message)
+        })
+        console.log(roomData)
         setLoading(false);
       })
       .catch((err) => {
