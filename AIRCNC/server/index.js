@@ -56,6 +56,23 @@ async function run() {
       const result = await roomsCollection.insertOne(room)
       res.send(result);
     })
+    // get all my bookings
+    app.get('/mybookings', async (req,res)=>{
+      const email = req.params.email;
+      if(!email){
+        res.send([]);
+      }
+      const query = { 'guest.email': email }
+      const result = await bookingsCollection.find(query).toArray()
+      res.send(result);
+    })
+    // save bookings in database
+    app.post('/bookings', async(req,res)=>{
+      const bookings = req.body;
+      console.log(bookings)
+      const result = await bookingsCollection.insertOne(bookings)
+      res.send(result);
+    })
     // Get All rooms
     app.get('/rooms', async(req,res)=>{
       const result = await roomsCollection.find().toArray();
@@ -67,6 +84,20 @@ async function run() {
       const query = {_id: new ObjectId(id)}
       const result = await roomsCollection.findOne(query)
       res.send(result)
+    })
+    // Update room booking status
+    app.patch('/rooms/status/:id', async(req,res)=>{
+      const id = req.params.id;
+      const status = req.body.status;
+      const query = {_id: new ObjectId(id)}
+      const updateDoc = {
+        $set:{
+          booked: status,
+        }
+      }
+
+      const update = await bookingsCollection.updateOne(query, updateDoc)
+      res.send(update);
     })
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 })
