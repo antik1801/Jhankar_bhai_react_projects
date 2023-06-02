@@ -4,10 +4,12 @@ import { useCallback, useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import HostRequestModal from "../../Modal/HostRequestModal";
 
 const MenuDropdown = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [modal,setModal] = useState(false);
   // handle logout
   const handleLogout = () =>{
     logOut()
@@ -19,13 +21,19 @@ const MenuDropdown = () => {
     })
 
   }
+  const modalHandler = email =>{
+    console.log('Modal clicked')
+  }
+  const closeModal = () =>{
+    setModal(false);
+  }
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div onClick={()=>setModal(true)} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
           AirCNC your home
         </div>
         <div
@@ -80,6 +88,7 @@ const MenuDropdown = () => {
           </div>
         </div>
       )}
+       <HostRequestModal isOpen={modal} modalHandler={modalHandler} email={user?.email} closeModal={closeModal}></HostRequestModal>
     </div>
   );
 };
