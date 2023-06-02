@@ -28,6 +28,7 @@ const AddRoom = () => {
     const bedrooms = event.target.bedrooms.value;
     const bathrooms = event.target.bathrooms.value;
     const category = event.target.category.value;
+    const description=event.target.description.value;
     const image = event.target.image.files[0];
     // post room data in the database
     // upload image
@@ -47,7 +48,7 @@ const AddRoom = () => {
           bedrooms,
           bathrooms,
           category,
-          from,to
+          from,to,description
         };
         // post roomdata to server
         addRoom(roomData)

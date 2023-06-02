@@ -1,6 +1,6 @@
 import React from "react";
-import DatePicker from "./DatePicker";
 import Button from "../Button/Button";
+import Calender from "./Calender";
 
 const RoomReseration = () => {
   return (
@@ -10,7 +10,10 @@ const RoomReseration = () => {
         <div className="font-light text-neutral-600">night</div>
       </div>
       <hr />
-     <DatePicker />
+      <div className="flex justify-center">
+        <Calender></Calender>
+      </div>
+     
      <hr />
      <div className="p-4"> <Button label="Reserve"></Button> </div>
      <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
