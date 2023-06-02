@@ -4,9 +4,13 @@ import Calender from "./Calender";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingModal from "../Modal/BookingModal";
 import { formatDistance } from "date-fns";
+import { addBookings, updateStatus } from "../../api/bookings";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const RoomReseration = ({ roomData }) => {
   const { user, role } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const total_price =
     parseFloat(
@@ -38,7 +42,17 @@ const RoomReseration = ({ roomData }) => {
     setValue({ ...value });
   };
   const modalHandeler = () => {
-    console.log(bookingInfo);
+    addBookings(bookingInfo)
+    .then(data=>{
+      toast.success('Booking room successful')
+      updateStatus()
+      console.log(data)
+      closeModal();
+    })
+    .catch(error=>{
+      closeModal();
+      console.log(error.message)
+    })
   };
   const closeModal= () =>{
     setIsOpen(false);
