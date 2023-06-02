@@ -33,7 +33,6 @@ const RoomReseration = ({ roomData }) => {
     to: value.endDate,
     from: value.startDate,
     title: roomData.title,
-    guest: roomData.total_guest,
   });
   const handleSelect = (ranges) => {
     setValue({ ...value });
