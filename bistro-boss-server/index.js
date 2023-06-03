@@ -106,7 +106,7 @@ async function run() {
             }
         })
 
-
+        // menu related apis
         app.get('/menu', async (req, res) => {
             try {
                 const result = await menuCollection.find().toArray();
@@ -116,6 +116,13 @@ async function run() {
             }
 
         })
+
+        app.post('/menu', async(req,res)=>{
+            const newItem = req.body;
+            const result = await menuCollection.insertOne(newItem)
+            res.send(result);
+        })
+
         app.get('/review', async (req, res) => {
             try {
                 const result = await reviewCollection.find().toArray();
