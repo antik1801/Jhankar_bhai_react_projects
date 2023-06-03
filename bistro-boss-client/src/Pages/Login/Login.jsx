@@ -10,11 +10,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import useAdmin from "../../hooks/useAdmin";
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true)
-
+    const [isAdmin] = useAdmin();
     const {login} = useContext(AuthContext)
     const navigate = useNavigate();
     const location = useLocation();

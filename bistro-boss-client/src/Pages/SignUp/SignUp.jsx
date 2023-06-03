@@ -26,6 +26,7 @@ const SignUp = () => {
         // save user to database
 
         const saveUser = { name: data.name, email: data.email };
+        console.log(saveUser);
         fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
