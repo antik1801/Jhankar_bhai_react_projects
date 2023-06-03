@@ -68,7 +68,7 @@ async function run() {
         }
 
         //users related api
-        app.post('/users',verifyJWT,verifyAdmin, async (req, res) => {
+        app.post('/users', async (req, res) => {
             try {
                 const user = req.body;
                 const query = { email: user.email }
