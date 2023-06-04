@@ -11,17 +11,20 @@ app.use(cors())
 
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization;
+    console.log(authorization)
+    // rejected part
     if (!authorization) {
         return res.status(404).send({ error: true, message: "Unauthorized access" })
     }
-    // barer
+    // barer token
     const token = authorization.split(" ")[1];
+    // accepted part
     jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(403).send({ error: true, message: "Unauthorized Access" })
+            return res.status(401).send({ error: true, message: "Unauthorized Access" })
         }
         req.decoded = decoded;
-        next()
+        next();
     })
 
 }
@@ -86,7 +89,7 @@ async function run() {
         
         // Get Method
         // Security layer:
-        app.get('/users/admin/:email', verifyJWT, async(req,res)=>{
+        app.get('/users/admin/:email', verifyJWT,verifyAdmin, async(req,res)=>{
             const email = req.params.email;
             if (req.decoded.email !== email) {
                 res.send({admin: false})
@@ -117,7 +120,7 @@ async function run() {
 
         })
 
-        app.post('/menu', async(req,res)=>{
+        app.post('/menu',verifyJWT,verifyAdmin, async(req,res)=>{
             const newItem = req.body;
             const result = await menuCollection.insertOne(newItem)
             res.send(result);
