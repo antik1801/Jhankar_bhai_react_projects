@@ -3,6 +3,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors')
 const app = express()
 require('dotenv').config()
+const stripe=require('stripe')(process.env.PAYMENT_SECRET_KEY)
 const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000
 
@@ -64,6 +65,7 @@ async function run() {
             const email = req.decoded.email;
             const query = {email: email}
             const user = await userCollection.findOne(query);
+            console.log(user);
             if (user?.role !== 'admin') {
                 return res.status(403).send({error: true, message: 'forbidden message'})
             }
@@ -89,7 +91,7 @@ async function run() {
         
         // Get Method
         // Security layer:
-        app.get('/users/admin/:email', verifyJWT,verifyAdmin, async(req,res)=>{
+        app.get('/users/admin/:email', verifyJWT, async(req,res)=>{
             const email = req.params.email;
             if (req.decoded.email != email) {
                 res.send({admin: false})
