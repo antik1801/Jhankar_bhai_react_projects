@@ -8,6 +8,7 @@ const useAdmin = () => {
   // use axis secure with react query
   const { data: isAdmin, isLoading: isAdminLoadin } = useQuery({
     queryKey: ["isAdmin", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/admin/${user?.email}`);
       return res.data.admin;
