@@ -14,14 +14,14 @@ const useMenu = () => {
   //     });
   // }, []);
   // return [menu, loading];
-  const {data: menu = [] , isLoading: loading } = useQuery({
+  const {data: menu = [] , isLoading: loading , refetch} = useQuery({
     queryKey: ['menu'],    // the second peramiter of the querykey is the dependency of the query key
     queryFn: async () =>{
-      const res = await fetch('https://bistro-boss-server-chi.vercel.app/menu')
+      const res = await fetch('http://localhost:5000/menu')
       return res.json()
     }
   })
-  return [menu, loading]
+  return [menu, loading, refetch]
 };
 
 export default useMenu;
