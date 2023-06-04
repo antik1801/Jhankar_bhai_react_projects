@@ -91,7 +91,7 @@ async function run() {
         // Security layer:
         app.get('/users/admin/:email', verifyJWT,verifyAdmin, async(req,res)=>{
             const email = req.params.email;
-            if (req.decoded.email !== email) {
+            if (req.decoded.email != email) {
                 res.send({admin: false})
             }
             const query = {email: email};
@@ -186,6 +186,17 @@ async function run() {
                 const id = req.params.id;
                 const query = { _id: new ObjectId(id) }
                 const result = await cartCollection.deleteOne(query);
+                res.send(result);
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
+        // delete item from menu
+        app.delete('/menu/:id',verifyJWT, verifyAdmin,  async (req, res) => {
+            try {
+                const id = req.params.id;
+                const query = { _id: new ObjectId(id) }
+                const result = await menuCollection.deleteOne(query);
                 res.send(result);
             } catch (error) {
                 res.send(error.message)
