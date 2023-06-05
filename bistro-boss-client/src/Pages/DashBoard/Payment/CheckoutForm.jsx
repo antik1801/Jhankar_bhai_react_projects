@@ -81,7 +81,7 @@ const CheckoutForm = ({ price , cart}) => {
       axiosSecure.post('/payments', payment)
       .then(res => {
         console.log(res.data)
-        if (res.data.insertResult,insertedId) {
+        if (res.data.insertResult.insertedId) {
            Swal.fire(
           "Congratulations!",
           `Successfully done payment!`,
