@@ -71,11 +71,18 @@ const CheckoutForm = ({ price , cart}) => {
         items: cart.map(item => item._id),
         itemNames: cart?.map(item => item.name),
       };
-      Swal.fire(
-        "Congratulations!Successfully done payment!",
-        `Transaction Id=${transactionId}`,
-        "success"
-      );
+      axiosSecure.post('/payments', payment)
+      .then(res => {
+        console.log(res.data)
+        if (res.data.insertedId) {
+           Swal.fire(
+          "Congratulations!",
+          `Successfully done payment!`,
+          "success"
+        );
+        }
+      })
+      
     }
   };
 
