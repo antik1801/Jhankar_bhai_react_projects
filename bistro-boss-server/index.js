@@ -3,7 +3,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors')
 const app = express()
 require('dotenv').config()
-const stripe=require('stripe')(process.env.PAYMENT_SECRET_KEY)
+const stripe = require('stripe')(process.env.PAYMENT_SECRET_KEY)
 const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000
 
@@ -61,12 +61,12 @@ async function run() {
             }
         })
         // use verifyJWT before using verify admin
-        const verifyAdmin = async(req,res,next) =>{
+        const verifyAdmin = async (req, res, next) => {
             const email = req.decoded.email;
-            const query = {email: email}
+            const query = { email: email }
             const user = await userCollection.findOne(query);
             if (user?.role !== 'admin') {
-                return res.status(403).send({error: true, message: 'forbidden message'})
+                return res.status(403).send({ error: true, message: 'forbidden message' })
             }
             next();
         }
@@ -86,17 +86,17 @@ async function run() {
                 res.send(error.message)
             }
         })
-        
+
         // Get Method
         // Security layer:
-        app.get('/users/admin/:email', verifyJWT, async(req,res)=>{
+        app.get('/users/admin/:email', verifyJWT, async (req, res) => {
             const email = req.params.email;
             if (req.decoded.email != email) {
-                res.send({admin: false})
+                res.send({ admin: false })
             }
-            const query = {email: email};
+            const query = { email: email };
             const user = await userCollection.findOne(query)
-            const result = {admin: user?.role === 'admin'}
+            const result = { admin: user?.role === 'admin' }
             res.send(result);
 
         })
@@ -120,7 +120,7 @@ async function run() {
 
         })
 
-        app.post('/menu',verifyJWT,verifyAdmin, async(req,res)=>{
+        app.post('/menu', verifyJWT, verifyAdmin, async (req, res) => {
             const newItem = req.body;
             const result = await menuCollection.insertOne(newItem)
             res.send(result);
@@ -192,7 +192,7 @@ async function run() {
             }
         })
         // delete item from menu
-        app.delete('/menu/:id',verifyJWT, verifyAdmin,  async (req, res) => {
+        app.delete('/menu/:id', verifyJWT, verifyAdmin, async (req, res) => {
             try {
                 const id = req.params.id;
                 const query = { _id: new ObjectId(id) }
@@ -203,8 +203,8 @@ async function run() {
             }
         })
         // create payment intent
-        app.post('/create-payment-intent',verifyJWT, async(req,res)=>{
-            const {price} = req.body;
+        app.post('/create-payment-intent', verifyJWT, async (req, res) => {
+            const { price } = req.body;
             const amount = price * 100;
             const paymentIntent = await stripe.paymentIntents.create({
                 amount: amount,
@@ -218,10 +218,16 @@ async function run() {
 
         })
         // payment related Api
-        app.post('/payments', verifyJWT, async(req,res)=>{
+        app.post('/payments', verifyJWT, async (req, res) => {
             const payment = req.body;
-            const result = await paymentCollection.insertOne(payment)
-            res.send(result);
+            const insertResult = await paymentCollection.insertOne(payment)
+            const query = {
+                _id: {
+                    $in: payment.cartItems.map(id => new ObjectId(id))
+                }
+            }
+            const deleteResult = await cartCollection.deleteMany(query)
+            res.send({ insertResult, deleteResult });
         })
 
         await client.db("admin").command({ ping: 1 });
