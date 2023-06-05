@@ -12,7 +12,6 @@ app.use(cors())
 
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization;
-    console.log(authorization)
     // rejected part
     if (!authorization) {
         return res.status(404).send({ error: true, message: "Unauthorized access" })
@@ -49,6 +48,7 @@ async function run() {
         const menuCollection = client.db('bistroDb').collection('menu')
         const reviewCollection = client.db('bistroDb').collection('reviews')
         const cartCollection = client.db('bistroDb').collection('cart')
+        const paymentCollection = client.db('bistroDb').collection('payment')
 
         // JWT API
         app.post('/jwt', (req, res) => {
@@ -65,7 +65,6 @@ async function run() {
             const email = req.decoded.email;
             const query = {email: email}
             const user = await userCollection.findOne(query);
-            console.log(user);
             if (user?.role !== 'admin') {
                 return res.status(403).send({error: true, message: 'forbidden message'})
             }
@@ -78,7 +77,6 @@ async function run() {
                 const user = req.body;
                 const query = { email: user.email }
                 const existingUser = await userCollection.findOne(query)
-                console.log('existing user', existingUser);
                 if (existingUser) {
                     return res.send({ message: 'User Already Existes' })
                 }
@@ -204,6 +202,28 @@ async function run() {
                 res.send(error.message)
             }
         })
+        // create payment intent
+        app.post('/create-payment-intent',verifyJWT, async(req,res)=>{
+            const {price} = req.body;
+            const amount = price * 100;
+            const paymentIntent = await stripe.paymentIntents.create({
+                amount: amount,
+                currency: 'usd',
+                payment_method_types: ["card"],
+
+            });
+            res.send({
+                clientSecret: paymentIntent.client_secret,
+            })
+
+        })
+        // payment related Api
+        app.post('/payments', async(req,res)=>{
+            const payment = req.body;
+            const result = await paymentCollection.insertOne(payment)
+            res.send(result);
+        })
+
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
