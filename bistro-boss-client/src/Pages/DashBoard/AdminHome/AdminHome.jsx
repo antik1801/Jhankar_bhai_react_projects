@@ -2,6 +2,7 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import AdminDashboardComp from "../../../components/AdminDashboardComp";
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -16,7 +17,7 @@ const AdminHome = () => {
   return (
     <div className="w-full m-4">
       <h4 className="text-3xl">Welcome Back, {user?.displayName}</h4>
-      <div className="stats shadow">
+      <div className="stats shadow flex justify-between flex-wrap md:flex-nowrap">
         <div className="stat">
           <div className="stat-figure text-secondary">
             <svg
@@ -34,7 +35,7 @@ const AdminHome = () => {
             </svg>
           </div>
           <div className="stat-title">Revenue</div>
-          <div className="stat-value">31K</div>
+          <div className="stat-value">${status.revenue}</div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
 
@@ -54,8 +55,28 @@ const AdminHome = () => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title">New Users</div>
-          <div className="stat-value">4,200</div>
+          <div className="stat-title">Users</div>
+          <div className="stat-value">{status.users}</div>
+          <div className="stat-desc">↗︎ 400 (22%)</div>
+        </div> 
+        <div className="stat">
+          <div className="stat-figure text-secondary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="inline-block w-8 h-8 stroke-current"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              ></path>
+            </svg>
+          </div>
+          <div className="stat-title">Menu Items</div>
+          <div className="stat-value">{status.products}</div>
           <div className="stat-desc">↗︎ 400 (22%)</div>
         </div>
 
@@ -75,11 +96,12 @@ const AdminHome = () => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title">New Registers</div>
-          <div className="stat-value">1,200</div>
+          <div className="stat-title">Orders</div>
+          <div className="stat-value">{status.orders}</div>
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>
       </div>
+      <AdminDashboardComp></AdminDashboardComp>
     </div>
   );
 };
