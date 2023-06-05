@@ -217,6 +217,36 @@ async function run() {
             })
 
         })
+        //
+        app.get('/admin-status',verifyJWT,verifyAdmin, async (req, res) => {
+            const users = await userCollection.estimatedDocumentCount();
+            const products = await menuCollection.estimatedDocumentCount();
+            const orders = await paymentCollection.estimatedDocumentCount();
+
+            // best way to get sum of a field is to use group and sum operator
+            /*  await paymentCollection.aggregate([
+                  {
+                      $group: {
+                          _id: null,
+                          total: { $sum: '$price' }
+                      }
+                  }
+              ]).toArray((err, result) => {
+                  if (err) {
+                      console.error('Error executing the aggregation:', err);
+                      return;
+                  }
+                const sum = result[0].total;
+                 console.log('Total sum of prices:', sum);
+              })
+              */
+            const payments = await paymentCollection.find().toArray();
+            const revenue = payments.reduce((sum,item)=>sum+item.price,0)
+            res.send({
+                users, products, orders,revenue
+            })
+        })
+
         // payment related Api
         app.post('/payments', verifyJWT, async (req, res) => {
             const payment = req.body;
