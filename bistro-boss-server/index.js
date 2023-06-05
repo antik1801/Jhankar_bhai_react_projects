@@ -246,7 +246,25 @@ async function run() {
                 users, products, orders,revenue
             })
         })
+        /**
+         * -----------Bangla system-------------------
+         * -----------2nd best sollution--------------
+         * 1. load all payments
+         * 2. for each payments get the menu item
+         * 3. for each item in the menu items array get the menu collection .
+         * 4. put them in the array
+         * 5. seperate all ordered items by category using filter.
+         * 6. Now get the quantity using length.
+         * 7. for each amount use reduce to get the total amount spent the category
+         */
+        /**
+         * English system 
+         * -----------------Mongodb Aggrigation-----------------
+         * -----------------Pipeline----------------------------
+         */
+        app.get('/order-stats', async(req,res)=>{
 
+        })
         // payment related Api
         app.post('/payments', verifyJWT, async (req, res) => {
             const payment = req.body;
