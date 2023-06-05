@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 // import "./CheckoutForm.css"
 
 const CheckoutForm = ({ price , cart}) => {
@@ -14,11 +15,14 @@ const CheckoutForm = ({ price , cart}) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     console.log(price);
-    axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-      setClientSecret(res.data.clientSecret);
-    });
+    if (price > 0) {
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        setClientSecret(res.data.clientSecret);
+      });      
+    }
   }, [price, axiosSecure]);
   const handleSubmit = async (event) => {
     // Block native refresh
@@ -77,12 +81,13 @@ const CheckoutForm = ({ price , cart}) => {
       axiosSecure.post('/payments', payment)
       .then(res => {
         console.log(res.data)
-        if (res.data.insertedId) {
+        if (res.data.insertResult,insertedId) {
            Swal.fire(
           "Congratulations!",
           `Successfully done payment!`,
           "success"
         );
+        navigate('/dashboard/mycart')
         }
       })
       
