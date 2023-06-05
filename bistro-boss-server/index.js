@@ -218,7 +218,7 @@ async function run() {
 
         })
         // payment related Api
-        app.post('/payments', async(req,res)=>{
+        app.post('/payments', verifyJWT, async(req,res)=>{
             const payment = req.body;
             const result = await paymentCollection.insertOne(payment)
             res.send(result);
