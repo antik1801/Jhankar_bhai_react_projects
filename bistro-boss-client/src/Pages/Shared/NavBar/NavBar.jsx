@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import useAdmin from "../../../hooks/useAdmin";
+import Loader from "../../../components/Loader";
 
 const NavBar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, loading } = useContext(AuthContext);
   const [cart] = useCart();
   const [isAdmin] = useAdmin();
   const handleSignOut = () => {
@@ -19,6 +20,9 @@ const NavBar = () => {
         toast(err.message);
       });
   };
+  if (loading) {
+    return <Loader></Loader>
+  }
   const navOptions = (
     <>
       <li>
