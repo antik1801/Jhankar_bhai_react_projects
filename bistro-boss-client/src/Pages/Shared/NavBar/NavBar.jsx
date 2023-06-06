@@ -20,9 +20,6 @@ const NavBar = () => {
         toast(err.message);
       });
   };
-  if (loading) {
-    return <Loader></Loader>
-  }
   const navOptions = (
     <>
       <li>

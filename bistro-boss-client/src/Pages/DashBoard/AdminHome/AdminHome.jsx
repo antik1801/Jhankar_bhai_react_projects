@@ -6,50 +6,6 @@ import AdminDashboardComp from "../../../components/AdminDashboardComp";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
 import TriangleBar from "../../../components/TriangleBar";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 const AdminHome = () => {
   const { user } = useAuth();
@@ -61,6 +17,13 @@ const AdminHome = () => {
       return res.data;
     },
   });
+  const {data :chartData = []} = useQuery({
+    queryKey: ['chart-data'],
+    queryFn: async() =>{
+      const res = await axiosSecure('/order-stats');
+      return res.data;
+    }
+  })
   const getPath = (x, y, width, height) => {
     return `M${x},${y + height}C${x + width / 3},${y + height} ${
       x + width / 2
@@ -166,9 +129,9 @@ const AdminHome = () => {
       </div>
       <div className="w-full mt-10">
         <BarChart
-          width={700}
-          height={500}
-          data={data}
+          width={500}
+          height={300}
+          data={chartData}
           margin={{
             top: 20,
             right: 30,
@@ -177,15 +140,15 @@ const AdminHome = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="category" />
           <YAxis />
           <Bar
-            dataKey="uv"
+            dataKey="total"
             fill="#8884d8"
             shape={<TriangleBar />}
             label={{ position: "top" }}
           >
-            {data.map((entry, index) => (
+            {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={colors[index % 20]} />
             ))}
           </Bar>
