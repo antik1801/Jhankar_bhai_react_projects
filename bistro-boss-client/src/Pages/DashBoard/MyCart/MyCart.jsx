@@ -1,13 +1,14 @@
 import useCart from "../../../hooks/useCart";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaHome, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const MyCart = () => {
-  const [cart,refetch] = useCart();
+  const [cart, refetch] = useCart();
+  console.log("test",2+"2" - 1);
   //   console.log(cart);
   const total = cart.reduce((sum, item) => item.price + sum, 0);
-
+  console.log("cart from mycart", cart);
   const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
@@ -34,11 +35,15 @@ const MyCart = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-10">
       <div className="uppercase font-semibold flex justify-between h-10 gap-10">
         <h3 className="text-3xl">Total items : {cart.length}</h3>
         <h3 className="text-3xl">Total price : $ {total.toFixed(2)}</h3>
-        <Link to='/dashboard/payment'><button className="btn btn-warning btn-sm">Pay</button></Link>
+        {cart.length > 0 && (
+          <Link to="/dashboard/payment">
+            <button className="btn btn-warning btn-sm">Pay</button>
+          </Link>
+        )}
       </div>
       {/* Table */}
 
@@ -79,6 +84,11 @@ const MyCart = () => {
             ))}
           </tbody>
         </table>
+        {cart.length == 0 && (
+          <NavLink to="/" className="text-center">
+            <button className="btn btn-primary"> Add Item</button>
+          </NavLink>
+        ) }
       </div>
     </div>
   );
