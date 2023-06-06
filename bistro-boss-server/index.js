@@ -205,7 +205,7 @@ async function run() {
         // create payment intent
         app.post('/create-payment-intent', verifyJWT, async (req, res) => {
             const { price } = req.body;
-            const amount = price * 100;
+            const amount = parseInt(price * 100);
             const paymentIntent = await stripe.paymentIntents.create({
                 amount: amount,
                 currency: 'usd',
@@ -262,8 +262,34 @@ async function run() {
          * -----------------Mongodb Aggrigation-----------------
          * -----------------Pipeline----------------------------
          */
-        app.get('/order-stats', async(req,res)=>{
+        app.get('/stat-price', async(req,res)=>{
+            const paymentsResult = await paymentCollection.find().toArray();
 
+        })
+        app.get('/order-stats', async(req,res)=>{
+            const pipeline = [
+                {
+                    $lookup:{
+                        from: menuCollection,
+                        localField: 'menuItems',
+                        foreignField: '_id',
+                        as: 'menuItemsWithCategory',
+                    },
+                },
+                {
+                    $unwind: '$menuItemsWithCategory',
+                },
+                {
+                    $group: {
+                        _id: '$menuItemsWithCategory.category',
+                        count: { $sum: 1},
+                        totalPrice: { $sum: '$menuItemsWithCategory.price'},
+                    },
+                },
+            ]
+            const result = await paymentCollection.aggregate(pipeline).toArray()
+            console.log(result);
+            // res.send(result);
         })
         // payment related Api
         app.post('/payments', verifyJWT, async (req, res) => {
