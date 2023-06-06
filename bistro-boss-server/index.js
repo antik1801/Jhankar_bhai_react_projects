@@ -218,7 +218,7 @@ async function run() {
 
         })
         //
-        app.get('/admin-status',verifyJWT,verifyAdmin, async (req, res) => {
+        app.get('/admin-status', verifyJWT, verifyAdmin, async (req, res) => {
             const users = await userCollection.estimatedDocumentCount();
             const products = await menuCollection.estimatedDocumentCount();
             const orders = await paymentCollection.estimatedDocumentCount();
@@ -241,9 +241,9 @@ async function run() {
               })
               */
             const payments = await paymentCollection.find().toArray();
-            const revenue = payments.reduce((sum,item)=>sum+item.price,0)
+            const revenue = payments.reduce((sum, item) => sum + item.price, 0)
             res.send({
-                users, products, orders,revenue
+                users, products, orders, revenue
             })
         })
         /**
@@ -262,34 +262,50 @@ async function run() {
          * -----------------Mongodb Aggrigation-----------------
          * -----------------Pipeline----------------------------
          */
-        app.get('/stat-price', async(req,res)=>{
-            const paymentsResult = await paymentCollection.find().toArray();
 
-        })
-        app.get('/order-stats', async(req,res)=>{
+        app.get('/order-stats', verifyJWT, verifyAdmin , async (req, res) => {
             const pipeline = [
                 {
-                    $lookup:{
-                        from: menuCollection,
-                        localField: 'menuItems',
-                        foreignField: '_id',
-                        as: 'menuItemsWithCategory',
-                    },
+                  $addFields: {
+                    menuItemsObjectIds: {
+                      $map: {
+                        input: '$menuItems',
+                        as: 'itemId',
+                        in: { $toObjectId: '$$itemId' }
+                      }
+                    }
+                  }
                 },
                 {
-                    $unwind: '$menuItemsWithCategory',
+                  $lookup: {
+                    from: 'menu',
+                    localField: 'menuItemsObjectIds',
+                    foreignField: '_id',
+                    as: 'menuItemsData'
+                  }
+                },
+                {
+                  $unwind: '$menuItemsData'
                 },
                 {
                     $group: {
-                        _id: '$menuItemsWithCategory.category',
-                        count: { $sum: 1},
-                        totalPrice: { $sum: '$menuItemsWithCategory.price'},
-                    },
-                },
-            ]
+                      _id: '$menuItemsData.category',
+                      count: { $sum: 1 },
+                      total: { $sum: '$menuItemsData.price' }
+                    }
+                  },
+                  {
+                    $project: {
+                      category: '$_id',
+                      count: 1,
+                      total: { $round: ['$total', 2] },
+                      _id: 0
+                    }
+                  }
+                ];
             const result = await paymentCollection.aggregate(pipeline).toArray()
             console.log(result);
-            // res.send(result);
+            res.send(result);
         })
         // payment related Api
         app.post('/payments', verifyJWT, async (req, res) => {
