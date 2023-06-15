@@ -70,7 +70,10 @@ async function run() {
             }
             next();
         }
-
+        app.get('/test', (req,res)=>{
+            const str = "this is a simple test API";
+            res.send(str);
+        })
         //users related api
         app.post('/users', async (req, res) => {
             try {
@@ -92,7 +95,7 @@ async function run() {
         app.get('/users/admin/:email', verifyJWT, async (req, res) => {
             const email = req.params.email;
             if (req.decoded.email != email) {
-                res.send({ admin: false })
+               return res.send({ admin: false })
             }
             const query = { email: email };
             const user = await userCollection.findOne(query)
@@ -138,7 +141,7 @@ async function run() {
             try {
                 const email = req.query.email;
                 if (!email) {
-                    res.send([]);
+                  return res.send([]);
                 }
                 const decodedEmail = req.decoded.email;
                 if (email !== decodedEmail) {
