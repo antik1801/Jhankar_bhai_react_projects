@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
-  console.log("test",2+"2" - 1);
+  console.log("test", 2 + "2" - 1);
   //   console.log(cart);
   const total = cart.reduce((sum, item) => item.price + sum, 0);
   console.log("cart from mycart", cart);
@@ -20,9 +20,12 @@ const MyCart = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/carts/${item._id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://bistro-boss-server-antik1801.vercel.app/carts/${item._id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             refetch();
@@ -88,7 +91,7 @@ const MyCart = () => {
           <NavLink to="/" className="text-center">
             <button className="btn btn-primary"> Add Item</button>
           </NavLink>
-        ) }
+        )}
       </div>
     </div>
   );
