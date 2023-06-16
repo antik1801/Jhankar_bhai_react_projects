@@ -1,4 +1,5 @@
 const express = require('express')
+const mg = require('nodemailer-mailgun-transport');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors')
 const app = express()
@@ -6,6 +7,7 @@ require('dotenv').config()
 const stripe = require('stripe')(process.env.PAYMENT_SECRET_KEY)
 const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000
+const nodemailer = require("nodemailer");
 
 const corsOptions = {
     origin: '*',
@@ -16,6 +18,44 @@ const corsOptions = {
 
 app.use(express.json())
 app.use(cors(corsOptions))
+
+// let transporter = nodemailer.createTransport({
+//     host: 'smtp.sendgrid.net',
+//     port: 587,
+//     auth: {
+//         user: "apikey",
+//         pass: process.env.SENDGRID_API_KEY
+//     }
+//  })
+const auth = {
+    auth: {
+      api_key: process.env.EMAIL_PRIVATE_KEY,
+      domain: process.env.EMAIL_DOMAIN
+    }
+  }
+  
+  const transporter = nodemailer.createTransport(mg(auth));
+
+// send email confirmation email
+const sendPaymentConfirmationEmail = payment =>{
+    transporter.sendMail({
+        from: "antik.edu@gmail.com", // verified sender email
+        to: "antik.edu@gmail.com", // recipient email
+        subject: "Your order is confirmed! Enjoy the mail", // Subject line
+        text: "Hello world!", // plain text body
+        html:`
+        <div>
+            <h2 className="text-3xl text-green-400 font-bold">Payment Confirmed</h2>
+        </div>
+        `, // html body
+      }, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+}
 
 
 const verifyJWT = (req, res, next) => {
@@ -328,6 +368,8 @@ async function run() {
                 }
             }
             const deleteResult = await cartCollection.deleteMany(query)
+            // send an email
+            sendPaymentConfirmationEmail(payment)
             res.send({ insertResult, deleteResult });
         })
 
