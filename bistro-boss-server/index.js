@@ -7,8 +7,16 @@ const stripe = require('stripe')(process.env.PAYMENT_SECRET_KEY)
 const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000
 
+const corsOptions = {
+    origin: '*',
+    credentials: true,
+    optionSuccessStatus: 200,
+}
+
+
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
+
 
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization;
@@ -70,7 +78,7 @@ async function run() {
             }
             next();
         }
-        app.get('/test', (req,res)=>{
+        app.get('/test', (req, res) => {
             const str = "this is a simple test API";
             res.send(str);
         })
@@ -95,7 +103,7 @@ async function run() {
         app.get('/users/admin/:email', verifyJWT, async (req, res) => {
             const email = req.params.email;
             if (req.decoded.email != email) {
-               return res.send({ admin: false })
+                return res.send({ admin: false })
             }
             const query = { email: email };
             const user = await userCollection.findOne(query)
@@ -141,7 +149,7 @@ async function run() {
             try {
                 const email = req.query.email;
                 if (!email) {
-                  return res.send([]);
+                    return res.send([]);
                 }
                 const decodedEmail = req.decoded.email;
                 if (email !== decodedEmail) {
@@ -266,46 +274,46 @@ async function run() {
          * -----------------Pipeline----------------------------
          */
 
-        app.get('/order-stats', verifyJWT, verifyAdmin , async (req, res) => {
+        app.get('/order-stats', verifyJWT, verifyAdmin, async (req, res) => {
             const pipeline = [
                 {
-                  $addFields: {
-                    menuItemsObjectIds: {
-                      $map: {
-                        input: '$menuItems',
-                        as: 'itemId',
-                        in: { $toObjectId: '$$itemId' }
-                      }
+                    $addFields: {
+                        menuItemsObjectIds: {
+                            $map: {
+                                input: '$menuItems',
+                                as: 'itemId',
+                                in: { $toObjectId: '$$itemId' }
+                            }
+                        }
                     }
-                  }
                 },
                 {
-                  $lookup: {
-                    from: 'menu',
-                    localField: 'menuItemsObjectIds',
-                    foreignField: '_id',
-                    as: 'menuItemsData'
-                  }
+                    $lookup: {
+                        from: 'menu',
+                        localField: 'menuItemsObjectIds',
+                        foreignField: '_id',
+                        as: 'menuItemsData'
+                    }
                 },
                 {
-                  $unwind: '$menuItemsData'
+                    $unwind: '$menuItemsData'
                 },
                 {
                     $group: {
-                      _id: '$menuItemsData.category',
-                      count: { $sum: 1 },
-                      total: { $sum: '$menuItemsData.price' }
+                        _id: '$menuItemsData.category',
+                        count: { $sum: 1 },
+                        total: { $sum: '$menuItemsData.price' }
                     }
-                  },
-                  {
+                },
+                {
                     $project: {
-                      category: '$_id',
-                      count: 1,
-                      total: { $round: ['$total', 2] },
-                      _id: 0
+                        category: '$_id',
+                        count: 1,
+                        total: { $round: ['$total', 2] },
+                        _id: 0
                     }
-                  }
-                ];
+                }
+            ];
             const result = await paymentCollection.aggregate(pipeline).toArray()
             console.log(result);
             res.send(result);
