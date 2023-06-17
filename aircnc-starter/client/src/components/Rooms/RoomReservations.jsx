@@ -1,4 +1,6 @@
 import React from 'react';
+import DatePicker from './Calender';
+import Button from '../Button/Button';
 
 const RoomReservations = () => {
     return (
@@ -8,7 +10,16 @@ const RoomReservations = () => {
                 <div className='font-light text-neutral-600 night'>night</div>
             </div>
             <hr />
-            <div>Calender</div>
+            <DatePicker></DatePicker>
+            <hr />
+            <div className='p-4'>
+            <Button label="Reserved"></Button>
+            </div>
+            <hr />
+            <div className='p-4 flex flex-row items-center justify-between font-semibold text-lg'>
+                <div>Total</div>
+                <div>$ 300</div>
+            </div>
         </div>
     );
 };
