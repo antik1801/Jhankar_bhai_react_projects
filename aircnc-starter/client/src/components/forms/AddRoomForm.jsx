@@ -73,6 +73,7 @@ const AddRoomForm = ({
                 <div className="flex flex-col w-max mx-auto text-center">
                   <label>
                     <input
+                      onChange={(event)=>handleImageChange(event.target.files[0])}
                       className="text-sm cursor-pointer w-36 hidden"
                       type="file"
                       name="image"
