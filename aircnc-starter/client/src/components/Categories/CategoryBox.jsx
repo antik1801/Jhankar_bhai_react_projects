@@ -4,8 +4,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 const CategoryBox = ({ label, icon: Icon }) => {
   const [params, setParams] = useSearchParams();
   const value = params.get("category");
-  const navigate = useNavigate()
-//   console.log(value);
+  const navigate = useNavigate();
+  //   console.log(value);
   const handleClick = () => {
     let currentQuery = {};
     if (params) {
@@ -22,8 +22,8 @@ const CategoryBox = ({ label, icon: Icon }) => {
       },
       { skipNull: true }
     );
-    navigate(url)
-  };
+    navigate(url);
+  }
   return (
     <div
       onClick={handleClick}
