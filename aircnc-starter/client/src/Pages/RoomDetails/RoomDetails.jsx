@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../../components/Shared/Container";
 import Header from "../../components/Rooms/Header";
 import RoomInfo from "../../components/Rooms/RoomInfo";
+import RoomReservations from "../../components/Rooms/RoomReservations";
 
 const RoomDetails = () => {
   return (
@@ -11,7 +12,7 @@ const RoomDetails = () => {
           <Header></Header>
           <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
             <RoomInfo></RoomInfo>
-            <div>Reservation</div>
+            <RoomReservations></RoomReservations>
           </div>
         </div>
       </div>
