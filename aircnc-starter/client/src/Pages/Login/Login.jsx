@@ -2,25 +2,42 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import {toast} from 'react-hot-toast'
+import { toast } from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
   const { loading, setLoading, signIn, signInWithGoogle, resetPassword } =
     useAuth();
-    const navigate = useNavigate()
-    // handle google sign in
-    const handleGoogleSignIn = () =>{
-        signInWithGoogle()
-        .then(result=>{
-            toast.success('Successfully logged in')
-            console.log(result.user)
-            navigate('/')
-        })
-        .catch(error =>{
-            console.log(error.message)
-            toast.error(error.message)
-        })
-    }
+  const navigate = useNavigate();
+  // handle google sign in
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        toast.success("Successfully logged in");
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error(error.message);
+        setLoading(false)
+      });
+  };
+  const handleSubmit = event =>{
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    signIn(email,password)
+    .then(result=>{
+        console.log(result.user)
+        navigate('/')
+    })
+    .catch(error=>{
+        console.log(error.message)
+        toast.error(error.message)
+        setLoading(false);
+    })
+  }
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
@@ -34,6 +51,7 @@ const Login = () => {
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
+          onSubmit={handleSubmit}
         >
           <div className="space-y-4">
             <div>
@@ -72,7 +90,9 @@ const Login = () => {
               type="submit"
               className="bg-rose-500 w-full rounded-md py-3 text-white"
             >
-              Continue
+            {
+                loading ? <TbFidgetSpinner className="m-auto animate-spin" size={24}></TbFidgetSpinner> : "Continue"
+            }
             </button>
           </div>
         </form>
@@ -88,7 +108,10 @@ const Login = () => {
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer" onClick={handleGoogleSignIn}>
+        <div
+          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+          onClick={handleGoogleSignIn}
+        >
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>
