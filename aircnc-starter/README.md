@@ -10,3 +10,7 @@ Github Repo -> [Complete](https://github.com/shakilahmedatik/aircnc-part1-comple
 Github Repo -> [Resources](https://github.com/shakilahmedatik/aircnc-resources)
 
 
+# Test Users:
+user: rahat@gmail.com, rahat@1234
+host: 
+admin: 
