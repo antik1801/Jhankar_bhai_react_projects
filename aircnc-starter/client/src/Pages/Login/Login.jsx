@@ -16,6 +16,8 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
+        // save user to the database
+        saveUser(result.user)
         toast.success("Successfully logged in");
         console.log(result.user);
         navigate(from, {replace: true});

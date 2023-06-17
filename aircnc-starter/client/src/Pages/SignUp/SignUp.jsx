@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { imageUpload } from "../../utils/imgUpload";
+import { saveUser } from "../../api/auth";
 
 const SignUp = () => {
   const {
@@ -22,6 +23,8 @@ const SignUp = () => {
       .then((result) => {
         toast.success("Successfully logged in");
         console.log(result.user);
+        // save users to the database
+        saveUser(result.user)
         navigate(from, {replace: true});
       })
       .catch((error) => {
@@ -51,6 +54,8 @@ const SignUp = () => {
         // console.log(result.user)
         updateUserProfile(name, imageUrl)
         .then(()=>{
+          // save users to the database
+          saveUser(result.user)
           toast.success('Successfully user created')
           navigate(from, {replace: true})
         })
