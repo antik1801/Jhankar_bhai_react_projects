@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
@@ -9,13 +9,16 @@ const Login = () => {
   const { loading, setLoading, signIn, signInWithGoogle, resetPassword } =
     useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/"
+  const emailRef = useRef()
   // handle google sign in
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
         toast.success("Successfully logged in");
         console.log(result.user);
-        navigate("/");
+        navigate(from, {replace: true});
       })
       .catch((error) => {
         console.log(error.message);
@@ -30,10 +33,22 @@ const Login = () => {
     signIn(email,password)
     .then(result=>{
         console.log(result.user)
-        navigate('/')
+        navigate(from, {replace: true})
     })
     .catch(error=>{
         console.log(error.message)
+        toast.error(error.message)
+        setLoading(false);
+    })
+  }
+  const handleReset = () =>{
+    const email = emailRef.current.value;
+    resetPassword(email)
+    .then(()=>{
+        toast.success("Please check your email to reset password")
+        setLoading(false)
+    })
+    .catch(error=>{
         toast.error(error.message)
         setLoading(false);
     })
@@ -61,6 +76,7 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
+                ref={emailRef}
                 id="email"
                 required
                 placeholder="Enter Your Email Here"
@@ -97,7 +113,7 @@ const Login = () => {
           </div>
         </form>
         <div className="space-y-1">
-          <button className="text-xs hover:underline hover:text-rose-500 text-gray-400">
+          <button className="text-xs hover:underline hover:text-rose-500 text-gray-400" onClick={handleReset}>
             Forgot password?
           </button>
         </div>
@@ -124,7 +140,7 @@ const Login = () => {
           >
             Sign up
           </Link>
-          .
+          
         </p>
       </div>
     </div>
