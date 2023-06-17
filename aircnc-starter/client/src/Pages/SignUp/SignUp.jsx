@@ -37,7 +37,7 @@ const SignUp = () => {
     const name = event.target.name.value;
     const image = event.target.image.files[0]
     const formData = new FormData()
-    formData.append("image",file)
+    formData.append("image",image)
     const imgbb_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`
     fetch(imgbb_api_url,{
         method:'POST',
@@ -45,7 +45,27 @@ const SignUp = () => {
     })
     .then(res=>res.json())
     .then(imageData=>{
-      console.log(imageData.data.display_url)
+      const imageUrl = imageData.data.display_url
+      createUser(email,password)
+      .then(result=>{
+        // console.log(result.user)
+        updateUserProfile(name, imageUrl)
+        .then(()=>{
+          toast.success('Successfully user created')
+          navigate(from, {replace: true})
+        })
+        .catch(error=>{
+          setLoading(false)
+          console.log(error.message)
+          toast.error(error.message)
+        })
+        
+      })
+      .catch(error=>{
+        setLoading(false)
+        console.log(error.message)
+        toast.error(error.message)
+      })
     })
     .catch(error=>{
       setLoading(false)
