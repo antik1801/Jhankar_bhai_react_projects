@@ -45,12 +45,7 @@ const RoomInfo = ({roomData}) => {
         className="
         text-lg font-light text-neutral-500"
       >
-        Veluvana is a unique bamboo house with a wonderful view of Sidemen
-        Valley, a genuine tropical landscape with Mount Agung peak on its back.
-        This getaway spot is a great place to bring into reality the dream
-        adventure of the true wanderer. We invite you to feel the magnificent
-        vibes of the entire house to escape the life that is full of drama into
-        a journey with ultimate joy.
+        {roomData.description}
       </div>
       <hr />
     </div>
