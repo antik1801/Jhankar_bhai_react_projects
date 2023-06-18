@@ -28,8 +28,19 @@ const RoomReservations = ({ roomData }) => {
     price: roomData.price,
     to: value.endDate,
     from: value.startDate,
+    title: roomData.title,
+    guest: roomData.total_guest,
   });
-  console.log(bookingInfo)
+//   console.log(bookingInfo)
+  const handleSelect = ranges =>{
+    setValue({...value})
+  }
+  const modalHandler = () =>{
+    console.log(bookingInfo)
+  }
+  const closeModal = () =>{
+    setIsOpen(false);
+  }
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
@@ -38,7 +49,7 @@ const RoomReservations = ({ roomData }) => {
       </div>
       <hr />
       <div className="flex justify-center items-center">
-        <DatePicker></DatePicker>
+        <DatePicker handleSelect={handleSelect} value={value}></DatePicker>
       </div>
       <hr />
       <div className="p-4">
@@ -53,7 +64,7 @@ const RoomReservations = ({ roomData }) => {
         <div>Total</div>
         <div>$ {totalPrice}</div>
       </div>
-      {/* <BookingModal isOpen={isOpen}></BookingModal> */}
+      <BookingModal closeModal={closeModal} modalHandler={modalHandler} bookingInfo={bookingInfo} isOpen={isOpen}></BookingModal>
     </div>
   );
 };
