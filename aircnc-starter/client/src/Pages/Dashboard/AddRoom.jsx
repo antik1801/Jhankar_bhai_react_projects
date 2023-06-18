@@ -70,7 +70,8 @@ const AddRoom = () => {
     setUploadButtonText(image.name);
   };
   const handleDates= ranges =>{
-    setDates(ranges)
+    // return console.log(ranges.selection)
+    setDates(ranges.selection)
   }
   return (
     <AddRoomForm
