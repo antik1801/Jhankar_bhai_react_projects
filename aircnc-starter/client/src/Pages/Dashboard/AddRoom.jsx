@@ -3,6 +3,7 @@ import AddRoomForm from "../../components/forms/AddRoomForm";
 import { imageUpload } from "../../utils/imgUpload";
 import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import { addRooms } from "../../api/rooms";
 
 const AddRoom = () => {
   const { user } = useAuth();
@@ -16,6 +17,7 @@ const AddRoom = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
+    const form = event.target;
     const location = event.target.location.value;
     const title = event.target.title.value;
     const from = dates.startDate;
@@ -39,7 +41,6 @@ const AddRoom = () => {
     })
       .then((res) => res.json())
       .then((imageData) => {
-        setLoading(false);
         const roomData = {
           location,
           title,
@@ -58,12 +59,27 @@ const AddRoom = () => {
             email: user?.email,
           },
         };
+        // post room data to the server
+        addRooms(roomData)
+        .then(data=>{
+          console.log("data",data);
+          if (data.insertedId) {
+            form.reset();
+            setLoading(false);
+          }
+        })
+        .catch(error=>{
+          setLoading(false)
+          console.log(error.message)
+          toast.error(error.message)
+        })
       })
       .catch((error) => {
         setLoading(false);
         console.log(error.message);
         toast.error(error.message);
       });
+    
     // setLoading(false);
   };
   const handleImageChange = (image) => {
