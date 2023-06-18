@@ -4,6 +4,6 @@ export const imageUpload = async image =>{
     formData.append("image",image)
     const imgbb_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`
     const response = await fetch(imgbb_api_url,{method:'POST',body:formData})
-    const data = await response.json()
+    const data = await response.json();
     return data
 }
