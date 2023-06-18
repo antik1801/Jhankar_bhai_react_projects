@@ -4,14 +4,19 @@ import Button from "../Button/Button";
 import useAuth from "../../hooks/useAuth";
 import BookingModal from "../Modals/BookingModal";
 import { formatDistance } from "date-fns";
+import { addBooking, updateStatus } from "../../api/bookings";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const RoomReservations = ({ roomData }) => {
   const { user, role } = useAuth();
-  const [value,setValue] = useState({
+  const navigate = useNavigate()
+  const [value, setValue] = useState({
     startDate: new Date(roomData?.from),
     endDate: new Date(roomData?.to),
-    key: 'selection',
-  })
+    key: "selection",
+  });
+//   console.log(roomData.booked)
   // price calculations
   const totalPrice =
     parseFloat(
@@ -29,18 +34,37 @@ const RoomReservations = ({ roomData }) => {
     to: value.endDate,
     from: value.startDate,
     title: roomData.title,
-    guest: roomData.total_guest,
+    guests: roomData.total_guest,
+    roomId: roomData._id,
+    image: roomData.image,
   });
-//   console.log(bookingInfo)
-  const handleSelect = ranges =>{
-    setValue({...value})
-  }
-  const modalHandler = () =>{
-    console.log(bookingInfo)
-  }
-  const closeModal = () =>{
+//   console.log(bookingInfo);
+  const handleSelect = (ranges) => {
+    setValue({ ...value });
+  };
+  const modalHandler = () => {
+    addBooking(bookingInfo)
+      .then((data) => {
+        if (data.insertedId) {
+          updateStatus(roomData._id, true).then((data) => {
+            if(data.modifiedCount>0){
+                toast.success("Bookings Confirmed");
+                closeModal();
+                navigate('/dashboard/my-bookings')
+            }
+          });
+        }
+        console.log(data);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        console.log(error.message);
+        closeModal();
+      });
+  };
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
@@ -55,7 +79,7 @@ const RoomReservations = ({ roomData }) => {
       <div className="p-4">
         <Button
           onClick={() => setIsOpen(true)}
-          disabled={roomData.host.email === user.email}
+          disabled={roomData.host.email === user.email || roomData.booked}
           label="Reserved"
         ></Button>
       </div>
@@ -64,7 +88,12 @@ const RoomReservations = ({ roomData }) => {
         <div>Total</div>
         <div>$ {totalPrice}</div>
       </div>
-      <BookingModal closeModal={closeModal} modalHandler={modalHandler} bookingInfo={bookingInfo} isOpen={isOpen}></BookingModal>
+      <BookingModal
+        closeModal={closeModal}
+        modalHandler={modalHandler}
+        bookingInfo={bookingInfo}
+        isOpen={isOpen}
+      ></BookingModal>
     </div>
   );
 };
