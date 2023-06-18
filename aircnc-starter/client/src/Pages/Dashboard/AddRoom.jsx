@@ -8,11 +8,11 @@ import { addRooms } from "../../api/rooms";
 const AddRoom = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [dates,setDates] = useState({
+  const [dates, setDates] = useState({
     startDate: new Date(),
     endDate: new Date(),
-    key: 'selection',
-  })
+    key: "selection",
+  });
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ const AddRoom = () => {
     const location = event.target.location.value;
     const title = event.target.title.value;
     const from = dates.startDate;
-    const to=dates.endDate;
+    const to = dates.endDate;
     const price = event.target.price.value;
     const total_guest = event.target.total_guest.value;
     const bedrooms = event.target.bedrooms.value;
@@ -39,7 +39,7 @@ const AddRoom = () => {
       method: "POST",
       body: formData,
     })
-      .then((res) => res.json())
+      .then(res => res.json())
       .then((imageData) => {
         const roomData = {
           location,
@@ -61,34 +61,35 @@ const AddRoom = () => {
         };
         // post room data to the server
         addRooms(roomData)
-        .then(data=>{
-          console.log("data",data);
-          if (data.insertedId) {
-            form.reset();
+          .then((data) => {
+            console.log("data", data);
+            if (data.insertedId) {
+              toast.success("New Room Added");
+              form.reset();
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
             setLoading(false);
-          }
-        })
-        .catch(error=>{
-          setLoading(false)
-          console.log(error.message)
-          toast.error(error.message)
-        })
+            console.log(error.message);
+            toast.error(error.message);
+          });
       })
       .catch((error) => {
         setLoading(false);
         console.log(error.message);
         toast.error(error.message);
       });
-    
+
     // setLoading(false);
   };
   const handleImageChange = (image) => {
     setUploadButtonText(image.name);
   };
-  const handleDates= ranges =>{
+  const handleDates = (ranges) => {
     // return console.log(ranges.selection)
-    setDates(ranges.selection)
-  }
+    setDates(ranges.selection);
+  };
   return (
     <AddRoomForm
       dates={dates}

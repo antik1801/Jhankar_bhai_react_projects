@@ -1,6 +1,6 @@
 import React from "react";
 
-const RoomInfo = () => {
+const RoomInfo = ({roomData}) => {
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
@@ -14,14 +14,14 @@ const RoomInfo = () => {
               gap-2
             "
         >
-          <div>Hosted by Veluvana</div>
+          <div>Hosted by {roomData?.host?.name}</div>
 
           <img
             className="rounded-full"
             height="30"
             width="30"
             alt="Avatar"
-            src="https://a0.muscache.com/im/pictures/user/bb9ba580-9b3b-4402-ac92-3976abe1a178.jpg"
+            src={roomData?.host?.image}
           />
         </div>
         <div
@@ -34,9 +34,9 @@ const RoomInfo = () => {
               text-neutral-500
             "
         >
-          <div>5 guests</div>
-          <div>3 rooms</div>
-          <div>2 bathrooms</div>
+          <div>{roomData?.total_guest} guests</div>
+          <div>{roomData?.bedrooms} rooms</div>
+          <div>{roomData?.bathrooms} bathrooms</div>
         </div>
       </div>
 
