@@ -7,14 +7,19 @@ import useAuth from "../../hooks/useAuth";
 const AddRoom = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [dates,setDates] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection',
+  })
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
     const location = event.target.location.value;
     const title = event.target.title.value;
-    // const from = dates.startDate;
-    // const to=dates.endDate;
+    const from = dates.startDate;
+    const to=dates.endDate;
     const price = event.target.price.value;
     const total_guest = event.target.total_guest.value;
     const bedrooms = event.target.bedrooms.value;
@@ -44,6 +49,8 @@ const AddRoom = () => {
           bathrooms,
           description,
           category,
+          from,
+          to,
           image: imageData.data.display_url,
           host: {
             name: user?.displayName,
@@ -62,12 +69,17 @@ const AddRoom = () => {
   const handleImageChange = (image) => {
     setUploadButtonText(image.name);
   };
+  const handleDates= ranges =>{
+    setDates(ranges)
+  }
   return (
     <AddRoomForm
+      dates={dates}
       handleSubmit={handleFormSubmit}
       loading={loading}
       uploadButtonText={uploadButtonText}
       handleImageChange={handleImageChange}
+      handleDates={handleDates}
     ></AddRoomForm>
   );
 };
