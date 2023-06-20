@@ -3,24 +3,32 @@ import useAuth from "../../hooks/useAuth";
 import { getBookings } from "../../api/bookings";
 import { toast } from "react-hot-toast";
 import TableRow from "../../components/Dashboard/TableRow";
+import Loader from "../../components/Shared/Loader/Loader";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [loading,setLoading] = useState(false)
   const { user } = useAuth();
   const fetchBookings = () => {
-    getBookings(user.email)
+    setLoading(true)
+    getBookings(user?.email)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBookings(data);
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error.message);
         toast.error(error.message);
+        setLoading(false)
       });
   };
   useEffect(() => {
-    fetchBookings();
+    fetchBookings()
   }, [user]);
+  if (loading) {
+    return <Loader></Loader>
+  }
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">

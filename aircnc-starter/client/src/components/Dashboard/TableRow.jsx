@@ -1,15 +1,28 @@
 import { format } from 'date-fns'
 import { useState } from 'react'
 import DeleteModal from '../Modals/DeleteModal'
+import { deleteBookings, updateStatus } from '../../api/bookings'
+import {toast} from 'react-hot-toast'
 
-const TableRow = ({ booking }) => {
+const TableRow = ({ booking , fetchBookings}) => {
   const [isOpen,setIsOpen] = useState(false)
 
   const closeModal=()=>{
     setIsOpen(false)
   }
   const modalHandeler = id =>{
-    console.log(`Delete ${id}`)
+    // return console.log(id)
+    deleteBookings(id)
+    .then(data=>{
+      console.log("delete",data)
+      updateStatus(booking.roomId,false)
+      .then(data=>{
+        console.log('update status',data)
+        fetchBookings()
+        toast.success('Booking Canceled')
+      })
+    })
+    closeModal()
   }
   return (
     <tr>
@@ -51,9 +64,9 @@ const TableRow = ({ booking }) => {
             aria-hidden='true'
             className='absolute inset-0 bg-red-200 opacity-50 rounded-full'
           ></span>
-          <span className='relative'>Cancel</span>
+          <span onClick={()=>setIsOpen(true)} className='relative'>Cancel</span>
         </span>
-        <DeleteModal closeModal={closeModal} modalHandler={modalHandeler}></DeleteModal>
+        <DeleteModal  closeModal={closeModal} modalHandler={modalHandeler} isOpen={isOpen} id={booking._id}></DeleteModal>
       </td>
     </tr>
   )
