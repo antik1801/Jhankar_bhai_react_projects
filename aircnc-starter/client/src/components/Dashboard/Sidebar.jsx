@@ -7,6 +7,7 @@ import { AiOutlineBars } from 'react-icons/ai'
 import useAuth from '../../hooks/useAuth'
 import { BsFillHouseAddFill } from 'react-icons/bs'
 import GuestMenu from './GuestMenu'
+import HostMenu from './HostMenu'
 const Sidebar = () => {
   const navigate = useNavigate()
   const [toggle, setToggle] = useState(false)
@@ -78,7 +79,7 @@ const Sidebar = () => {
           {/* Nav Items */}
           <div className='flex flex-col justify-between flex-1 mt-6'>
             <nav>
-              <>
+              { role && role ==='host' ? (<>
                 <label
                   htmlFor='Toggle3'
                   className='inline-flex w-full justify-center items-center px-2 rounded-md cursor-pointer text-gray-800'
@@ -97,8 +98,13 @@ const Sidebar = () => {
                   </span>
                 </label>
                 {/* Menu Links */}
+                {toggle ? <HostMenu></HostMenu> : <GuestMenu></GuestMenu>}
+              </>): (
+                <>
                 <GuestMenu></GuestMenu>
-              </>
+                </>
+              )
+               }
             </nav>
           </div>
         </div>

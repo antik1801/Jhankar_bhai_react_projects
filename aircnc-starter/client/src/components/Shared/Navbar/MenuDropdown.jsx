@@ -9,6 +9,7 @@ import {toast} from 'react-hot-toast'
 
 const MenuDropdown = () => {
   const { user, logOut, role, setRole } = useContext(AuthContext);
+  // console.log(role)
   const [isOpen, setIsOpen] = useState(false);
   const [modal,setModal] = useState(false)
   // console.log(role)

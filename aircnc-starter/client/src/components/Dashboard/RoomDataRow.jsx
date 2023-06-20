@@ -1,36 +1,6 @@
 import { format } from 'date-fns'
-import Loader from '../../../components/Shared/Loader/Loader'
-import { useState } from 'react'
-import { deleteRoom } from '../../../api/rooms'
-import { toast } from 'react-hot-toast'
-import DeleteModal from '../Modal/DeleteModal'
 
-const RoomDataRow = ({ room , fetchListingsRooms,loading,setloading }) => {
-  const [isOpen,setIsOpen] = useState(false)
-  const openModal = () =>{
-    setIsOpen(true)
-  }
-  const closeModal = () =>{
-    setIsOpen(false)
-  }
-  const modalHandler = id =>{
-    deleteRoom(id)
-    .then(data=>{
-      console.log(data)
-      fetchListingsRooms()
-      toast.success('Room Deleted')
-      
-    })
-    .catch(error=>{
-      console.log(error.message)
-      toast.error(error.message)
-
-    })
-    closeModal()
-  }
-  if (loading) {
-    return <Loader></Loader>
-  }
+const RoomDataRow = ({ room }) => {
   return (
     <tr>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
@@ -66,14 +36,13 @@ const RoomDataRow = ({ room , fetchListingsRooms,loading,setloading }) => {
         </p>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <span onClick={openModal} className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+        <span className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
           <span
             aria-hidden='true'
             className='absolute inset-0 bg-red-200 opacity-50 rounded-full'
           ></span>
           <span className='relative'>Delete</span>
         </span>
-          <DeleteModal modalHandler={modalHandler} closeModal={closeModal} id={room._id} isOpen={isOpen}></DeleteModal>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <span className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
