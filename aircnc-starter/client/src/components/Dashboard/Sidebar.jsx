@@ -10,7 +10,7 @@ import GuestMenu from './GuestMenu'
 const Sidebar = () => {
   const navigate = useNavigate()
   const [toggle, setToggle] = useState(false)
-  const { user, logOut } = useAuth()
+  const { user, logOut, role } = useAuth()
 
   const [isActive, setActive] = useState('false')
   const toggleHandler = event => {
