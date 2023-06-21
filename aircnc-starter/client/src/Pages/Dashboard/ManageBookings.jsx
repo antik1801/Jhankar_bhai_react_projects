@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { getHostRooms } from "../../api/rooms";
+import { getBookings, getBookingsHost } from "../../api/bookings";
 import { toast } from "react-hot-toast";
-import RoomDataRow from "../../resources/components/Dashboard/RoomDataRow";
-import EmptyState from "../../components/Shared/EmptyState";
+import TableRow from "../../components/Dashboard/TableRow";
 import Loader from "../../components/Shared/Loader/Loader";
+import EmptyState from "../../components/Shared/EmptyState";
 
-const MyListings = () => {
-  const [listings, setListings] = useState([]);
+const ManageBookings = () => {
+  const [hostBookings, setHostBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const fetchListingsRooms = () => {
+  const fetchBookings = () => {
     setLoading(true);
-    getHostRooms(user?.email)
+    getBookingsHost(user?.email)
       .then((data) => {
-        setListings(data);
+        // console.log(data);
+        setHostBookings(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -24,14 +25,16 @@ const MyListings = () => {
       });
   };
   useEffect(() => {
-    fetchListingsRooms();
+    fetchBookings();
   }, [user]);
   if (loading) {
-    return <Loader></Loader>
+    return <Loader></Loader>;
   }
   return (
     <>
-      {listings && Array.isArray(listings) && listings.length > 0 ? (
+      {hostBookings &&
+      Array.isArray(hostBookings) &&
+      hostBookings.length > 0 ? (
         <>
           <div className="container mx-auto px-4 sm:px-8">
             <div className="py-8">
@@ -74,26 +77,19 @@ const MyListings = () => {
                           scope="col"
                           className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                         >
-                          Delete
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                        >
-                          Update
+                          Action
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {listings.map((room) => (
-                        <RoomDataRow
-                          key={room._id}
-                          room={room}
-                          fetchListingsRooms={fetchListingsRooms}
-                          loading={loading}
-                          setLoading={setLoading}
-                        ></RoomDataRow>
-                      ))}
+                      {hostBookings &&
+                        hostBookings.map((booking) => (
+                          <TableRow
+                            key={booking._id}
+                            booking={booking}
+                            fetchBookings={fetchBookings}
+                          ></TableRow>
+                        ))}
                     </tbody>
                   </table>
                 </div>
@@ -104,9 +100,9 @@ const MyListings = () => {
       ) : (
         <>
           <EmptyState
-            message="You haven't added any room yet"
-            address={"/dashboard/add-room"}
-            label="add room"
+            message="No Booking Data available"
+            address={"/"}
+            label="Go Back"
           ></EmptyState>
         </>
       )}
@@ -114,4 +110,4 @@ const MyListings = () => {
   );
 };
 
-export default MyListings;
+export default ManageBookings;

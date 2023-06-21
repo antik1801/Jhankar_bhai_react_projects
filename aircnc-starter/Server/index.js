@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
+var morgan = require('morgan')
 const port = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
@@ -13,6 +14,9 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 app.use(express.json())
+app.use(morgan('dev'))
+
+
 
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zycuvps.mongodb.net/?retryWrites=true&w=majority`;
@@ -45,7 +49,6 @@ async function run() {
         $set: user
       }
       const result = await usersCollection.updateOne(query, updateDoc, options)
-      console.log(result)
       res.send(result)
     })
     // get user
@@ -57,14 +60,12 @@ async function run() {
     })
     app.post('/rooms', async (req, res) => {
       const room = req.body
-      console.log(room)
       const result = await roomsCollection.insertOne(room)
       res.send(result)
     })
     // save a bookings in database
     app.post('/bookings', async (req, res) => {
       const room = req.body
-      console.log(room)
       const result = await bookingCollection.insertOne(room)
       res.send(result)
     })
@@ -95,6 +96,17 @@ async function run() {
       const query = { 'guest.email': email }
       const result = await bookingCollection.find(query).toArray()
       res.send(result)
+    }) 
+    // get all bookings for hosts
+    app.get('/bookings/host', async (req, res) => {
+      const email = req.query.email;
+      if (!email) {
+        res.send([])
+      }
+      const query = { host: email }
+      console.log(query)
+      const result = await bookingCollection.find(query).toArray()
+      res.send(result)
     })
     app.delete('/bookings/:id', async (req, res) => {
       const id = req.params.id
@@ -103,9 +115,9 @@ async function run() {
       res.send(result)
     })
     // Delete a single rooms in mylisting
-    app.delete('/rooms/:id',async(req,res)=>{
+    app.delete('/rooms/:id', async (req, res) => {
       const id = req.params.id
-      const query = {_id: new ObjectId(id)}
+      const query = { _id: new ObjectId(id) }
       const result = await roomsCollection.deleteOne(query)
       res.send(result)
     })
@@ -117,9 +129,9 @@ async function run() {
       res.send(result)
     })
     // get rooms for host
-    app.get('/hostrooms/:email', async(req,res)=>{
+    app.get('/hostrooms/:email', async (req, res) => {
       const email = req.params.email
-      const query = {'host.email': email}
+      const query = { 'host.email': email }
       const result = await roomsCollection.find(query).toArray()
       res.send(result)
     })

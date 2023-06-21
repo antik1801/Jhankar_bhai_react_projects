@@ -2,12 +2,13 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from './Avatar'
 import { useCallback, useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HostModal from "../../Modals/HostModal";
 import {becomeHost} from "../../../api/auth"
 import {toast} from 'react-hot-toast'
 
 const MenuDropdown = () => {
+  const navigate = useNavigate()
   const { user, logOut, role, setRole } = useContext(AuthContext);
   // console.log(role)
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +22,7 @@ const MenuDropdown = () => {
     .then(data=>{
       console.log(data)
         setRole('host')
+        navigate('/dashboard/add-room')
         toast.success('You are host now, Post Rooms!')
         closeModal()
     })
@@ -32,9 +34,9 @@ const MenuDropdown = () => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         {/* AirCNC your home button */}
-        <div className={`hidden md:block text-sm font-semibold py-3 px-4 rounded-full  transition`}>
-         {role == 'user' && (
-           <button className="cursor-pointer hover:bg-neutral-100" onClick={()=>setModal(true)} disabled={!user}>AirCNC your home</button>
+        <div className={`hidden md:block`}>
+         {(!role || role == 'user') && (
+           <button className="cursor-pointer text-sm font-semibold rounded-full  transition hover:bg-neutral-100 py-3 px-4" onClick={()=>setModal(true)} disabled={!user}>AirCNC your home</button>
          ) }
         </div>
         {/* Dropdown button */}
@@ -48,7 +50,7 @@ const MenuDropdown = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <Link
               to="/"

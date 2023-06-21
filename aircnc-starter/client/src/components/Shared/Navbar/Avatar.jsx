@@ -5,7 +5,7 @@ import { AuthContext } from '../../../providers/AuthProvider';
 const Avatar = () => {
     const {user} = useContext(AuthContext)
     return (
-        <img src={user && user.photoURL ? user.photoURL : placeholder} alt="placeholder" height={30} width={30} className='rounded-full'/>
+        <img src={user && user.photoURL ? user.photoURL : placeholder} alt="placeholder" referrerPolicy='no-referrer' height={30} width={30} className='rounded-full'/>
     );
 };
 

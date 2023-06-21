@@ -14,10 +14,10 @@ const TableRow = ({ booking , fetchBookings}) => {
     // return console.log(id)
     deleteBookings(id)
     .then(data=>{
-      console.log("delete",data)
+      // console.log("delete",data)
       updateStatus(booking.roomId,false)
       .then(data=>{
-        console.log('update status',data)
+        // console.log('update status',data)
         fetchBookings()
         toast.success('Booking Canceled')
       })

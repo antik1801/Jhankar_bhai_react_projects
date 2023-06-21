@@ -4,6 +4,7 @@ import { getBookings } from "../../api/bookings";
 import { toast } from "react-hot-toast";
 import TableRow from "../../components/Dashboard/TableRow";
 import Loader from "../../components/Shared/Loader/Loader";
+import EmptyState from "../../components/Shared/EmptyState";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -29,8 +30,12 @@ const MyBookings = () => {
   if (loading) {
     return <Loader></Loader>
   }
+  // conditions : bookings=[] ? bookings.data ? bookings.data.length > 0
   return (
-    <div className="container mx-auto px-4 sm:px-8">
+    <>
+    {
+      bookings && Array.isArray(bookings) && bookings.length > 0 ? (<>
+       <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -85,6 +90,12 @@ const MyBookings = () => {
         </div>
       </div>
     </div>
+      </>):(<>
+      <EmptyState message="No rooms found" address={"/"} label="Brows Rooms"></EmptyState>
+      </>)
+    }
+    </>
+   
   );
 };
 

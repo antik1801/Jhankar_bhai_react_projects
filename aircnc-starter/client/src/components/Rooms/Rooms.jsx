@@ -38,7 +38,7 @@ const Rooms = () => {
           <RoomsCard room={room} key={index}></RoomsCard>
         ))}
       </div> :
-      <div className="pt-12">
+      <div className="min-h-[calc(100vh-300px)] flex items-center justify-center">
       <Heading title="No Rooms Available" center={true} subtitle="Please seect other data"></Heading>
       </div>
       }
