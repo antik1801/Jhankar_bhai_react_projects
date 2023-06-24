@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
+var jwt = require('jsonwebtoken');
 var morgan = require('morgan')
 const port = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
@@ -16,10 +17,22 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(morgan('dev'))
 
-
-
-
+const secret_token=process.env.ACCESS_TOKEN_SECRET
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zycuvps.mongodb.net/?retryWrites=true&w=majority`;
+
+const verifyJWT=(req,res,next) =>{
+  const authorization = req.headers.authorization
+  // token verify
+  const token = authorization.split(" ")[1]
+  jwt.verify(token,secret_token, (err,decoded)=>{
+    if (err) {
+      return res.status(401).send({error: true, message: "Unauthorized Access"})
+    }
+    req.decoded = decoded
+  })
+  next()
+}
+
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -36,6 +49,13 @@ async function run() {
     const usersCollection = client.db('aircnc2').collection('users')
     const roomsCollection = client.db('aircnc2').collection('rooms')
     const bookingCollection = client.db('aircnc2').collection('booking')
+
+    // generate jwttoken
+    app.post('/jwt',(req,res)=>{
+      const email = req.body
+      const token = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10h',})
+      res.send({token})
+    })
 
     // save user email and role in userdb
     app.put('/users/:email', async (req, res) => {
@@ -129,8 +149,12 @@ async function run() {
       res.send(result)
     })
     // get rooms for host
-    app.get('/hostrooms/:email', async (req, res) => {
+    app.get('/hostrooms/:email',verifyJWT, async (req, res) => {
+      const decodedEmail = req.decoded.email
       const email = req.params.email
+      if (decodedEmail !== email) {
+        return res.status(401).send({error: true, message: "Unaithorized Access"})
+      }
       const query = { 'host.email': email }
       const result = await roomsCollection.find(query).toArray()
       res.send(result)
