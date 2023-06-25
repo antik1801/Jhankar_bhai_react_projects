@@ -6,9 +6,10 @@ const axiosSecure = axios.create({
 })
 const useAxiosSecure = () =>{
     useEffect(()=>{
+            const token = localStorage.getItem('access-token')
         // 1. intercept request (client --- server)
             axiosSecure.interceptors.request.use(config=>{
-                
+                config.headers.Authorization = ``
             })
 
 
