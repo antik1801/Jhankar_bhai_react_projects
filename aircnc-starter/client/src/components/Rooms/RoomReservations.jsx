@@ -93,6 +93,7 @@ const RoomReservations = ({ roomData }) => {
         modalHandler={modalHandler}
         bookingInfo={bookingInfo}
         isOpen={isOpen}
+        totalPrice={totalPrice}
       ></BookingModal>
     </div>
   );
