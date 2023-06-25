@@ -6,37 +6,27 @@ import RoomDataRow from "../../resources/components/Dashboard/RoomDataRow";
 import EmptyState from "../../components/Shared/EmptyState";
 import Loader from "../../components/Shared/Loader/Loader";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import {
+  useQuery,
+} from '@tanstack/react-query'
 
 const MyListings = () => {
   const [listings, setListings] = useState([]);
   const [axiosSecure] = useAxiosSecure()
-  const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { user,loading } = useAuth();
 
-  
+  const {data: hostrooms = [], refetch } = useQuery({ 
+    queryKey: ['hostrooms', user?.email],
+    enabled: !loading,
+    queryFn: async () =>{
+      const res = await axiosSecure.get(`/hostrooms/${user?.email}`)
+      return res.data
+    } 
+  })
 
-  const fetchListingsRooms = () => {
-    setLoading(true);
-    getHostRooms(user?.email)
-      .then((data) => {
-        setListings(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        toast.error(error.message);
-        setLoading(false);
-      });
-  };
-  useEffect(() => {
-    fetchListingsRooms();
-  }, [user]);
-  if (loading) {
-    return <Loader></Loader>
-  }
   return (
     <>
-      {listings && Array.isArray(listings) && listings.length > 0 ? (
+      {hostrooms && Array.isArray(hostrooms) && hostrooms.length > 0 ? (
         <>
           <div className="container mx-auto px-4 sm:px-8">
             <div className="py-8">
@@ -90,13 +80,11 @@ const MyListings = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {listings.map((room) => (
+                      {hostrooms.map((room) => (
                         <RoomDataRow
                           key={room._id}
                           room={room}
-                          fetchListingsRooms={fetchListingsRooms}
-                          loading={loading}
-                          setLoading={setLoading}
+                          refetch={refetch}
                         ></RoomDataRow>
                       ))}
                     </tbody>
