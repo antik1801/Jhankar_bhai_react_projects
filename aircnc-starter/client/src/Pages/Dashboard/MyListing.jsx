@@ -5,11 +5,16 @@ import { toast } from "react-hot-toast";
 import RoomDataRow from "../../resources/components/Dashboard/RoomDataRow";
 import EmptyState from "../../components/Shared/EmptyState";
 import Loader from "../../components/Shared/Loader/Loader";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyListings = () => {
   const [listings, setListings] = useState([]);
+  const [axiosSecure] = useAxiosSecure()
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+
+  
+
   const fetchListingsRooms = () => {
     setLoading(true);
     getHostRooms(user?.email)
