@@ -1,10 +1,12 @@
 import React from 'react';
-import Banner from '../Header/Banner';
+
+import Carosoul from '../Header/Carosoul';
 
 const Home = () => {
     return (
         <div>
-            <Banner></Banner>
+           
+            <Carosoul></Carosoul>
         </div>
     );
 };
