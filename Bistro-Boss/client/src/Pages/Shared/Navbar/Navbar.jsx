@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "../../../Components/Container";
 
 const Navbar = () => {
   const navOptions = (
@@ -16,7 +17,8 @@ const Navbar = () => {
   );
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <Container>
+      <div className="navbar max-w-screen-xl text-white fixed z-10 bg-black bg-opacity-30">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -53,6 +55,7 @@ const Navbar = () => {
           <a className="btn">Button</a>
         </div>
       </div>
+      </Container>
     </div>
   );
 };
