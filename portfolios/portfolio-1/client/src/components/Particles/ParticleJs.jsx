@@ -29,7 +29,7 @@ const ParticleJs = () =>{
                         "value": 10
                     },
                     "color": {
-                        "value": "#001C30"
+                        "value": "#ffffff"
                     },
                     "shape": {
                         "type": "star",
@@ -70,7 +70,7 @@ const ParticleJs = () =>{
                     "line_linked": {
                         "enable": true,
                         "distance": 600,
-                        "color": "#001C30",
+                        "color": "#ffffff",
                         "opacity": 0.4,
                         "width": 2
                     },
@@ -127,7 +127,7 @@ const ParticleJs = () =>{
                 },
                 "retina_detect": true,
                 "background": {
-                    "color": "#C1ECE4",
+                    "color": "#001C30",
                     "image": "",
                     "position": "50% 50%",
                     "repeat": "no-repeat",
