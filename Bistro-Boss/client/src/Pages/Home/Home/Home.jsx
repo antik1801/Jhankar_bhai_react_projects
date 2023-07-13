@@ -5,8 +5,9 @@ import Carosoul from '../Header/Carosoul';
 const Home = () => {
     return (
         <div>
-           
+            <div data-aos="fade-right">
             <Carosoul></Carosoul>
+            </div>
         </div>
     );
 };
