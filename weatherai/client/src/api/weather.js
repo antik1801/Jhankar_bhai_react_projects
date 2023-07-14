@@ -1,5 +1,5 @@
 const getWeather = async cities =>{
-    const response = await fetch(`http://localhost:5000/getWeather`,{
+    const response = await fetch(`https://weather-app-server-gamma.vercel.app/getWeather`,{
         method:"POST",
         headers:{
             "content-type": "application/json"
@@ -7,7 +7,6 @@ const getWeather = async cities =>{
         body: JSON.stringify({cities : cities})
     })
     const data = await response.json()
-    // console.log(data)
     return data
 }
 export default getWeather;

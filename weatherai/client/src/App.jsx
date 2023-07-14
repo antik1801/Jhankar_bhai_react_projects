@@ -47,7 +47,7 @@ function App() {
           className="form-control w-50 mx-auto"
           placeholder="please write city names and separate with ,"
         />
-        <button type="submit" className="btn btn-primary mt-2">
+        <button type="submit" className="btn btn-primary mt-2 mb-2">
           Details
         </button>
       </form>
