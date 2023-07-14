@@ -17,13 +17,16 @@ app.post("/getWeather", async(req,res)=>{
             const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.WEATHER_API_KEY}&units=metric`)
             console.log(response.data.main.temp, response.data.name)
             const temp_c = response.data.main.temp;
-            weatherData[city] = `${temp_c}C`
+            weatherData[city] = `${temp_c} C`
         }
         const responseObj = {weather: weatherData}
         res.json(responseObj)
     } catch (error) {
         res.send(error.message)
     }
+})
+app.get("/test", (req,res)=>{
+    res.send("Test API")
 })
 
 app.get('/', (req,res)=>{
