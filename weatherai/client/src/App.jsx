@@ -3,6 +3,7 @@ import "./App.css";
 import getWeather from "./api/weather";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ParticleJs from "./Components/ParticleJs";
 
 function App() {
   const [weatherData, setWeatherData] = useState([]);
@@ -73,6 +74,7 @@ function App() {
           </tbody>
         </table>
       </div>
+      <ParticleJs></ParticleJs>
     </div>
   );
 }
