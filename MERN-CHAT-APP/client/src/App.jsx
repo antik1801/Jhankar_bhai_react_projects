@@ -1,10 +1,11 @@
+import { Button } from '@chakra-ui/react'
 import './App.css'
 
 function App() {
 
   return (
     <>
-    Hello
+    <Button colorScheme='blue'>Button</Button>
     </>
   )
 }
