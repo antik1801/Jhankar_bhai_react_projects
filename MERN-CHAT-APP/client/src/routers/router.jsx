@@ -5,8 +5,8 @@ import ChatPage from '../Pages/ChatPage';
 
 const Router = () => {
     return (
-        <div>
-            <Route path="/" component={HomePage} exact></Route>
+        <div className='router'>
+            <Route path="/" component={ HomePage} exact></Route>
             <Route path="/chats" component={ChatPage}></Route>
         </div>
     );
