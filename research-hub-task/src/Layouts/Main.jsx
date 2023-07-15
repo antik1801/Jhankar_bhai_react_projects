@@ -2,6 +2,7 @@ import React from 'react';
 import ContainerCards from '../components/ContainerCards';
 import ContainerTitle from '../components/ContainerTitle';
 import cardContent from '../utils/cardContent';
+import ParticleJs from '../components/ParticleJS';
 
 const Main = () => {
     
@@ -13,6 +14,7 @@ const Main = () => {
                     cardContent.map((cardItem,index)=><ContainerCards key={index} cardItem={cardItem}></ContainerCards>)
                 }
             </div>
+            {/* <ParticleJs></ParticleJs> */}
         </div>
     );
 };
