@@ -8,6 +8,8 @@ const port = process.env.PORT || 5000
 const connectDB = require('./config/db')
 const colors = require('colors')
 const userRoutes = require('./routes/userRoutes')
+const { notFound, errorHandler } = require("./middleware/errorMiddleware")
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 connectDB();
 
@@ -24,7 +26,9 @@ app.use(morgan('dev'))
 
 app.use('/api/user', userRoutes)
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+app.use(notFound)
+app.use(errorHandler)
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zycuvps.mongodb.net/?retryWrites=true&w=majority`;
 
 
