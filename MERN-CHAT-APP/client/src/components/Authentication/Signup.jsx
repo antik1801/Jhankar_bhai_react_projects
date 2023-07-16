@@ -1,5 +1,7 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
+import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 
 const Signup = () => {
     const [name,setName] = useState()
@@ -12,6 +14,7 @@ const Signup = () => {
     const [loading,setLoading] = useState(false)
     const handleClick = () => setShow(!show)
     const handleConfirmClick = () => setShowConfirm(!showConfirm)
+    const history = useHistory();
     const toast = useToast()
 
     const handlePostDetails = (pic) =>{
@@ -27,21 +30,30 @@ const Signup = () => {
               return 
         }
         if (pic.type === 'image/jpeg' || pic.type === 'image/png' || pic.type==='image/jpg') {
-            data.append('file', pic)
-            data.append('upload_preset', 'Mern-chat-app')
-            data.append('cloud_name',"dvtns4u4y")
-            fetch("https://api.cloudinary.com/v1_1/dvtns4u4y", {
-                method: "POST",
-                body: data
-            }).then((res)=>res.json())
-            .then(data=>{
-                setPic(data.url.toString())
-                console.log(data.url.toString())
-                setLoading(false)
+          
+            const formData = new FormData()
+            formData.append("image",pic)
+            const imgbb_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`
+            fetch(imgbb_api_url,{
+                method:'POST',
+                body: formData,
             })
-            .catch(err=>{
-                console.log(err)
+            .then(res=>res.json())
+            .then(imageData=>{
+                const imageUrl = imageData.data.display_url
+                console.log(imageUrl)
                 setLoading(false)
+            })   
+            .catch(error=>{
+                toast({
+                    title: 'Please Select an Image.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom"
+                  })
+                  setLoading(false)
+                  return
             })
         }
         else{
@@ -57,8 +69,65 @@ const Signup = () => {
         }
 
     }
-    const handleSubmit = () =>{
+    const handleSubmit = async () =>{
+        setLoading(true)
+        if (!name || !email || !password || !confirmPassword) {
+            toast({
+                title: 'Please fill all the fields.',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+              });
+              setLoading(false)
+              return
+        }
+        if (password !== confirmPassword) {
+            toast({
+                title: 'Please fill all the fields.',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+              });
+              setLoading(false)
+              return
+        }
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                }
+            }
+            const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user`, 
+            {name,email,password,pic},
+            config
+            );
 
+            toast({
+                title: 'Registration Successful',
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+              });
+
+              localStorage.setItem('userInfo', JSON.stringify(data))
+              setLoading(false)
+              history.push('/chats')
+
+        } catch (error) {
+            console.log(error.message)
+            toast({
+                title: 'Error Occurs!',
+                // description: error.response.data.message,
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+              });
+              setLoading(false)
+        }
     }
   return (
     <VStack
