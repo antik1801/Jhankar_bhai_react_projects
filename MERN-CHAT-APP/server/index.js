@@ -10,6 +10,8 @@ const colors = require('colors')
 const userRoutes = require('./routes/userRoutes')
 
 connectDB();
+
+
 const corsOptions = {
     origin: '*',
     credentials: true,
@@ -17,10 +19,49 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.use(express.json())
+app.use(express.json()) 
 app.use(morgan('dev'))
 
 app.use('/api/user', userRoutes)
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zycuvps.mongodb.net/?retryWrites=true&w=majority`;
+
+
+const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
+
+async function run() {
+    try {
+      const usersCollection = client.db('mern-chat').collection('users')
+
+      // app.put('/api/user/:email', async (req, res) => {
+      //   const email = req.params.email;
+      //   const user = req.body;
+      //   console.log("line 46 req.body=",user)
+      //   const query = { email: email }
+      //   const options = {
+      //     upsert: true
+      //   }
+      //   const updateDoc = {
+      //     $set: user
+      //   }
+      //   const result = await usersCollection.updateOne(query, updateDoc, options)
+      //   res.send(result)
+      // })
+
+      await client.db("admin").command({ ping: 1 });
+      console.log("Pinged your deployment. You successfully connected to MongoDB!".america.bold);
+    } finally {
+     
+    }
+  }
+  run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send('MERN CHAT APP IS RUNNING..')
