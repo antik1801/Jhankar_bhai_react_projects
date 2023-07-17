@@ -24,7 +24,45 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
     const [loading,setLoading] = useState(false)
     const [renameLoading, setRenameLoading] = useState(false)
     const toast = useToast()
-    const handleRemove = ()=>{}
+    const handleRemove = async (user1)=>{
+        if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id)
+        {
+            toast({
+                title: "Only admins can remove a user",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+            })
+        }
+        try {
+            setLoading(true);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+            const {data} = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/chat/groupremove`,{
+                chatId: selectedChat._id,
+                userId: user1._id,
+            }, config)
+            
+            user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
+            setFetchAgain(!fetchAgain)
+            setLoading(false)
+
+        } catch (error) {
+            toast({
+                title: "Error Occured",
+                description: error?.response?.data?.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+            })
+            setLoading(false)
+        }
+    }
     const handleAddToUser = async(addUser) =>{
         if (selectedChat.users.find((user)=> user._id === addUser._id)) {
             toast({
@@ -48,9 +86,29 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
         }
 
         try {
-                        
+            setLoading(true);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+            const {data} = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/chat/groupadd`,{
+                chatId: selectedChat._id,
+                userId: addUser._id,
+            }, config)
+            setSelectedChat(data)
+            setFetchAgain(!fetchAgain)
+            setLoading(false)
         } catch (error) {
-            
+            toast({
+                title: "Error Occured",
+                description: error?.response?.data?.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom"
+            })
+            setLoading(false)
         }
     }
     const handleRename = async ()=>{
@@ -72,7 +130,7 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
         } catch (error) {
             toast({
                 title: "Error Occured",
-                description: error?.message,
+                description: error?.response?.data?.message,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
