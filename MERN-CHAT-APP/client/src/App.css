@@ -18,3 +18,39 @@
     height: 91.5vh;
     padding: 10px;
 }
+
+.chatbox-navbar{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    width: 100%;
+    padding: 5px 10px 5px 10px;
+    border-width: 5px;
+}
+
+.modal-header{
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.drawer-body{
+    display: flex;
+    padding-bottom: 2px;
+}
+
+::-webkit-scrollbar{
+    width: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.281);
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #555;
+}
