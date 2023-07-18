@@ -13,6 +13,7 @@ const messageRoutes = require('./routes/messageRoutes')
 const { notFound, errorHandler } = require("./middleware/errorMiddleware")
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
+
 connectDB();
 
 
@@ -81,9 +82,10 @@ const server = app.listen(port, () => {
 
 const io = require('socket.io')(server, {
   pingTimeout: 60000,
+  // rejectUnauthorized: false,
   cors: {
     origin: '*',
-    methods: ["GET","POST"]
+    methods: ["GET", "POST", "OPTIONS"]
   }
   
 })
@@ -102,9 +104,9 @@ io.on('connection', (socket)=>{
   socket.on('new message', (newMessageReceived)=>{
     var chat = newMessageReceived.chat;
     if (!chat.users) return console.log('chat.users not defined')
-    chat.users.forEach(user =>{
+    chat.users.forEach((user) =>{
       if (user._id == newMessageReceived.sender._id) return
-      socket.in(user._id).emit("message received", newMessageReceived)
+      socket.in(user._id).emit("message receieved", newMessageReceived)
     })
   })
 })
