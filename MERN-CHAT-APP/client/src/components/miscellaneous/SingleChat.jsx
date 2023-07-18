@@ -8,6 +8,10 @@ import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
 import "../styles/Styles.css"
 import ScrollableChat from './ScrollableChat';
+import io from 'socket.io-client'
+
+const ENDPOINT = import.meta.env.VITE_BASE_URL;
+var socket, selectedChatCompare;
 
 
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
@@ -16,6 +20,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [newMessage, setNewMessage] = useState();
     const {user, selectedChat, setSelectedChat} = ChatState()
     const toast = useToast()
+    const [sockedConnected,setSocketConnected] = useState(false)
 
     const fetchMessages = async() =>{
         if (!selectedChat) return
@@ -31,6 +36,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
             console.log(messages)
             setMessages(data)
             setLoading(false)
+            socket.emit('join chat', selectedChat._id)
         } catch (error) {
             toast({
                 title: "Error Occured!",
@@ -42,10 +48,29 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
             })
         }
     }
+    useEffect(()=>{
+        socket = io(ENDPOINT);
+        socket.emit("setup",user);
+        socket.on('connection', ()=>{
+            setSocketConnected(true);
+        })
+    },[])
 
     useEffect(()=>{
         fetchMessages();
+        selectedChatCompare = selectedChat;
     },[selectedChat])
+
+    useEffect(()=>{
+        socket.on("message received",(newMessageReceived)=>{
+            if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
+                // give notification
+            }
+            else{
+                setMessages([...messages, newMessageReceived])
+            }
+        })
+    })
 
     const sendMessage = async(event) => {
         if (event.key === "Enter" && newMessage) {
@@ -63,6 +88,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 },
                 config
                 )
+                socket.emit("new message", data)
                 // console.log(data)
                 setMessages([...messages,data])
             } catch (error) {
@@ -77,6 +103,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
             }
         }
     }
+
+    
 
     const typingHandler = (e) =>{
         setNewMessage(e.target.value)
