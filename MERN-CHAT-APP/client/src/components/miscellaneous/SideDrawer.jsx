@@ -34,13 +34,14 @@ import axios from "axios";
 import ChatLoading from "./ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import { Spinner } from '@chakra-ui/spinner'
+import { getSender } from "../../config/ChatLogics";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState();
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const { user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState();
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -136,7 +137,7 @@ const SideDrawer = () => {
           </Tooltip>
         </>
         <Text fontSize="2xl" fontFamily="Work sans">
-          কথা
+          কথা - APP 
         </Text>
         <div>
           <Menu>
@@ -144,6 +145,14 @@ const SideDrawer = () => {
               <BellIcon fontSize="3xl" m={1}></BellIcon>
               {/* <MenuList></MenuList> */}
             </MenuButton>
+            <MenuList pl={2}>
+              {!notification?.length && "no new Message"}
+              {notification && notification?.map(notify=>(
+                <MenuItem key={notify._id}>
+                  {notify.chat.isGroupChat? `New Message in ${notify.chat.chatName}` : `New Message from ${getSender(user,notify.chat.users)}`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
