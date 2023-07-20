@@ -12,6 +12,7 @@ const chatRoutes = require('./routes/chatRoutes')
 const messageRoutes = require('./routes/messageRoutes')
 const { notFound, errorHandler } = require("./middleware/errorMiddleware")
 const { Socket } = require("socket.io")
+const path = require('path')
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
@@ -24,13 +25,33 @@ const corsOptions = {
   optionSuccessStatus: 200,
 }
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions)) 
 app.use(express.json())
 app.use(morgan('dev'))
+
+
 
 app.use('/api/user', userRoutes)
 app.use('/api/chat', chatRoutes)
 app.use('/api/message', messageRoutes)
+
+// -------------------------------------- Deployment --------------------------
+
+// const __dirname1 = path.resolve();
+// if(process.env.NODE_ENV === 'production'){
+//   app.use(express.static(path.join(__dirname1, '/client/dist')))
+//   app.get('*',(req,res)=>{
+//     res.sendFile(path.resolve(__dirname1, "client", "dist", "index.html"))
+//   })
+// }
+// else{
+//   app.get('/', (req,res)=>{
+//     res.send('API is running successfully')
+//   })
+// }
+
+// -------------------------------------- Deployment --------------------------
+
 
 app.use(notFound)
 app.use(errorHandler)
@@ -77,7 +98,7 @@ app.get('/', (req, res) => {
   res.send('MERN CHAT APP IS RUNNING..')
 })
 
-const server = app.listen(port,
+const server = app.listen(port ,
   console.log(`MERN CHAT APP IS RUNNING ON APP ${port}`.yellow.bold)
 )
 
@@ -86,7 +107,7 @@ const io = require('socket.io')(server, {
   // rejectUnauthorized: false,
   cors: {
     origin: 'http://localhost:5173',
-    methods: ["GET", "POST", "OPTIONS"]
+    // methods: ["GET", "POST", "OPTIONS"]
   }
   
 })
@@ -97,16 +118,16 @@ io.on("connection", (socket) => {
     socket.join(userData._id);
     socket.emit("connected");
   });
-  socket.on('typing', (room) => socket.in(room).emit("typing"))
-  socket.on('stop typing', (room) => socket.in(room).emit("stop typing"))
   socket.on("join chat", (room) => {
     socket.join(room);
     console.log("User Joined Room: " + room);
   });
+  socket.on('typing', (room) => socket.in(room).emit("typing"))
+  socket.on('stop typing', (room) => socket.in(room).emit("stop typing"))
   socket.on('new message', (newMessageRecieved)=>{
     var chat = newMessageRecieved.chat;
     if (!chat.users) return console.log('chat.users not defined')
-    chat.users.forEach((user) =>{
+    chat?.users?.forEach((user) =>{
 
       if (user._id == newMessageRecieved.sender._id) return
 
