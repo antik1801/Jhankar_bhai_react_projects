@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-     <Route path='/' component={HomePage}></Route> 
+     <Route path='/' component={HomePage} exact></Route> 
      <Route path='/chats' component={ChatPage}></Route> 
     </>
   )
