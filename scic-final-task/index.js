@@ -73,7 +73,7 @@ const resultCalculator = calculator(25,5,"*")
 
 // Task 6: Create a program that generates a random password of a specified length. The password should include a mix of uppercase letters, lowercase letters, numbers, and special characters.
 const crypto = require('crypto');
-function randomPasswordsGenerator(length){
+function randomPasswordsGenerator(length=7){
 crypto.randomBytes(length, (err, buf) => {
   if (err) {
     console.log(err);
@@ -101,4 +101,25 @@ function romanToIntigerConverter(roman){
 
 }
 const resultIntiger = romanToIntigerConverter("XVI")
-console.log(resultIntiger)
+// console.log(resultIntiger)
+
+
+
+// Task 8: Implement a JavaScript function to find the second smallest element in an array of numbers. The function should return the second smallest number.
+
+function secondSmallestValueOfArray(array)
+{
+        let map = new Map();
+        let newArray = new Array();
+        for (let i = 0; i < array.length; ++i)
+        {
+            if (map.get(array[i]) == null)
+                newArray.push(array[i]);
+            map.set(array[i], true);
+        }
+        return  newArray.sort(function(a,b){return a-b})[1]
+
+}
+const resultArray = secondSmallestValueOfArray([1,5,4,4,5,6,4,1,3,5]);
+console.log(resultArray)
+ 
