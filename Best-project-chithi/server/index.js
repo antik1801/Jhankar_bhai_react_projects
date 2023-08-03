@@ -9,6 +9,7 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import { register } from "./controllers/auth.js"
+import authRoutes from "./routes/auth.js"
 import { fileURLToPath } from "url"
 import { MongoClient, ServerApiVersion } from "mongodb"
 
@@ -45,6 +46,10 @@ const upload = multer({storage})
 // Mongoose setup
 
 app.post("/auth/register", upload.single("picture"), register)
+
+// Route
+
+app.use('/auth', authRoutes)
 
 const PORT = process.env.PORT
 
