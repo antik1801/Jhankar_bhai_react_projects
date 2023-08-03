@@ -26,6 +26,16 @@ app.use(cors())
 // Mongoose setup
 const PORT = process.env.PORT
 
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(()=>{
+    app.listen(PORT, ()=> console.log(`NEW social media is running in port: ${PORT}`.america))
+}).catch(error=>{
+    console.log(error)
+})
+
+
 
 
 
