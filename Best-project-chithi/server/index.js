@@ -8,11 +8,16 @@ import multer from "multer"
 import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
+import { fileURLToPath } from "url"
 import { MongoClient, ServerApiVersion } from "mongodb"
 
+//  CONFIGARATION
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // configarations /
 dotenv.config() 
+
 
 const app = express()
 app.use(express.json())   // req json file 
@@ -24,6 +29,9 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
 
 // Mongoose setup
+
+app.post("/auth/register")
+
 const PORT = process.env.PORT
 
 mongoose.connect(process.env.MONGO_URL, {
