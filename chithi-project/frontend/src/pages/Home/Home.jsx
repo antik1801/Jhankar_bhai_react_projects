@@ -2,6 +2,8 @@ import React from "react";
 import "./Home.css";
 import { Box, Container, Text } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import Login from "../Login/Login";
+import SignUp from "../SignUp/SignUp";
 // Home is the app.jsx
 const Home = () => {
   return (
@@ -21,17 +23,17 @@ const Home = () => {
         </Text>
       </Box>
       <Box bg="white" w={"100%"} p="4" borderRadius="lg" borderWidth="1px">
-        <Tabs variant="soft-rounded" colorScheme="orange">
+        <Tabs variant="soft-rounded" colorScheme="purple">
           <TabList mb="1em">
             <Tab width="50%">Login</Tab>
             <Tab width="50%">SignUp</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              {/* <Login></Login> */}
+              <Login></Login>
             </TabPanel>
             <TabPanel>
-              {/* <SignUp></SignUp> */}
+              <SignUp></SignUp>
             </TabPanel>
           </TabPanels>
         </Tabs>
