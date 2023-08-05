@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useToast } from "@chakra-ui/react";
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -20,6 +22,7 @@ const SignUp = () => {
   const [picLoading, setpicLoading] = useState(false);
   const [loading, setLoading] = useState(false)
   const toast = useToast();
+  const history = useNavigate();
 
   const handleClick = () => setShow(!show);
 
@@ -34,6 +37,7 @@ const SignUp = () => {
         isClosable: true,
         position: "bottom",
       });
+      setpicLoading(false)
       return;
     }
 
@@ -78,6 +82,7 @@ const SignUp = () => {
             isClosable: true,
             position: "bottom",
           });
+          setpicLoading(false)
           return;
     }
   };
@@ -92,6 +97,7 @@ const SignUp = () => {
             isClosable: true,
             position: "bottom",
           });
+          setLoading(false)
           return;
     }
     if (password !== confirmPassword) {
@@ -102,10 +108,43 @@ const SignUp = () => {
             isClosable: true,
             position: "bottom",
           });
+          setLoading(false)
           return;
     }
-    
-    setLoading(false)
+
+    try {
+        const config = {
+            headers: {
+                "Content-type":"application/json",
+            }
+        }
+
+        const {data} = await axios.post('https://chithi-project.vercel.app/api/user',{
+            name, email, password, pic
+        }, config)
+
+        toast({
+            title: "Registration is successful",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+
+          localStorage.setItem('userInfo', JSON.stringify(data))
+          setLoading(false)
+          history("/chats")
+    } catch (error) {
+        toast({
+            title: error.message,
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+          setLoading(false)
+          return;
+    }
   };
 
   return (
