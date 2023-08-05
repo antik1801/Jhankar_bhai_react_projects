@@ -1,10 +1,18 @@
 const express = require("express")
 const chats  = require("./data/data")
 const app = express()
+const cors = require('cors')
+const connectDB = require("./config/db")
 require('dotenv').config()
+const colors = require('colors')
+const userRoutes = require('./routes/userRoutes')
 const PORT = process.env.PORT || 5000
+connectDB()
 
 
+app.use(express.json())  // accept JSON data from frontend
+
+app.use('/api/user', userRoutes)
 
 app.get("/", (req,res)=>{
     res.send("API is running")
