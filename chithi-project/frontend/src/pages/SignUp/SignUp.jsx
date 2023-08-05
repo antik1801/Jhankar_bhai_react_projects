@@ -18,6 +18,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pic, setPic] = useState("");
   const [picLoading, setpicLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   const toast = useToast();
 
   const handleClick = () => setShow(!show);
@@ -57,7 +58,15 @@ const SignUp = () => {
           setpicLoading(false);
         })
         .catch((error) => {
+            toast({
+                title: error.message,
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+              });
           setpicLoading(false);
+          return
         });
     }
     else 
@@ -73,7 +82,31 @@ const SignUp = () => {
     }
   };
 
-  const submitHandler = () => {};
+  const submitHandler = async() => {
+    setLoading(true)
+    if (!name || !email || !password || !confirmPassword) {
+        toast({
+            title: "Please Fill all the fields",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+          return;
+    }
+    if (password !== confirmPassword) {
+        toast({
+            title: "Password and confirm password are not matched",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+          return;
+    }
+    
+    setLoading(false)
+  };
 
   return (
     <VStack spacing="5px">
@@ -136,7 +169,7 @@ const SignUp = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        isLoading={picLoading}
+        isLoading={picLoading || loading}
       >
         Sign Up
       </Button>
