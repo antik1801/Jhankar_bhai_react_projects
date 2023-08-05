@@ -4,8 +4,9 @@ const app = express()
 const cors = require('cors')
 const connectDB = require("./config/db")
 require('dotenv').config()
-const colors = require('colors')
+
 const userRoutes = require('./routes/userRoutes')
+const { notFound, errorHandlers } = require("./middlewares/errorMiddleware")
 const PORT = process.env.PORT || 5000
 connectDB()
 
@@ -13,6 +14,9 @@ connectDB()
 app.use(express.json())  // accept JSON data from frontend
 
 app.use('/api/user', userRoutes)
+
+app.use(notFound)
+app.use(errorHandlers)
 
 app.get("/", (req,res)=>{
     res.send("API is running")
