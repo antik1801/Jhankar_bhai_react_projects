@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Menu, MenuButton,  Text, Tooltip } from '@chakra-ui/react';
+import { Avatar, Box, Button, Menu, MenuButton,  MenuDivider,  MenuItem,  MenuList,  Text, Tooltip } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import { ChatState } from '../context/ChatProvider';
@@ -43,6 +43,11 @@ const SideDrawer = () => {
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     <Avatar size="sm" cursor="pointer" name={user.name} src={user.pic}></Avatar>    
                 </MenuButton>
+                <MenuList>
+                    <MenuItem>My Profile</MenuItem>
+                    <MenuDivider />
+                    <MenuItem>Logout</MenuItem>
+                </MenuList>
                 </Menu>
             </div>
         </Box>
