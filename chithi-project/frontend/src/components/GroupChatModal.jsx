@@ -54,7 +54,50 @@ const GroupChatModal = ({children}) => {
             setLoading(false)
         }
     }
-    const handleSubmit = () =>{}
+    const handleSubmit = async() =>{
+        if (!groupChatName || !selectedUsers) {
+            toast({
+                title: "Please fill all the fields",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            })
+            return
+        }
+
+        try {
+            const config = {
+                headers: {
+                  Authorization: `Bearer ${user.token}`,
+                },
+              };
+              const {data} = await axios.post("https://chithi-project.vercel.app/api/chat/group", {
+                name: groupChatName,
+                users: JSON.stringify(selectedUsers.map(u=>u._id))
+              }, config)
+
+              setChats([data, ...chats])
+              onClose()
+              toast({
+                title: "New Group Chat created",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            })
+        } catch (error) {
+            toast({
+                title: "Failed to create groups",
+                description: error.message,
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            })
+        }
+
+    }
     const handleGroup = (userToAdd) =>{
         if (selectedUsers.includes(userToAdd)) {
             toast({
@@ -69,8 +112,8 @@ const GroupChatModal = ({children}) => {
 
         setSelectedUsers([...selectedUsers, userToAdd])
     }
-    const handleDelete = () =>{
-
+    const handleDelete = (delUser) =>{
+        setSelectedUsers(selectedUsers.filter(sel => sel._id !== delUser._id))
     }
 
     return (
