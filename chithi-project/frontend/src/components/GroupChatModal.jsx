@@ -1,4 +1,4 @@
-import { Button, FormControl, Input, useDisclosure, useToast } from '@chakra-ui/react';
+import { Box, Button, FormControl, Input, useDisclosure, useToast } from '@chakra-ui/react';
 import {
     Modal,
     ModalOverlay,
@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { ChatState } from '../context/ChatProvider';
 import axios from 'axios';
 import UserListItem from './UserAvatar/UserListItem';
+import UserBadgeItem from './UserAvatar/UserBadgeItem';
 
 const GroupChatModal = ({children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -55,6 +56,20 @@ const GroupChatModal = ({children}) => {
     }
     const handleSubmit = () =>{}
     const handleGroup = (userToAdd) =>{
+        if (selectedUsers.includes(userToAdd)) {
+            toast({
+                title: "User Already Exists",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top"
+            })
+            return
+        }
+
+        setSelectedUsers([...selectedUsers, userToAdd])
+    }
+    const handleDelete = () =>{
 
     }
 
@@ -81,7 +96,18 @@ const GroupChatModal = ({children}) => {
                 <FormControl >
                     <Input placeholder="Add Users (at least 3 members)" mb={1} onChange={(e)=>handleSearch(e.target.value)}></Input>
                 </FormControl>
-                {/* selected users  */}
+                <Box
+                w="100%"
+                display="flex"
+                flexWrap="wrap"
+                >
+                {
+                    selectedUsers.map(user=>(
+                        <UserBadgeItem key={user._id} user={user} handleFunction={()=>handleDelete(user)}></UserBadgeItem>
+                    ))
+
+                }
+                </Box>
                 { loading ? <div>Loading</div> : (
                     searchResult?.slice(0,4).map(user=>(
                         <UserListItem key={user._id} user={user} handleFunction={()=>handleGroup(user)}></UserListItem>
