@@ -41,7 +41,7 @@ const SideDrawer = () => {
                 </Menu>
                 <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                    <Avatar size="sm" cursor="pointer" name={user.name}></Avatar>    
+                    <Avatar size="sm" cursor="pointer" name={user.name} src={user.pic}></Avatar>    
                 </MenuButton>
                 </Menu>
             </div>
