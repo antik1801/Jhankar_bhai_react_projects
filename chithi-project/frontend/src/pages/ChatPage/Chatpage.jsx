@@ -17,11 +17,14 @@ const Chatpage = () => {
         if (!userInfo) {
             navigate("/")
         }
+        else{
+            setLoading(false)
+        }
     },[navigate])
   
-    if (loading) {
-        return <h1>Loading.....</h1>
-    }
+    // if (loading) {
+    //     return <h1>Loading.....</h1>
+    // }
 
     return (
         <div className='chatPage' style={{width:'100%'}}>

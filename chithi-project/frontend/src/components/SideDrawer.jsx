@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, Menu, MenuButton,  MenuDivider,  MenuItem,  MenuList,  Text, Tooltip } from '@chakra-ui/react';
+import { Avatar, Box, Button, Drawer, DrawerContent, DrawerHeader, DrawerOverlay, Menu, MenuButton,  MenuDivider,  MenuItem,  MenuList,  Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import { ChatState } from '../context/ChatProvider';
 import ProfileModal from './ProfileModal';
+import { useNavigate } from "react-router-dom"
 
 const SideDrawer = () => {
     const [search, setSearch] = useState("")
@@ -10,6 +11,15 @@ const SideDrawer = () => {
     const [loading, setLoading] = useState(false)
     const [loadingChat, setLoadingChat] = useState()
     const {user} = ChatState()
+    const navigate = useNavigate()
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    
+    const logoutHandler = () =>{
+        localStorage.removeItem("userInfo")
+        navigate("/")
+    }
+
+
     return (
         <Box
         display="flex"
@@ -22,7 +32,7 @@ const SideDrawer = () => {
         >
             <>
             <Tooltip label="Search Users to chat" hasArrow placement='bottom-end'>
-                <Button variant="ghost">
+                <Button variant="ghost" onClick={onOpen}>
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <Text display={{base:"none", md:"flex"}} px="4">
                     Search User
@@ -45,13 +55,19 @@ const SideDrawer = () => {
                     <Avatar size="sm" cursor="pointer" name={user.name} src={user.pic}></Avatar>    
                 </MenuButton>
                 <MenuList>
-                    <ProfileModal>
+                    <ProfileModal user={user}>
                     <MenuItem>My Profile</MenuItem>
                     </ProfileModal>
                     <MenuDivider />
-                    <MenuItem>Logout</MenuItem>
+                    <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                 </MenuList>
                 </Menu>
+                <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
+                    <DrawerOverlay></DrawerOverlay>
+                    <DrawerContent>
+                        <DrawerHeader borderWidth="1px">Search User</DrawerHeader>
+                    </DrawerContent>
+                </Drawer>
             </div>
         </Box>
     );
