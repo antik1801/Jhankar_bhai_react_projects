@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
+import "./Chatpage.css"
 
 const Chatpage = () => {
     const [chats, setChats] = useState([])
@@ -20,7 +21,7 @@ const Chatpage = () => {
     }
 
     return (
-        <div>
+        <div className='chatPage'>
             {
              Array.isArray(chats) && chats?.length && chats.map((chat) => <div key={chat._id}>
                 {
