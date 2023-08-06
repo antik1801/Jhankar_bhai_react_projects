@@ -1,12 +1,14 @@
 import { Avatar, Box, Button, Menu, MenuButton,  Text, Tooltip } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
+import { ChatState } from '../context/ChatProvider';
 
 const SideDrawer = () => {
     const [search, setSearch] = useState("")
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
     const [loadingChat, setLoadingChat] = useState()
+    const {user} = ChatState()
     return (
         <Box
         display="flex"
@@ -39,7 +41,7 @@ const SideDrawer = () => {
                 </Menu>
                 <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                    <Avatar size="sm" cursor="pointer"></Avatar>    
+                    <Avatar size="sm" cursor="pointer" name={user.name}></Avatar>    
                 </MenuButton>
                 </Menu>
             </div>
