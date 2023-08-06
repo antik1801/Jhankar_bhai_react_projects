@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton,  MenuDivider,  MenuItem,  MenuList,  Text, Toast, Tooltip, useDisclosure, useToast } from '@chakra-ui/react';
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton,  MenuDivider,  MenuItem,  MenuList,  Spinner,  Text, Toast, Tooltip, useDisclosure, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import { ChatState } from '../context/ChatProvider';
@@ -13,8 +13,9 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
     const [loadingChat, setLoadingChat] = useState()
-    const {user} = ChatState()
+    const {user,setSelectedChat,chats,setChats} = ChatState()
     const navigate = useNavigate()
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const toast = useToast()
@@ -59,8 +60,34 @@ const SideDrawer = () => {
             return
         }
     }
-    const accessChat = (userId) =>{
+    const accessChat = async (userId) =>{
+        try {
+            setLoadingChat(true)
+            const config = {
+                "Content-type": "application/json",
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
 
+            const {data} = await axios.post('https://chithi-project.vercel.app/api/chat', {userId}, config)
+
+            if (!chats.find(c=> c._id === data._id)) setChats([data, ...chats])
+            setSelectedChat(data)
+            setLoadingChat(false)
+            onClose()
+        } catch (error) {
+            setLoadingChat(false)
+            toast({
+                title: "Error fetching the chat!",
+                description: error.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom-left"
+            })
+            return
+        }
     }
     const handleConnector = (e) =>{
         setSearch(e.target.value);
@@ -132,6 +159,7 @@ const SideDrawer = () => {
                                     )
                                 )
                             }
+                            { loadingChat && <Spinner ml="auto" display="flex"></Spinner> }
                         </DrawerBody>
                     </DrawerContent>
                 </Drawer>
