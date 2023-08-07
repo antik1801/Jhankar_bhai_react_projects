@@ -7,7 +7,7 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/chatLogics";
 import GroupChatModal from "./GroupChatModal";
 
-const MyChats = () => {
+const MyChats = ({fetchAgain, setFetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState([]);
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const toast = useToast();
@@ -39,7 +39,7 @@ const MyChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChat();
-  }, []);
+  }, [fetchAgain]);
   return (
     <Box
       display={{ base: selectedChat ? "flex" : "none", md: "flex" }}
@@ -80,12 +80,12 @@ const MyChats = () => {
         w="100%"
         h="100%"
         borderRadius="lg"
-        overflow="hidden"
+        overflowY="hidden"
       >
         {chats ? (
           <>
             <Stack overflowY="scroll">
-              {chats.map((chat) => (
+              {chats?.map((chat) => (
                 <Box
                   onClick={() => setSelectedChat(chat)}
                   cursor="pointer"
