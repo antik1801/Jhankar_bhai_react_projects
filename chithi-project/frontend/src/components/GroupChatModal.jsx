@@ -13,6 +13,7 @@ import { ChatState } from '../context/ChatProvider';
 import axios from 'axios';
 import UserListItem from './UserAvatar/UserListItem';
 import UserBadgeItem from './UserAvatar/UserBadgeItem';
+import GroupUserLoading from './GroupUserLoading';
 
 const GroupChatModal = ({children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -151,7 +152,7 @@ const GroupChatModal = ({children}) => {
 
                 }
                 </Box>
-                { loading ? <div>Loading</div> : (
+                { loading ? <div>Loading ...</div> : (
                     searchResult?.slice(0,4).map(user=>(
                         <UserListItem key={user._id} user={user} handleFunction={()=>handleGroup(user)}></UserListItem>
                     ))
